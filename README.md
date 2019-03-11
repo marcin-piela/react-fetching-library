@@ -6,3 +6,9 @@
     under the hood.
   </p>
 </div>
+
+### TypeScript
+
+For an example of using REST API with react-fetching-library view this CodeSandbox:
+
+[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/simple-app)
