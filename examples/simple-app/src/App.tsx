@@ -38,14 +38,14 @@ type ApiResponse = {
 
 const exampleAction = (): Action<ActionExtension> => ({
   method: 'GET',
-  endpoint: 'http://private-34f3a-reactapiclient.apiary-mock.com/questions',
+  endpoint: 'https://private-34f3a-reactapiclient.apiary-mock.com/questions',
   api: 'test',
 });
 
 const examplePaginatedQuery = (page: number): Action<ActionExtension> => {
   return {
     method: 'GET',
-    endpoint: 'http://private-34f3a-reactapiclient.apiary-mock.com/questions/' + page,
+    endpoint: 'https://private-34f3a-reactapiclient.apiary-mock.com/questions/' + page,
     api: 'test',
   };
 };
