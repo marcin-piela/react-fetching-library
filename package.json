@@ -1,0 +1,52 @@
+{
+  "name": "react-fetching-library",
+  "version": "0.0.1-beta.0",
+  "description": "Simple and powerful API client for react. Use hooks or HOCs to fetch data in easy way. No dependencies! Just react under the hood.",
+  "main": "lib/index.js",
+  "files": [
+    "lib/**/*"
+  ],
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "clean": "rm -rf lib",
+    "test": "jest --config jest.config.json",
+    "build-package": "tsc",
+    "build": "yarn clean && yarn build-package",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json",
+    "lint-fix": "yarn run tslint --fix --project ./tsconfig.json"
+  },
+  "keywords": [
+    "react",
+    "fetch",
+    "api",
+    "rest",
+    "client",
+    "hooks",
+    "suspence",
+    "hoc",
+    "hocs"
+  ],
+  "author": "Marcin Piela <i.creator.eu@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^24.0.11",
+    "@types/react": "^16.8.7",
+    "@types/react-dom": "^16.8.2",
+    "jest": "^24.4.0",
+    "prettier": "^1.16.4",
+    "react-testing-library": "^6.0.0",
+    "ts-jest": "^24.0.0",
+    "tslint": "^5.13.1",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.3.3333"
+  },
+  "peerDependencies": {
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marcin-piela/react-fetching-library.git"
+  }
+}
