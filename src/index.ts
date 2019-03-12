@@ -5,6 +5,6 @@ export { ClientContextProvider } from './context/clientContextProvider';
 export * from './hooks';
 export * from './components';
 
-//typings
+// typings
 export { Action } from './client/action.types';
 export { ClientOptions, QueryResponse, RequestInterceptor, ResponseInterceptor } from './client/client.types';
