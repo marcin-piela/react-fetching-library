@@ -7,8 +7,8 @@
   </p>
 </div>
 
-### TypeScript
+### Example of useQuery hook (Typescript, CRA, Material-UI)
 
-For an example of using REST API with react-fetching-library view this CodeSandbox:
+For an example of useQuery hook view this CodeSandbox:
 
-[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/simple-app)
+[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/use-query-hook)
