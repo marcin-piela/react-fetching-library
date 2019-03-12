@@ -7,8 +7,12 @@
   </p>
 </div>
 
-### Example of useQuery hook (Typescript, CRA, Material-UI)
+### Examples of use
 
-For an example of useQuery hook view this CodeSandbox:
+For an example of useQuery hook view this CodeSandbox (Typescript, CRA, Material-UI):
 
 [![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/use-query-hook)
+
+For an example of Query HOC view this CodeSandbox (Typescript, CRA, Material-UI):
+
+[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/query-hoc)
