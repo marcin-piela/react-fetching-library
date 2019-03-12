@@ -11,13 +11,13 @@ import React, { Fragment } from 'react';
 
 import { UsersListProps } from './UsersList.types';
 
-export const UsersList = ({ loading, error, users, onReload }: UsersListProps) => {
+export const UsersList = ({ loading, error, users, onLoad }: UsersListProps) => {
   return (
     <List style={{ padding: '24px', display: 'flex', flexFlow: 'column' }}>
       {loading && <CircularProgress style={{ margin: '100px auto' }} />}
 
       {error && (
-        <Button onClick={onReload} variant="contained" color="secondary">
+        <Button onClick={onLoad} variant="contained" color="secondary">
           Error, click to reload
         </Button>
       )}
@@ -56,8 +56,8 @@ export const UsersList = ({ loading, error, users, onReload }: UsersListProps) =
         ))}
 
       {!loading && !error && (
-        <Button onClick={onReload} variant="contained" color="primary">
-          Click to reload
+        <Button onClick={onLoad} variant="contained" color="primary">
+          Click to load
         </Button>
       )}
     </List>

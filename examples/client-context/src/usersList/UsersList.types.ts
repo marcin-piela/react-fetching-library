@@ -2,7 +2,7 @@ export type UsersListProps = {
   loading: boolean;
   error: boolean;
   users: User[] | null;
-  onReload: () => void;
+  onLoad: () => void;
 };
 
 export type User = {

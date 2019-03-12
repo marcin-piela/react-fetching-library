@@ -12,7 +12,7 @@
     "test": "jest --config jest.config.json",
     "build-package": "tsc",
     "build": "yarn clean && yarn build-package",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\"  \"src/**/*.js\" \"examples/**/*.ts\" \"examples/**/*.js\" \"examples/**/*.tsx\"",
     "lint": "tslint -p tsconfig.json",
     "lint-fix": "yarn run tslint --fix --project ./tsconfig.json"
   },

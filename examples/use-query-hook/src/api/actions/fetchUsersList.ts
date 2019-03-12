@@ -1,4 +1,4 @@
 export const fetchUsersList = {
-  method: "GET",
-  endpoint: "/users"
+  method: 'GET',
+  endpoint: '/users',
 };

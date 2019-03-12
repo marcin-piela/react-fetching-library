@@ -3,7 +3,7 @@ export type UsersListProps = {
   error: boolean;
   users: User[] | null;
   onReload: () => void;
-}
+};
 
 export type User = {
   firstName: string;
@@ -11,4 +11,4 @@ export type User = {
   description: string;
   avatar: string;
   role: string;
-}
+};
