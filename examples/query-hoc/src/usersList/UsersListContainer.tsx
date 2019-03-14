@@ -8,8 +8,8 @@ import { User } from './UsersList.types';
 
 export const UsersListContainer = () => (
   <Query<User[]> action={fetchUsersList}>
-    {({ loading, error, response, query }) => (
-      <UsersList loading={loading} error={error} users={response} onReload={query} />
+    {({ loading, error, payload, query }) => (
+      <UsersList loading={loading} error={error} users={payload} onReload={query} />
     )}
   </Query>
 );
