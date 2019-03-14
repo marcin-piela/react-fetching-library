@@ -1,6 +1,5 @@
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 
-import { useInitializeEffect } from '..';
 import { Action } from '../../client/action.types';
 import { QueryResponse } from '../../client/client.types';
 import { ClientContext } from '../../context/clientContext';
@@ -8,75 +7,52 @@ import { ClientContext } from '../../context/clientContext';
 export const useQuery = <T, R = any>(action: Action<R>, initFetch = true) => {
   const clientContext = useContext(ClientContext);
   const isMounted = useRef(true);
-  const [isError, setError] = useState(false);
   const [isLoading, setLoading] = useState(true);
-  const [response, setResponse] = useState<T | null>(null);
+  const [response, setResponse] = useState<QueryResponse<T>>({ error: false });
 
   useEffect(() => {
     isMounted.current = true;
 
+    if (initFetch) {
+      handleQuery();
+    }
+
     return () => {
       isMounted.current = false;
     };
-  });
+  }, []);
 
-  const handleFetch = useCallback(
+  const handleQuery = useCallback(
     (keepLastResponse?: boolean) => {
       if (!isMounted.current) {
         return;
       }
 
       setLoading(true);
-      setError(false);
 
       if (!keepLastResponse) {
-        setResponse(null);
+        setResponse({ error: false });
       }
 
-      clientContext
-        .fetch(action)
-        .then(fetchResponse => {
-          if (fetchResponse.error) {
-            handleError();
-          } else {
-            handleSuccess(fetchResponse);
-          }
-        })
-        .catch((error: Error) => {
-          handleError();
-        });
+      clientContext.query(action).then(queryResponse => {
+        handleResponse(queryResponse);
+      });
     },
     [action],
   );
 
-  useInitializeEffect(() => {
-    if (initFetch) {
-      handleFetch();
-    }
-  });
-
-  const handleSuccess = (fetchResponse: QueryResponse) => {
+  const handleResponse = (queryResponse: QueryResponse) => {
     if (!isMounted.current) {
       return;
     }
 
     setLoading(false);
-    setResponse(fetchResponse.payload);
-  };
-
-  const handleError = () => {
-    if (!isMounted.current) {
-      return;
-    }
-
-    setError(true);
-    setLoading(false);
+    setResponse(queryResponse);
   };
 
   return {
-    error: isError,
-    fetch: handleFetch,
+    query: handleQuery,
     loading: isLoading,
-    response,
+    ...response,
   };
 };

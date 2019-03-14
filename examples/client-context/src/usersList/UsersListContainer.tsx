@@ -12,10 +12,10 @@ export const UsersListContainer = () => {
   const [isError, setError] = useState(false);
   const [users, setUsers] = useState<User[]>([]);
 
-  const fetch = useCallback(async () => {
+  const query = useCallback(async () => {
     setLoading(true);
 
-    const apiResponse = await clientContext.fetch(fetchUsersList);
+    const apiResponse = await clientContext.query(fetchUsersList);
 
     /**
      *  error: boolean,
@@ -29,5 +29,5 @@ export const UsersListContainer = () => {
     setLoading(false);
   }, []);
 
-  return <UsersList loading={isLoading} error={isError} users={users} onLoad={fetch} />;
+  return <UsersList loading={isLoading} error={isError} users={users} onLoad={query} />;
 };

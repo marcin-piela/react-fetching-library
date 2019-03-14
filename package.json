@@ -1,6 +1,6 @@
 {
   "name": "react-fetching-library",
-  "version": "0.0.1-beta.0",
+  "version": "0.0.1-beta.1",
   "description": "Simple and powerful API client for react. Use hooks or HOCs to fetch data in easy way. No dependencies! Just react under the hood.",
   "main": "lib/index.js",
   "files": [
@@ -14,7 +14,8 @@
     "build": "yarn clean && yarn build-package",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\"  \"src/**/*.js\" \"examples/**/*.ts\" \"examples/**/*.js\" \"examples/**/*.tsx\"",
     "lint": "tslint -p tsconfig.json",
-    "lint-fix": "yarn run tslint --fix --project ./tsconfig.json"
+    "lint-fix": "yarn run tslint --fix --project ./tsconfig.json",
+    "prepare": "yarn build"
   },
   "keywords": [
     "react",

@@ -10,7 +10,7 @@ export type ClientOptions<T> = {
 };
 
 export type QueryResponse<T = any> = {
-  status: number;
+  status?: number;
   error: boolean;
   errorObject?: any;
   payload?: T;

@@ -1,12 +1,11 @@
 import { ReactNode } from 'react';
 import { Action } from '../../client/action.types';
+import { QueryResponse } from '../../client/client.types';
 
 export type QueryApi<T> = {
-  response: null | T;
   loading: boolean;
-  error: boolean;
-  fetch: () => void;
-};
+  query: () => void;
+} & QueryResponse<T>;
 
 export type QueryProps<T, R> = {
   initFetch?: boolean;

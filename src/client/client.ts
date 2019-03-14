@@ -29,10 +29,10 @@ export const Client = <R = any>(clientOptions: ClientOptions<R>) => {
 
   return {
     query: async <T>(actionInit: Action<R>): Promise<QueryResponse<T>> => {
-      const action = await handleRequestInterceptors(actionInit, clientOptions.requestInterceptors || []);
-      const { endpoint, body, headers, ...options } = action;
-
       try {
+        const action = await handleRequestInterceptors(actionInit, clientOptions.requestInterceptors || []);
+        const { endpoint, body, headers, ...options } = action;
+
         const response = await fetch(endpoint, {
           body: body ? JSON.stringify(body) : undefined,
           cache: options.cache,
@@ -63,7 +63,6 @@ export const Client = <R = any>(clientOptions: ClientOptions<R>) => {
         return {
           error: true,
           errorObject: error,
-          status: 0,
         };
       }
     },
