@@ -25,3 +25,7 @@ For an example of useSuspenseQuery (to see powerful of react suspense, you can s
 
 [![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/use-suspense-query-hook)
 
+For an example of simple caching responses view this CodeSandbox (Typescript, CRA, Material-UI):
+
+[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/cache-provider)
+
