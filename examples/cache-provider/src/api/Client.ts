@@ -16,5 +16,5 @@ const cache = createCache<QueryResponse<any>>(
 
 export const Client = createClient({
   requestInterceptors: [requestHostInterceptor(HOST)],
-  cache: cache,
+  cacheProvider: cache,
 });
