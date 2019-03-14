@@ -34,7 +34,7 @@ export const UsersList = ({ loading, error, users, onReload }: UsersListProps) =
         !error &&
         users &&
         users.map(user => (
-          <Fragment>
+          <Fragment key={user.uuid}>
             <Divider variant="inset" />
             <ListItem alignItems="flex-start">
               <ListItemAvatar>

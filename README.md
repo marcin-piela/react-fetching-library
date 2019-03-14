@@ -21,3 +21,7 @@ For an example of use ClientContext view this CodeSandbox (Typescript, CRA, Mate
 
 [![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/client-context)
 
+For an example of useSuspenseQuery (to see powerful of react suspense, you can show one spinner for two lists at the same time) view this CodeSandbox (Typescript, CRA, Material-UI):
+
+[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/use-suspense-query-hook)
+

@@ -6,6 +6,7 @@ export type UsersListProps = {
 };
 
 export type User = {
+  uuid: string;
   firstName: string;
   lastName: string;
   description: string;
