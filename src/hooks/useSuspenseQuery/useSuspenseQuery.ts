@@ -1,8 +1,8 @@
 import { useContext, useEffect, useRef } from 'react';
-import { ClientContext } from '../../context/clientContext';
-import { Action } from '../../client/action.types';
 import { createCache } from '../../cache/cache';
+import { Action } from '../../client/action.types';
 import { QueryResponse } from '../../client/client.types';
+import { ClientContext } from '../../context/clientContext';
 
 type CacheItem = {
   fetch: any;

@@ -21,9 +21,9 @@ export const createCache: <T>() => Cache<T> = <T>() => {
   };
 
   return {
-    items,
     add,
-    remove,
     get,
+    items,
+    remove,
   };
 };

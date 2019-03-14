@@ -51,8 +51,8 @@ export const useQuery = <T, R = any>(action: Action<R>, initFetch = true) => {
   };
 
   return {
-    query: handleQuery,
     loading: isLoading,
+    query: handleQuery,
     ...response,
   };
 };
