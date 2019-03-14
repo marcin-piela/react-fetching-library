@@ -16,22 +16,32 @@ export const Client = <R = any>(clientOptions: ClientOptions<R>) => {
   const handleRequestInterceptors: HandleRequestInterceptors<R> = async (action, interceptors) => {
     const [interceptor, ...next] = interceptors;
 
-    return interceptor ? await handleRequestInterceptors(await interceptor()(action), next) : action;
+    return interceptor ? await handleRequestInterceptors(await interceptor(client)(action), next) : action;
   };
 
   const handleResponseInterceptors: HandleResponseInterceptors<R> = async (action, response, interceptors) => {
     const [interceptor, ...next] = interceptors;
 
     return interceptor
-      ? await handleResponseInterceptors(action, await interceptor()(action, response), next)
+      ? await handleResponseInterceptors(action, await interceptor(client)(action, response), next)
       : response;
   };
 
-  return {
+  const client = {
     query: async <T>(actionInit: Action<R>): Promise<QueryResponse<T>> => {
+      const cacheProvider = clientOptions.cacheProvider;
+
       try {
         const action = await handleRequestInterceptors(actionInit, clientOptions.requestInterceptors || []);
         const { endpoint, body, headers, ...options } = action;
+
+        if (cacheProvider) {
+          const cachedResponse = cacheProvider.get(action);
+
+          if (cachedResponse) {
+            return cachedResponse;
+          }
+        }
 
         const response = await fetch(endpoint, {
           body: body ? JSON.stringify(body) : undefined,
@@ -49,7 +59,7 @@ export const Client = <R = any>(clientOptions: ClientOptions<R>) => {
           window: options.window,
         });
 
-        return await handleResponseInterceptors(
+        const queryResponse = await handleResponseInterceptors(
           action,
           {
             error: !response.ok,
@@ -59,6 +69,12 @@ export const Client = <R = any>(clientOptions: ClientOptions<R>) => {
           },
           clientOptions.responseInterceptors || [],
         );
+
+        if (cacheProvider) {
+          cacheProvider.add(action, queryResponse);
+        }
+
+        return queryResponse;
       } catch (error) {
         return {
           error: true,
@@ -67,4 +83,6 @@ export const Client = <R = any>(clientOptions: ClientOptions<R>) => {
       }
     },
   };
+
+  return client;
 };

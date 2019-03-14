@@ -9,7 +9,7 @@ type CacheItem = {
   response?: QueryResponse;
 };
 
-const cache = createCache<CacheItem>();
+const cache = createCache<CacheItem>(() => true, () => true);
 
 export const useSuspenseQuery = <T, R = any>(action: Action<R>) => {
   const clientContext = useContext(ClientContext);

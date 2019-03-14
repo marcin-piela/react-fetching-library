@@ -5,11 +5,16 @@ export const convertActionToBase64 = (action: Action<any>) => {
   return Buffer.from(JSON.stringify(action)).toString('base64');
 };
 
-export const createCache: <T>() => Cache<T> = <T>() => {
+export const createCache = <T>(
+  isCacheable: (action: Action<T>) => boolean,
+  isValid: (response: T & { timestamp: number }) => boolean,
+) => {
   const items: { [key: string]: any } = {};
 
   const add = (action: Action<any>, value: T) => {
-    items[convertActionToBase64(action)] = value;
+    if (isCacheable(action)) {
+      items[convertActionToBase64(action)] = { ...value, timestamp: new Date().getTime() };
+    }
   };
 
   const remove = (action: Action<any>) => {
@@ -17,7 +22,16 @@ export const createCache: <T>() => Cache<T> = <T>() => {
   };
 
   const get = (action: Action<any>) => {
-    return items[convertActionToBase64(action)];
+    const response = items[convertActionToBase64(action)];
+    const valid = response && isValid(response);
+
+    if (response && valid) {
+      return response;
+    }
+
+    if (response && !valid) {
+      remove(action);
+    }
   };
 
   return {
@@ -25,5 +39,5 @@ export const createCache: <T>() => Cache<T> = <T>() => {
     get,
     items,
     remove,
-  };
+  } as Cache<T>;
 };

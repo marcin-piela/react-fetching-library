@@ -2,6 +2,7 @@ export { Client } from './client/client';
 export { ClientContext } from './context/clientContext';
 export { ClientContextProvider } from './context/clientContextProvider';
 
+export * from './cache/cache';
 export * from './hooks';
 export * from './components';
 

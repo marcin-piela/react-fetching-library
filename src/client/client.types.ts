@@ -1,3 +1,4 @@
+import { Cache } from '../cache/cache.types';
 import { Action } from './action.types';
 
 export type Client<R = any> = {
@@ -7,6 +8,7 @@ export type Client<R = any> = {
 export type ClientOptions<T> = {
   requestInterceptors?: Array<RequestInterceptor<T>>;
   responseInterceptors?: Array<ResponseInterceptor<T, any>>;
+  cacheProvider?: Cache<QueryResponse>;
 };
 
 export type QueryResponse<T = any> = {
@@ -17,9 +19,8 @@ export type QueryResponse<T = any> = {
   headers?: Headers;
 };
 
-export type RequestInterceptor<T = any> = () => (action: Action<T>) => Promise<Action<T>>;
+export type RequestInterceptor<T = any> = (client: Client<T>) => (action: Action<T>) => Promise<Action<T>>;
 
-export type ResponseInterceptor<T = any, R = any> = () => (
-  action: Action<T>,
-  response: QueryResponse<R>,
-) => Promise<QueryResponse<R>>;
+export type ResponseInterceptor<T = any, R = any> = (
+  client: Client<T>,
+) => (action: Action<T>, response: QueryResponse<R>) => Promise<QueryResponse<R>>;

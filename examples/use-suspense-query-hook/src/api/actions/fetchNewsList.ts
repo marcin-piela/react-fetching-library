@@ -1,4 +1,4 @@
 export const fetchNewsList = {
-  method: "GET",
-  endpoint: "/news"
+  method: 'GET',
+  endpoint: '/news',
 };
