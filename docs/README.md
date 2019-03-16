@@ -72,7 +72,7 @@ And now we can add components that are connected to defined client.
 
 ## Options
 
-During creating instacje of Client you can pass additional options:
+During creating instance of Client you can pass additional options:
 
 ```js
 import { Client as createClient } from 'react-fetching-library';
@@ -321,7 +321,7 @@ export const UsersListContainer = () => {
 
 ## useSuspenseQuery
 
-This hook is also used to query data from API but without lazy loading option. It required React Suspense component above in React three. First param of this hook is [`Action`][]
+This hook is also used to query data from API but without lazy loading option. It requires React Suspense component above in React tree. First param of this hook is [`Action`][]
 
 ```js
 import { useuseSuspenseQueryQuery } from 'react-fetching-library';
@@ -339,7 +339,7 @@ export const UsersListContainer = () => {
 
 ```
 
-And above in the three:
+And above in the tree:
 
 ```js
 import React, { Suspense } from 'react';
@@ -408,7 +408,7 @@ export const UsersListContainer = () => (
 
 ```
 
-And above in the three:
+And above in the tree:
 
 ```js
 import React, { Suspense } from 'react';
