@@ -8,6 +8,7 @@
 - No dependencies
 - Just react under the hood
 - Use hooks or HOCs, whatever you want
+- Full TypeScript support
 
 [GitHub](https://github.com/marcin-piela/react-fetching-library)
 [Get Started](#getting-started)
