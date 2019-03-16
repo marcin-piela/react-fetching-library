@@ -2,6 +2,8 @@
 
 __react-fetching-library__ -  simple and powerful fetching library for React. Use hooks or HOCs to fetch data in easy way. No dependencies! Just react under the hood.
 
+[![Build Status][build-badge]][build] [![version][version-badge]][package] ![downloads][downloads-badge] [![MIT License][license-badge]][license] [![PRs Welcome][prs-badge]][prs] [![Code of Conduct][coc-badge]][coc] ![Code of Conduct][gzip-badge]
+
 ✅ Zero dependencies (react, react-dom as peer deps)
 
 ✅ Provides hooks and HOCs
@@ -14,7 +16,7 @@ __react-fetching-library__ -  simple and powerful fetching library for React. Us
 
 ✅ TypeScript support 
 
-✅ 6k gzipped
+✅ 2.2k minizipped
 
 ✅ Provides simple cache mechanism
 
@@ -469,3 +471,23 @@ For an example of simple caching responses view this CodeSandbox (Typescript, CR
 [`QueryResponse`]: #queryresponse
 [`useQuery`]: #usequery
 [`useSuspenseQuery`]: #usesuspensequery
+[npm]: https://www.npmjs.com/
+[node]: https://nodejs.org
+[build-badge]: https://img.shields.io/travis/marcin-piela/react-fetching-library.svg?style=flat-square
+[build]: https://travis-ci.org/marcin-piela/react-fetching-library
+[version-badge]: https://img.shields.io/npm/v/react-fetching-library.svg?style=flat-square
+[package]: https://www.npmjs.com/package/react-fetching-library
+[downloads-badge]: https://img.shields.io/npm/dm/react-fetching-library.svg?style=flat-square
+[license-badge]: https://img.shields.io/npm/l/react-fetching-library.svg?style=flat-square
+[license]: https://github.com/marcin-piela/react-fetching-library/blob/master/LICENSE
+[prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
+[prs]: http://makeapullrequest.com
+[coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
+[coc]: https://github.com/marcin-piela/react-fetching-library/blob/master/CODE_OF_CONDUCT.md
+[github-watch-badge]: https://img.shields.io/github/watchers/marcin-piela/react-fetching-library.svg?style=social
+[github-watch]: https://github.com/marcin-piela/react-fetching-library/watchers
+[github-star-badge]: https://img.shields.io/github/stars/marcin-piela/react-fetching-library.svg?style=social
+[github-star]: https://github.com/marcin-piela/react-fetching-library/stargazers
+[twitter]: https://twitter.com/intent/tweet?text=Check%20out%20react-fetching-library%20https%3A%2F%2Fgithub.com%2Fmarcin-piela%2Freact-fetching-library%20%F0%9F%91%8D
+[twitter-badge]: https://img.shields.io/twitter/url/https/github.com/marcin-piela/react-fetching-library.svg?style=social
+[gzip-badge]:https://badgen.net/bundlephobia/minzip/react-fetching-library

@@ -12,7 +12,7 @@ Simple and powerful fetching library for React.
 
 ---
 
-[![Build Status][build-badge]][build] [![version][version-badge]][package] ![downloads][downloads-badge] [![MIT License][license-badge]][license] [![PRs Welcome][prs-badge]][prs] [![Code of Conduct][coc-badge]][coc]
+[![Build Status][build-badge]][build] [![version][version-badge]][package] ![downloads][downloads-badge] [![MIT License][license-badge]][license] [![PRs Welcome][prs-badge]][prs] [![Code of Conduct][coc-badge]][coc] ![Code of Conduct][gzip-badge]
 
 ✅ Zero dependencies (react, react-dom as peer deps)
 
@@ -26,7 +26,7 @@ Simple and powerful fetching library for React.
 
 ✅ TypeScript support 
 
-✅ 6k gzipped
+✅ 2.2k minizipped
 
 ✅ Provides simple cache mechanism
 
@@ -93,3 +93,4 @@ react-fetching-library is licensed under the [MIT license](http://opensource.org
 [github-star]: https://github.com/marcin-piela/react-fetching-library/stargazers
 [twitter]: https://twitter.com/intent/tweet?text=Check%20out%20react-fetching-library%20https%3A%2F%2Fgithub.com%2Fmarcin-piela%2Freact-fetching-library%20%F0%9F%91%8D
 [twitter-badge]: https://img.shields.io/twitter/url/https/github.com/marcin-piela/react-fetching-library.svg?style=social
+[gzip-badge]:https://badgen.net/bundlephobia/minzip/react-fetching-library
