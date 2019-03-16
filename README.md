@@ -14,9 +14,26 @@ Simple and powerful fetching library for React.
 
 [![Build Status][build-badge]][build] [![version][version-badge]][package] ![downloads][downloads-badge] [![MIT License][license-badge]][license] [![PRs Welcome][prs-badge]][prs] [![Code of Conduct][coc-badge]][coc]
 
+✅ Zero dependencies (react, react-dom as peer deps)
+
+✅ Provides hooks and HOCs
+
+✅ Uses native fetch
+
+✅ Request and response interceptors allows to customize all requests/responses (add authorization, refresh token etc) 
+
+✅ React suspense support 
+
+✅ TypeScript support 
+
+✅ 6k gzipped
+
+✅ Provides simple cache mechanism
+
 ---
 
 # react-fetching-library
+
 
 Use hooks or HOCs to fetch data in easy way. No dependencies! Just React under the hood.
 
