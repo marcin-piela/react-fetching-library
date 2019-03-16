@@ -58,6 +58,8 @@ export const UsersListContainer = () => {
 };
 ```
 
+[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/use-query-hook)
+
 ## Documentation
 
 Full documentation is available at https://marcin-piela.github.io/react-fetching-library
