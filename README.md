@@ -41,9 +41,26 @@ Request and response interceptors allows you to easily customize connection with
 
 Library allows you to use it with connection of React Suspense ([read more about React Suspense](https://blog.logrocket.com/async-rendering-in-react-with-suspense-5d0eaac886c8)) to easily maintain loading state in application.
 
-## Learning react-fetching-library
+## Short example of use
 
-Documentation is available at https://marcin-piela.github.io/react-fetching-library
+```js
+import { useQuery } from 'react-fetching-library';
+
+const fetchUsersList = {
+  method: 'GET',
+  endpoint: '/users',
+};
+
+export const UsersListContainer = () => {
+  const { loading, payload, error, query } = useQuery(fetchUsersList);
+
+  return <UsersList loading={loading} error={error} users={payload} onReload={query} />;
+};
+```
+
+## Documentation
+
+Full documentation is available at https://marcin-piela.github.io/react-fetching-library
 
 ## Contributing
 
