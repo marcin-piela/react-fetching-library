@@ -1,31 +1,59 @@
-<div align="center">
-  <h1>react-fetching-library</h1>
+<p align="center">
+	<a target="_blank" href="https://github.com/marcin-piela/react-fetching-library">
+        <img src="/docs/_media/logo.png" />
+    </a>
+</p>
+<p >
+Simple and powerful fetching library for React. 
 
-  <p>
-    Simple and powerful API client for react. Use hooks or HOCs to fetch data in easy way. No dependencies! Just react
-    under the hood.
-  </p>
-</div>
+[![Watch on GitHub][github-watch-badge]][github-watch][![Star on GitHub][github-star-badge]][github-star][![Tweet][twitter-badge]][twitter]
 
-### Examples of use
+</p>
 
-For an example of useQuery hook view this CodeSandbox (Typescript, CRA, Material-UI):
+---
 
-[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/use-query-hook)
+[![Build Status][build-badge]][build] [![version][version-badge]][package] ![downloads][downloads-badge] [![MIT License][license-badge]][license] [![PRs Welcome][prs-badge]][prs] [![Code of Conduct][coc-badge]][coc]
 
-For an example of Query HOC view this CodeSandbox (Typescript, CRA, Material-UI):
+---
 
-[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/query-hoc)
+# react-fetching-library
 
-For an example of use ClientContext view this CodeSandbox (Typescript, CRA, Material-UI):
+Use hooks or HOCs to fetch data in easy way. No dependencies! Just React under the hood.
 
-[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/client-context)
+Request and response interceptors allows you to easily customize connection with API (add authorization, refresh token, cache etc).
 
-For an example of useSuspenseQuery (to see powerful of react suspense, you can show one spinner for two lists at the same time) view this CodeSandbox (Typescript, CRA, Material-UI):
+Library allows you to use it with connection of React Suspense ([read more about React Suspense](https://blog.logrocket.com/async-rendering-in-react-with-suspense-5d0eaac886c8)) to easily maintain loading state in application.
 
-[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/use-suspense-query-hook)
+## Learning react-fetching-library
 
-For an example of simple caching responses view this CodeSandbox (Typescript, CRA, Material-UI):
+Documentation is available at https://marcin-piela.github.io/react-fetching-library
 
-[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/cache-provider)
+## Contributing
 
+Fell free to open PRs and issues to make this library better !
+
+When making a PR, make sure all tests passes. If you add a new feature, please consider updating the documentation or codesandbox exampes. Thank you!
+
+## License
+
+react-fetching-library is licensed under the [MIT license](http://opensource.org/licenses/MIT).
+
+[npm]: https://www.npmjs.com/
+[node]: https://nodejs.org
+[build-badge]: https://img.shields.io/travis/marcin-piela/react-fetching-library.svg?style=flat-square
+[build]: https://travis-ci.org/marcin-piela/react-fetching-library
+[version-badge]: https://img.shields.io/npm/v/react-fetching-library.svg?style=flat-square
+[package]: https://www.npmjs.com/package/react-fetching-library
+[downloads-badge]: https://img.shields.io/npm/dm/react-fetching-library.svg?style=flat-square
+[license-badge]: https://img.shields.io/npm/l/react-fetching-library.svg?style=flat-square
+[license]: https://github.com/marcin-piela/react-fetching-library/blob/master/LICENSE
+[prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
+[prs]: http://makeapullrequest.com
+[coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
+[coc]: https://github.com/marcin-piela/react-fetching-library/blob/master/CODE_OF_CONDUCT.md
+[github-watch-badge]: https://img.shields.io/github/watchers/marcin-piela/react-fetching-library.svg?style=social
+[github-watch]: https://github.com/marcin-piela/react-fetching-library/watchers
+[github-star-badge]: https://img.shields.io/github/stars/marcin-piela/react-fetching-library.svg?style=social
+[github-star]: https://github.com/marcin-piela/react-fetching-library/stargazers
+[twitter]: https://twitter.com/intent/tweet?text=Check%20out%20react-fetching-library%20https%3A%2F%2Fgithub.com%2Fmarcin-piela%2Freact-fetching-library%20%F0%9F%91%8D
+[twitter-badge]: https://img.shields.io/twitter/url/https/github.com/marcin-piela/react-fetching-library.svg?style=social
