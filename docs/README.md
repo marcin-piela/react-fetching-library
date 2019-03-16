@@ -197,6 +197,22 @@ Example of use:
 
 [![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/cache-provider)
 
+## Own CacheProvider
+
+You can create your own cache provider. It should implement this type:
+
+```js
+type Cache<T> = {
+  add: (action: Action<any>, value: T) => void;
+  remove: (action: Action<any>) => void;
+  get: (action: Action<any>) => QueryResponse & { timestamp: number } | undefined;
+  items: { [key: string]: QueryResponse };
+};
+
+```
+
+where `T` is [`QueryResponse`][] 
+
 ## Context
 
 You can get [`Client`][] instance in every place in your React application. You have to use [`ClientContext`][] :
