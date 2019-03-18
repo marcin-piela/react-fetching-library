@@ -8,7 +8,7 @@ __react-fetching-library__ -  simple and powerful fetching library for React. Us
 
 ✅ Provides hooks and HOCs
 
-✅ uses Fetch API
+✅ Uses Fetch API
 
 ✅ Request and response interceptors allows to easily customize connection with API
 

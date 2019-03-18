@@ -18,7 +18,7 @@ Simple and powerful fetching library for React.
 
 ✅ Provides hooks and HOCs
 
-✅ uses Fetch API
+✅ Uses Fetch API
 
 ✅ Request and response interceptors allows to easily customize connection with API
 
