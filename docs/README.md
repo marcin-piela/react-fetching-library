@@ -8,17 +8,17 @@ __react-fetching-library__ -  simple and powerful fetching library for React. Us
 
 ✅ Provides hooks and HOCs
 
-✅ Uses native fetch
+✅ uses Fetch API
 
-✅ Request and response interceptors allows to customize all requests/responses (add authorization, refresh token etc) 
+✅ Request and response interceptors allows to easily customize connection with API
 
-✅ React suspense support 
+✅ React Suspense support 
 
 ✅ TypeScript support 
 
 ✅ 2.2k minizipped
 
-✅ Provides simple cache mechanism
+✅ Simple cache provider - easily to extend
 
 ## Installation
 
@@ -166,7 +166,7 @@ export const Client = createClient({
 __react-fetching-library__  provides simple cache which you can customize.
 
 ```js
-  import { createChache } from 'react-fetching-library';
+  import { createCache } from 'react-fetching-library';
 
   const cache = createCache(isCacheable, isValid);
 ```
