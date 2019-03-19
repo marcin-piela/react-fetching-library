@@ -19,4 +19,6 @@ module.exports = {
     '!src/components/index.ts',
     '!src/context/clientContext.ts',
   ],
+  coverageDirectory: './coverage/',
+  collectCoverage: true,
 };

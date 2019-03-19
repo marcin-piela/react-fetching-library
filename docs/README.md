@@ -2,7 +2,8 @@
 
 __react-fetching-library__ -  simple and powerful fetching library for React. Use hooks or HOCs to fetch data in easy way. No dependencies! Just react under the hood.
 
-[![Build Status][build-badge]][build] [![version][version-badge]][package] ![downloads][downloads-badge] [![MIT License][license-badge]][license] [![PRs Welcome][prs-badge]][prs] [![Code of Conduct][coc-badge]][coc] ![Code of Conduct][gzip-badge]
+[![Build Status][build-badge]][build] [![version][version-badge]][package] ![downloads][downloads-badge] [![MIT License][license-badge]][license]
+ [![PRs Welcome][prs-badge]][prs] [![Code of Conduct][coc-badge]][coc] ![Code of Conduct][gzip-badge] [![codecov](https://codecov.io/gh/marcin-piela/react-fetching-library/branch/master/graph/badge.svg)](https://codecov.io/gh/marcin-piela/react-fetching-library)
 
 ✅ Zero dependencies (react, react-dom as peer deps)
 

@@ -8,5 +8,6 @@ script:
   - yarn lint
   - yarn test
   - yarn build
+  - codecov -f coverage/*.json
 
 cache: yarn
