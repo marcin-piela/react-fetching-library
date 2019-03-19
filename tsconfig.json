@@ -7,7 +7,6 @@
     "jsx": "react",
     "module": "esnext",
     "moduleResolution": "node",
-    "rootDir": ".",
     "outDir": "./lib",
     "skipLibCheck": true,
     "strict": true,
