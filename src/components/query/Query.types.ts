@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
-import { Action } from '../../client/action.types';
-import { QueryResponse } from '../../client/client.types';
+import { Action, QueryResponse } from '../../client/client.types';
 
 export type QueryApi<T> = {
   loading: boolean;

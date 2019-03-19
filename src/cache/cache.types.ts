@@ -1,4 +1,4 @@
-import { Action } from '../client/action.types';
+import { Action } from '../client/client.types';
 
 export type Cache<T> = {
   add: (action: Action<any>, value: T) => void;

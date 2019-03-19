@@ -43,7 +43,7 @@ To start using this library we have to create an instance of [`Client`][] and th
 First we need an instance of [`Client`][]. We have to import `Client` function.
 
 ```js
-import { Client as createClient } from 'react-fetching-library';
+import { createClient } from 'react-fetching-library';
 
 export const Client = createClient({
   //None option is required
@@ -77,7 +77,7 @@ And now we can add components that are connected to defined client.
 During creating instance of Client you can pass additional options:
 
 ```js
-import { Client as createClient } from 'react-fetching-library';
+import { createClient } from 'react-fetching-library';
 
 export const Client = createClient(options);
 ```
@@ -108,7 +108,7 @@ export const requestHostInterceptor: host => client => async action => {
 And then you have to add it to the Client:
 
 ```js
-import { Client as createClient } from 'react-fetching-library';
+import { createClient } from 'react-fetching-library';
 
 export const Client = createClient({
   requestInterceptors: [requestHostInterceptor('http://example.com/')]
@@ -147,7 +147,7 @@ export const responseInterceptor = client => async (action, response) => {
 And then you have to add it to the Client:
 
 ```js
-import { Client as createClient } from 'react-fetching-library';
+import { createClient } from 'react-fetching-library';
 
 export const Client = createClient({
   responseInterceptors: [responseInterceptor]

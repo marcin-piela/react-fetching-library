@@ -1,4 +1,4 @@
-import { Action } from '../client/action.types';
+import { Action } from '../client/client.types';
 import { Cache } from './cache.types';
 
 export const convertActionToBase64 = (action: Action<any>) => {
@@ -13,7 +13,7 @@ export const createCache = <T>(
 
   const add = (action: Action<any>, value: T) => {
     if (isCacheable(action)) {
-      items[convertActionToBase64(action)] = { ...value, timestamp: new Date().getTime() };
+      items[convertActionToBase64(action)] = { ...value, timestamp: Date.now() };
     }
   };
 
@@ -25,7 +25,7 @@ export const createCache = <T>(
     const response = items[convertActionToBase64(action)];
     const valid = response && isValid(response);
 
-    if (response && valid) {
+    if (valid) {
       return response;
     }
 

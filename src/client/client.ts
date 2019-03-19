@@ -1,5 +1,4 @@
-import { Action } from './action.types';
-import { ClientOptions, QueryResponse, RequestInterceptor, ResponseInterceptor } from './client.types';
+import { Action, ClientOptions, QueryResponse, RequestInterceptor, ResponseInterceptor } from './client.types';
 
 export type HandleRequestInterceptors<R> = (
   action: Action<R>,
@@ -12,7 +11,7 @@ export type HandleResponseInterceptors<R> = (
   interceptors: Array<ResponseInterceptor<R, any>>,
 ) => Promise<QueryResponse<any>>;
 
-export const Client = <R = any>(clientOptions: ClientOptions<R>) => {
+export const createClient = <R = any>(clientOptions: ClientOptions<R>) => {
   const handleRequestInterceptors: HandleRequestInterceptors<R> = async (action, interceptors) => {
     const [interceptor, ...next] = interceptors;
 
