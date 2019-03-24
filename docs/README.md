@@ -445,6 +445,114 @@ const App = () => {
 
 ---
 
+# How to test
+
+Let's say that you want to test following component:
+
+```js
+import React, { Fragment } from 'react';
+import { useQuery } from 'react-fetching-library';
+
+export const UsersListContainer = () => {
+  const { loading, payload, error, query } = useQuery<User[]>(fetchUsersList);
+
+  return (
+    <Fragment>
+      {loading && <span>Loading</span>}
+
+      {error && <span>Error</span>}
+
+      {payload && <span>Number of users {payload.data.length}</span>}
+
+      <button onClick={query}>Refetch</button>
+    </Fragment>
+  );
+};
+```
+
+You've got 2 ways to do it. First is to mock [`ClientContext`][] in the following way:
+
+```js
+import React from 'react';
+import { act, render } from 'react-testing-library';
+import { ClientContextProvider } from 'react-fetching-library';
+
+import { UsersListContainer } from './UsersListContainer';
+
+describe('users list test', () => {
+  const client = {
+    query: async () => ({
+      error: false,
+      status: 200,
+      payload: {
+        data: [
+          {
+            id: 'foo',
+            name: 'foo,
+          }
+        ]
+      },
+    });,
+  };
+
+  it('fetches users and returns proper data on success', async () => {
+    jest.useFakeTimers();
+
+    const { getByText } = render(
+      <ClientContextProvider client={client}>
+        <UsersListContainer/>
+      </ClientContextProvider>
+    );
+
+    expect(getByText('Loading')).toBeTruthy();
+
+    act(() => {
+      jest.runAllTimers();
+    });
+
+    expect(getByText('Number of users 1')).toBeTruthy();
+  });
+});
+```
+
+Second way (recommended) is to use [`fetch-mock`](https://github.com/wheresrhys/fetch-mock):
+
+```js
+import React from 'react';
+import { act, render } from 'react-testing-library';
+import fetchMock from 'fetch-mock';
+
+import { UsersListContainer } from './UsersListContainer';
+
+describe('users list test', () => {
+  fetchMock.get('/users', {
+    data: [
+      {
+        id: 'foo',
+        name: 'foo',
+      },
+    ],
+  });
+
+  it('fetches users and returns proper data on success', async () => {
+    jest.useFakeTimers();
+
+    const { getByText } = render(<UsersListContainer />);
+
+    expect(getByText('Loading')).toBeTruthy();
+
+    act(() => {
+      jest.runAllTimers();
+    });
+
+    expect(getByText('Number of users 1')).toBeTruthy();
+  });
+});
+
+```
+
+---
+
 # List of examples
 
 All examples are written in TypeScript.
