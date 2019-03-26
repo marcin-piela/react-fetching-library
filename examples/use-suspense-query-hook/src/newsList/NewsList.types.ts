@@ -1,6 +1,6 @@
 export type NewsListProps = {
   error: boolean;
-  news: News[] | null;
+  news: News[] | undefined;
 };
 
 export type News = {

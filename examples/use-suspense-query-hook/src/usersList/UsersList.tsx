@@ -1,13 +1,6 @@
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemText from '@material-ui/core/ListItemText';
-import Typography from '@material-ui/core/Typography';
 import React, { Fragment } from 'react';
+
+import { Avatar, Divider, List, ListItem, ListItemAvatar, Typography, ListItemText } from '../shared';
 
 import { UsersListProps } from './UsersList.types';
 
@@ -19,7 +12,7 @@ export const UsersList = ({ error, users }: UsersListProps) => {
         users.map(user => (
           <Fragment key={user.uuid}>
             <Divider variant="inset" />
-            <ListItem alignItems="flex-start">
+            <ListItem>
               <ListItemAvatar>
                 <Avatar alt={user.firstName} src={user.avatar} />
               </ListItemAvatar>
