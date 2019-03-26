@@ -1,7 +1,7 @@
 export type UsersListProps = {
   loading: boolean;
   error: boolean;
-  users: User[] | null;
+  users: User[] | undefined;
   onReload: () => void;
 };
 

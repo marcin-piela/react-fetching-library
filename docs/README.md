@@ -39,22 +39,22 @@ That’s it! You may now use __react-fetching-library__ in your React applicatio
 
 ## Usage
 
-To start using this library we have to create an instance of [`Client`][] and then we will need to provide that client to our React component tree using the [`<ClientContextProvider/>`][] component. 
+To start using this library we have to create an instance of [`Client`][] and then we will need to provide that client to our React component tree using the `<ClientContextProvider>` component. 
 
-First we need an instance of [`Client`][]. We have to import `Client` function.
+First we need an instance of [`Client`][]:
 
 ```js
 import { createClient } from 'react-fetching-library';
 
-export const Client = createClient({
-  //None option is required
+const client = createClient({
+  //None of the options is required
   requestInterceptors: [],
   responseInterceptors: [],
   cacheProvider: cacheProvider,
 });
 ```
 
-Next we have to add [`<ClientContextProvider/>`][] component to the root of our React component tree. This component [provides](https://reactjs.org/docs/context.html) the react-fetching-library functionality to all the other components in the application without passing it explicitly. To use an [`<ClientContextProvider/>`][] with newly constructed client see the following:
+Next we have to add `<ClientContextProvider>` component to the root of our React component tree. This component [provides](https://reactjs.org/docs/context.html) the react-fetching-library functionality to all the other components in the application without passing it explicitly. To use an `<ClientContextProvider>` with newly constructed client see the following:
 
 ```js
 import { ClientContextProvider } from 'react-fetching-library';
@@ -73,23 +73,33 @@ And now we can add components that are connected to defined client.
 
 # Client
 
-## Options
+Object which exposes `query` method. 
 
-During creating instance of Client you can pass additional options:
+## How to create instance of Client
 
 ```js
 import { createClient } from 'react-fetching-library';
 
-export const Client = createClient(options);
+const client = createClient(options);
 ```
 
-Available options:
+## Available methods
 
-| option      | description                                                            | default value |
-| ------------------------- | ---------------------------------------------------------------------- | ------------- |
-| requestInterceptors         | array of requestInterceptors                               | []               |
-| responseInterceptors | array of responseInterceptors | []         |
-| cacheProvider                   | cache provider                                  | undefined      |
+| name      | description                | param | response
+| ------------------------- | --------------------------------- | ------------- |------------- |
+| query         | function which dispatch request to API | [`Action`][]  | Promise which resolves to [`QueryResponse`][]
+
+```js
+client.query({method: 'GET', endpoint: '/users'});
+```
+
+## Available options
+
+| option      | description                             | required | default value |
+| ------------------------- | ----------------------------------------- | ------------- | ------------- |
+| requestInterceptors         | array of requestInterceptors                | no         | []               |
+| responseInterceptors | array of responseInterceptors | no        | []      |
+| cacheProvider                   | cache provider                    | no                   | undefined      |
 
 ## Request interceptors
 
@@ -111,7 +121,7 @@ And then you have to add it to the Client:
 ```js
 import { createClient } from 'react-fetching-library';
 
-export const Client = createClient({
+export const client = createClient({
   requestInterceptors: [requestHostInterceptor('http://example.com/')]
 });
 ```
@@ -150,21 +160,14 @@ And then you have to add it to the Client:
 ```js
 import { createClient } from 'react-fetching-library';
 
-export const Client = createClient({
+export const client = createClient({
   responseInterceptors: [responseInterceptor]
 });
 ```
 
-## Methods
-
-| name      | description                | param | response
-| ------------------------- | --------------------------------- | ------------- |------------- |
-| query         | function which dispatch request to API | [`Action`][]  | [`QueryResponse`][]
-
-
 ## Cache provider
 
-__react-fetching-library__  provides simple cache which you can customize.
+__react-fetching-library__  provides simple cache which you can customize:
 
 ```js
   import { createCache } from 'react-fetching-library';
@@ -196,7 +199,7 @@ const cache = createCache(
 
 Example of use:
 
-[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/cache-provider)
+[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/cache-provider?module=/src/api/Client.ts)
 
 ## Own CacheProvider
 
@@ -216,7 +219,7 @@ where `T` is [`QueryResponse`][]
 
 ## Context
 
-You can get [`Client`][] instance in every place in your React application. You have to use [`ClientContext`][] :
+You can get [`Client`][] instance in every place in your React application. To do it you have to use `ClientContext`
 
 ```js
 import { useState, useContext, useCallback } from 'react'; 
@@ -243,7 +246,7 @@ export const UsersListContainer = () => {
 
 Example of use:
 
-[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/client-context)
+[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/client-context?module=/src/usersList/UsersListContainer.tsx)
 
 ---
 
@@ -319,7 +322,7 @@ Available hooks
 
 ## useQuery
 
-This hook is used to query data from API. By default request is sent immediately. You can turn on lazy loading by setting second param as `true`. Response of hook is [`QueryResponse`][] extended by `query` function which allows you to re-run query again or first time (when lazy loading is turned on). First param of this hook is [`Action`][]
+This hook is used to query data (can be used to get data from API and mutate data as well) . By default request is sent immediately. You can turn on lazy loading by setting second param as `true`. Response of hook is [`QueryResponse`][] extended by `query` function which allows you to re-run query again or first time (when lazy loading is turned on). First param of this hook is [`Action`][]
 
 ```js
 import { useQuery } from 'react-fetching-library';
@@ -336,7 +339,7 @@ export const UsersListContainer = () => {
 };
 ```
 
-[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/use-query-hook)
+[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/use-query-hook?module=/src/usersList/UsersListContainer.tsx)
 
 ## useSuspenseQuery
 
@@ -365,7 +368,7 @@ import React, { Suspense } from 'react';
 
 const App = () => {
   return (
-    <ClientContextProvider client={Client}>
+    <ClientContextProvider client={client}>
       <Suspense fallback={<span>Loading</span>}>
           <UsersListContainer />
       </Suspense>
@@ -374,7 +377,7 @@ const App = () => {
 };
 ```
 
-[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/use-suspense-query-hook)
+[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/use-suspense-query-hook?module=/src/App.tsx)
 
 ---
 
@@ -402,7 +405,7 @@ export const UsersListContainer = () => (
 
 ```
 
-[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/query-hoc)
+[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/query-hoc?module=/src/usersList/UsersListContainer.tsx)
 
 ## SuspenseQuery
 
@@ -434,7 +437,7 @@ import React, { Suspense } from 'react';
 
 const App = () => {
   return (
-    <ClientContextProvider client={Client}>
+    <ClientContextProvider client={client}>
       <Suspense fallback={<span>Loading</span>}>
           <UsersListContainer />
       </Suspense>
@@ -561,35 +564,33 @@ All examples are written in TypeScript.
 
 For an example of useQuery hook view this CodeSandbox (Typescript, CRA, Material-UI):
 
-[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/use-query-hook)
+[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/use-query-hook?module=/src/usersList/UsersListContainer.tsx)
 
 ## Query HOC
 
 For an example of Query HOC view this CodeSandbox (Typescript, CRA, Material-UI):
 
-[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/query-hoc)
+[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/query-hoc?module=/src/usersList/UsersListContainer.tsx)
 
 ## ClientContext
 
 For an example of use ClientContext view this CodeSandbox (Typescript, CRA, Material-UI):
 
-[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/client-context)
+[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/client-context?module=/src/usersList/UsersListContainer.tsx)
 
 ## useSuspenseQuery hook
 
 For an example of useSuspenseQuery (to see powerful of react suspense, you can show one spinner for two lists at the same time) view this CodeSandbox (Typescript, CRA, Material-UI):
 
-[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/use-suspense-query-hook)
+[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/use-suspense-query-hook?module=/src/App.tsx)
 
 ## Caching responses
 
 For an example of simple caching responses view this CodeSandbox (Typescript, CRA, Material-UI):
 
-[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/cache-provider)
+[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/cache-provider?module=/src/api/Client.ts)
 
 
-
-[`<ClientContextProvider/>`]: #context
 [`Client`]: #client
 [`ClientContext`]: #context
 [`Action`]: #action

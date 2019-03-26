@@ -42,6 +42,10 @@ Request and response interceptors allows you to easily customize connection with
 
 Library allows you to use it with connection of React Suspense ([read more about React Suspense](https://blog.logrocket.com/async-rendering-in-react-with-suspense-5d0eaac886c8)) to easily maintain loading state in application.
 
+## Documentation
+
+Full documentation is available at https://marcin-piela.github.io/react-fetching-library
+
 ## Short example of use
 
 ```js
@@ -61,13 +65,15 @@ export const UsersListContainer = () => {
 
 [![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/use-query-hook?module=/src/usersList/UsersListContainer.tsx)
 
-## Typescript full support
+## Typescript support
 
 <img src="/docs/_media/typescript.gif" />
 
-## Documentation
+## Inspirations
 
-Full documentation is available at https://marcin-piela.github.io/react-fetching-library
+- [react-fetching-data by Robin Wieruch](https://www.robinwieruch.de/react-fetching-data/)
+- [fetch-suspense](https://github.com/CharlesStover/fetch-suspense)
+- [redux-api-middleware](https://github.com/agraboso/redux-api-middleware)
 
 ## Contributing
 
