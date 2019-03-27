@@ -265,7 +265,7 @@ const fetchUsersActions = {
 }
 ```
 
-## Prameters
+## Parameters
 
 | option      | description   | type | required |
 | ------------------------- | ------------------ | ------------- | ------------- |
