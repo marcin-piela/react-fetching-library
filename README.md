@@ -17,7 +17,7 @@ Simple and powerful fetching library for React.
 
 ✅ Zero dependencies (react, react-dom as peer deps)
 
-✅ Provides hooks and HOCs
+✅ Provides hooks and FACC's (Function as Child Components)
 
 ✅ Uses Fetch API
 
@@ -36,7 +36,7 @@ Simple and powerful fetching library for React.
 # react-fetching-library
 
 
-Use hooks or HOCs to fetch data in easy way. No dependencies! Just React under the hood.
+Use hooks or FACC's (Function as Child Component) to fetch data in easy way. No dependencies! Just React under the hood.
 
 Request and response interceptors allows you to easily customize connection with API (add authorization, refresh token, cache etc).
 

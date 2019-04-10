@@ -1,7 +1,7 @@
 {
   "name": "react-fetching-library",
   "version": "1.0.0",
-  "description": "Simple and powerful API client for react. Use hooks or HOCs to fetch data in easy way. No dependencies! Just react under the hood.",
+  "description": "Simple and powerful API client for react. Use hooks or FACC's to fetch data in easy way. No dependencies! Just react under the hood.",
   "main": "lib/index.js",
   "files": [
     "lib/**/*"
@@ -20,13 +20,16 @@
   "keywords": [
     "react",
     "fetch",
+    "react-fetch",
+    "fetch-data",
     "api",
     "rest",
     "client",
     "hooks",
-    "suspence",
-    "hoc",
-    "hocs"
+    "suspense",
+    "react-suspense",
+    "facc",
+    "faccs"
   ],
   "author": "Marcin Piela <i.creator.eu@gmail.com>",
   "license": "MIT",
