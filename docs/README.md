@@ -1,13 +1,13 @@
 # Getting started
 
-__react-fetching-library__ -  simple and powerful fetching library for React. Use hooks or HOCs to fetch data in easy way. No dependencies! Just react under the hood.
+__react-fetching-library__ -  simple and powerful fetching library for React. Use hooks or FACCs (Function as Child Components) to fetch data in easy way. No dependencies! Just react under the hood.
 
 [![Build Status][build-badge]][build] [![version][version-badge]][package] ![downloads][downloads-badge] [![MIT License][license-badge]][license]
  [![PRs Welcome][prs-badge]][prs] [![Code of Conduct][coc-badge]][coc] ![Code of Conduct][gzip-badge] [![codecov](https://codecov.io/gh/marcin-piela/react-fetching-library/branch/master/graph/badge.svg)](https://codecov.io/gh/marcin-piela/react-fetching-library)
 
 ✅ Zero dependencies (react, react-dom as peer deps)
 
-✅ Provides hooks and HOCs
+✅ Provides hooks and FACCs (Function as Child Components)
 
 ✅ Uses Fetch API
 
@@ -346,7 +346,7 @@ export const UsersListContainer = () => {
 This hook is also used to query data from API but without lazy loading option. It requires React Suspense component above in React tree. First param of this hook is [`Action`][]
 
 ```js
-import { useuseSuspenseQueryQuery } from 'react-fetching-library';
+import { useSuspenseQuery } from 'react-fetching-library';
 
 const fetchUsersList = {
   method: 'GET',
@@ -381,7 +381,7 @@ const App = () => {
 
 ---
 
-# HOCs
+# FACCs (Function as Child Components)
 
 ## Query
 
@@ -405,7 +405,7 @@ export const UsersListContainer = () => (
 
 ```
 
-[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/query-hoc?module=/src/usersList/UsersListContainer.tsx)
+[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/query-facc?module=/src/usersList/UsersListContainer.tsx)
 
 ## SuspenseQuery
 
@@ -566,11 +566,11 @@ For an example of useQuery hook view this CodeSandbox (Typescript, CRA, Material
 
 [![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/use-query-hook?module=/src/usersList/UsersListContainer.tsx)
 
-## Query HOC
+## Query FACC
 
-For an example of Query HOC view this CodeSandbox (Typescript, CRA, Material-UI):
+For an example of Query FACC view this CodeSandbox (Typescript, CRA, Material-UI):
 
-[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/query-hoc?module=/src/usersList/UsersListContainer.tsx)
+[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/query-facc?module=/src/usersList/UsersListContainer.tsx)
 
 ## ClientContext
 
