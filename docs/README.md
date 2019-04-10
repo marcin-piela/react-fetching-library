@@ -341,9 +341,12 @@ export const UsersListContainer = () => {
 
 [![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/use-query-hook?module=/src/usersList/UsersListContainer.tsx)
 
-## useSuspenseQuery
+## useSuspenseQuery 
 
-This hook is also used to query data from API but without lazy loading option. It requires React Suspense component above in React tree. First param of this hook is [`Action`][]
+This hook is also used to query data from API but without lazy loading option. It requires [React Suspense *](#using-suspense-to-fetch-data) component above in React tree. With Suspense you can control loading state of application, ie. show one spinner instead of dozen of it for every section of application. 
+
+
+First param of this hook is [`Action`][]
 
 ```js
 import { useuseSuspenseQueryQuery } from 'react-fetching-library';
@@ -409,7 +412,7 @@ export const UsersListContainer = () => (
 
 ## SuspenseQuery
 
-This is almost the same as [`useSuspenseQuery`][] hook, but this is Higher Order Component to use directly in the JSX.
+This is almost the same as [`useSuspenseQuery`][#using-suspense-to-fetch-data] hook, but this is Higher Order Component to use directly in the JSX. It needs [React Suspense *]() above in React tree.
 
 
 ```js
@@ -590,6 +593,14 @@ For an example of simple caching responses view this CodeSandbox (Typescript, CR
 
 [![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/cache-provider?module=/src/api/Client.ts)
 
+
+---
+
+# Legend
+
+## Using Suspense to fetch data
+
+For now React Suspense is not production ready to use it for fetch data as described [here](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-mid-2019-the-one-with-suspense-for-data-fetching), so API of our component/hook may change in the future. For now we're using our cache implementation instead of `react-cache` and everything is tested well.
 
 [`Client`]: #client
 [`ClientContext`]: #context
