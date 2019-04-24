@@ -27,6 +27,7 @@ export const createClient = <R = any>(clientOptions: ClientOptions<R>) => {
   };
 
   const client = {
+    cache: clientOptions.cacheProvider,
     query: async <T>(actionInit: Action<R>): Promise<QueryResponse<T>> => {
       const cacheProvider = clientOptions.cacheProvider;
 
