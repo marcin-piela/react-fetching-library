@@ -73,7 +73,7 @@ And now we can add components that are connected to defined client.
 
 # Client
 
-Object which exposes `query` method. 
+Object which exposes `query` method and `cache` object. 
 
 ## How to create instance of Client
 
@@ -88,9 +88,20 @@ const client = createClient(options);
 | name      | description                | param | response
 | ------------------------- | --------------------------------- | ------------- |------------- |
 | query         | function which dispatch request to API | [`Action`][]  | Promise which resolves to [`QueryResponse`][]
+| cache         | cacheProvider object when provided in client options | 
 
 ```js
-client.query({method: 'GET', endpoint: '/users'});
+import Action from 'react-fetching-library';
+
+const action:Action= { 
+  method: 'GET',
+  endpoint: '/users',
+};
+
+client.query(action);
+
+client.cache.get(action);
+
 ```
 
 ## Available options

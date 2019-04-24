@@ -19,16 +19,17 @@ export type Action<T = any> = {
   window?: any;
 } & T;
 
-export type Client<R = any> = {
-  query: <T>(action: Action<R>) => Promise<QueryResponse<T>>;
-};
-
 export type QueryResponse<T = any> = {
   status?: number;
   error: boolean;
   errorObject?: any;
   payload?: T;
   headers?: Headers;
+};
+
+export type Client<R = any> = {
+  query: <T>(action: Action<R>) => Promise<QueryResponse<T>>;
+  cache?: Cache<QueryResponse>;
 };
 
 export type ClientOptions<T> = {
