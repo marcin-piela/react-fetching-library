@@ -36,9 +36,9 @@ Simple and powerful fetching library for React.
 # react-fetching-library
 
 
-Use hooks or FACC's (Function as Child Component) to fetch data in easy way. No dependencies! Just React under the hood.
+Use hooks or FACC's (Function as Child Component) to fetch data in an easy way. No dependencies! Just React under the hood.
 
-Request and response interceptors allows you to easily customize connection with API (add authorization, refresh token, cache etc).
+Request and response interceptors allows you to easily customize connection with API (add authorization, refresh token, cache, etc).
 
 Library allows you to use it with connection of React Suspense ([read more about React Suspense](https://blog.logrocket.com/async-rendering-in-react-with-suspense-5d0eaac886c8)) to easily maintain loading state in application.
 
@@ -79,7 +79,7 @@ export const UsersListContainer = () => {
 
 Fell free to open PRs and issues to make this library better !
 
-When making a PR, make sure all tests passes. If you add a new feature, please consider updating the documentation or codesandbox exampes. Thank you!
+When making a PR, make sure all tests pass. If you add a new feature, please consider updating the documentation or codesandbox examples. Thank you!
 
 ## License
 
