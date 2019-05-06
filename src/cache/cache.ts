@@ -2,14 +2,20 @@ import { Action } from '../client/client.types';
 import { Cache } from './cache.types';
 
 export const convertActionToBase64 = (action: Action<any>) => {
-  return Buffer.from(JSON.stringify(action)).toString('base64');
+  return Buffer.from(
+    JSON.stringify({
+      body: action.body,
+      endpoint: action.endpoint,
+      method: action.method,
+    }),
+  ).toString('base64');
 };
 
 export const createCache = <T>(
   isCacheable: (action: Action<T>) => boolean,
   isValid: (response: T & { timestamp: number }) => boolean,
 ) => {
-  const items: { [key: string]: any } = {};
+  let items: { [key: string]: any } = {};
 
   const add = (action: Action<any>, value: T) => {
     if (isCacheable(action)) {
@@ -34,10 +40,19 @@ export const createCache = <T>(
     }
   };
 
+  const setItems = (value: { [key: string]: any }) => {
+    items = value;
+  };
+
+  const getItems = () => {
+    return items;
+  };
+
   return {
     add,
     get,
-    items,
+    getItems,
     remove,
+    setItems,
   } as Cache<T>;
 };

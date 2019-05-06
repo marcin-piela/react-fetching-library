@@ -1,0 +1,19 @@
+{
+  "name": "react-fetching-library-ssr-nextjs",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^8.1.0",
+    "next-transpile-modules": "^2.3.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-fetching-library": "^1.2.0"
+  },
+  "devDependencies": {
+    "isomorphic-unfetch": "^3.0.0",
+    "xmlhttprequest": "^1.8.0"
+  }
+}

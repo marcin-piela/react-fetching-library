@@ -12,6 +12,8 @@ export type HandleResponseInterceptors<R> = (
 ) => Promise<QueryResponse<any>>;
 
 export const createClient = <R = any>(clientOptions: ClientOptions<R>) => {
+  const cache = clientOptions.cacheProvider;
+
   const handleRequestInterceptors: HandleRequestInterceptors<R> = async (action, interceptors) => {
     const [interceptor, ...next] = interceptors;
 
@@ -27,16 +29,14 @@ export const createClient = <R = any>(clientOptions: ClientOptions<R>) => {
   };
 
   const client = {
-    cache: clientOptions.cacheProvider,
+    cache,
     query: async <T>(actionInit: Action<R>): Promise<QueryResponse<T>> => {
-      const cacheProvider = clientOptions.cacheProvider;
-
       try {
         const action = await handleRequestInterceptors(actionInit, clientOptions.requestInterceptors || []);
         const { endpoint, body, headers, ...options } = action;
 
-        if (cacheProvider) {
-          const cachedResponse = cacheProvider.get(action);
+        if (cache) {
+          const cachedResponse = cache.get(action);
 
           if (cachedResponse) {
             return cachedResponse;
@@ -70,8 +70,8 @@ export const createClient = <R = any>(clientOptions: ClientOptions<R>) => {
           clientOptions.responseInterceptors || [],
         );
 
-        if (cacheProvider) {
-          cacheProvider.add(action, queryResponse);
+        if (cache) {
+          cache.add(action, queryResponse);
         }
 
         return queryResponse;

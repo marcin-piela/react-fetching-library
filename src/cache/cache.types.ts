@@ -4,5 +4,6 @@ export type Cache<T> = {
   add: (action: Action<any>, value: T) => void;
   remove: (action: Action<any>) => void;
   get: (action: Action<any>) => T & { timestamp: number } | undefined;
-  items: { [key: string]: T };
+  getItems: () => { [key: string]: T };
+  setItems: (items: { [key: string]: T }) => void;
 };

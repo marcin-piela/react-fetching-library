@@ -4,7 +4,7 @@
     </a>
 </p>
 <p >
-Simple and powerful fetching library for React. 
+Simple and powerful fetching library for React. Use hooks to fetch data!
 
 [![Watch on GitHub][github-watch-badge]][github-watch][![Star on GitHub][github-star-badge]][github-star][![Tweet][twitter-badge]][twitter]
 
@@ -17,7 +17,9 @@ Simple and powerful fetching library for React.
 
 ✅ Zero dependencies (react, react-dom as peer deps)
 
-✅ Provides hooks and FACC's (Function as Child Components)
+✅ SSR support 
+
+✅ Use hooks or FACC's (Function as Child Components) - depending on your needs
 
 ✅ Uses Fetch API
 
@@ -38,7 +40,7 @@ Simple and powerful fetching library for React.
 
 Use hooks or FACC's (Function as Child Component) to fetch data in an easy way. No dependencies! Just React under the hood.
 
-Request and response interceptors allows you to easily customize connection with API (add authorization, refresh token, cache, etc).
+Request and response interceptors allows you to easily customize connection with API (add authorization, refresh token, cache, etc). It uses Fetch API so it can be use in SSR apps (ie. with isomorphic-fetch)
 
 Library allows you to use it with connection of React Suspense ([read more about React Suspense](https://blog.logrocket.com/async-rendering-in-react-with-suspense-5d0eaac886c8)) to easily maintain loading state in application.
 

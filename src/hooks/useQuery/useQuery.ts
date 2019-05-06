@@ -2,17 +2,19 @@ import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 
 import { Action, QueryResponse } from '../../client/client.types';
 import { ClientContext } from '../../context/clientContext';
+import { useCachedResponse } from '../useCachedResponse/useCachedResponse';
 
 export const useQuery = <T = any, R = {}>(action: Action<R>, initFetch = true) => {
   const clientContext = useContext(ClientContext);
+  const cachedResponse = useCachedResponse(action);
   const isMounted = useRef(true);
-  const [isLoading, setLoading] = useState(initFetch);
-  const [response, setResponse] = useState<QueryResponse<T>>({ error: false });
+  const [isLoading, setLoading] = useState(cachedResponse ? false : initFetch);
+  const [response, setResponse] = useState<QueryResponse<T>>(cachedResponse ? cachedResponse : { error: false });
 
   useEffect(() => {
     isMounted.current = true;
 
-    if (initFetch) {
+    if (initFetch && !cachedResponse) {
       handleQuery();
     }
 
@@ -21,16 +23,16 @@ export const useQuery = <T = any, R = {}>(action: Action<R>, initFetch = true) =
     };
   }, [action]);
 
-  const handleQuery = useCallback(() => {
+  const handleQuery = useCallback(async () => {
     if (!isMounted.current) {
       return;
     }
 
     setLoading(true);
 
-    clientContext.query(action).then(queryResponse => {
-      handleResponse(queryResponse);
-    });
+    const queryResponse = await clientContext.query(action);
+
+    handleResponse(queryResponse);
   }, [action]);
 
   const handleResponse = (queryResponse: QueryResponse) => {
