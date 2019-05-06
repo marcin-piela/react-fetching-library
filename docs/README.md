@@ -9,6 +9,8 @@ __react-fetching-library__ -  simple and powerful fetching library for React. Us
 
 ✅ Provides hooks and FACCs (Function as Child Components)
 
+✅ SSR support 
+
 ✅ Uses Fetch API
 
 ✅ Request and response interceptors allows to easily customize connection with API
@@ -458,6 +460,106 @@ const App = () => {
     </ClientContextProvider>
   );
 };
+```
+
+---
+
+# SSR - server side rendering
+
+To use react-fetching-library on server side you have to use isomporphic-fetch package ie. https://github.com/developit/unfetch#readme and then use library as in SPA apps.
+
+**Example app for next.js framework (responses are cached for 10s on server side):**
+
+`next.config.js`:
+```
+const withTM = require('next-transpile-modules')
+
+module.exports = withTM({
+  transpileModules: ['react-fetching-library']
+});
+```
+
+`client.js`
+```
+import { createClient, createCache } from "react-fetching-library";
+
+const cache = createCache(
+  (action) => {
+    return action.method === 'GET';
+  },
+  (response) => {
+    return new Date().getTime() - response.timestamp < 10000;
+  },
+);
+
+const client = createClient({
+  cacheProvider: cache,
+});
+
+export default client;
+
+```
+
+`pages/_app.js`
+
+```
+import App, { Container } from 'next/app';
+import 'isomorphic-unfetch';
+
+import { ClientContextProvider } from "react-fetching-library";
+import client from '../client';
+
+class MyApp extends App {
+  render () {
+    const { Component, pageProps } = this.props
+
+    return (
+      <Container>
+        <ClientContextProvider client={client}>
+          <Component {...pageProps} />
+        </ClientContextProvider>
+      </Container>
+    )
+  }
+}
+
+export default MyApp
+```
+
+`pages/index.js`
+
+```
+import React from "react";
+import client from "../client";
+
+const action = {
+  method: "GET",
+  endpoint: "https://private-34f3a-reactapiclient.apiary-mock.com/users"
+};
+
+const Users = ({ loading, payload, error }) => {
+  return (
+    <div>
+      {loading && <span>Loading</span>}
+
+      {error && <span>Error</span>}
+
+      {payload && <span>{payload.length}</span>}
+    </div>
+  );
+};
+
+Users.getInitialProps = async ({ req }) => {
+  // fetch
+  const res = await client.query(action);
+
+  // get data from cache
+  console.log(client.cache.get(action));
+
+  return res;
+}
+
+export default Users;
 ```
 
 ---
