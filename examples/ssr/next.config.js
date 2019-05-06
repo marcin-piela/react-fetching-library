@@ -1,5 +1,5 @@
-const withTM = require('next-transpile-modules')
+const withTM = require('next-transpile-modules');
 
 module.exports = withTM({
-  transpileModules: ['react-fetching-library']
+  transpileModules: ['react-fetching-library'],
 });

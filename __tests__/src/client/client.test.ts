@@ -1,6 +1,7 @@
 import fetchMock from 'fetch-mock';
 
 import { createClient } from '../../../src/client/client';
+import { createCache } from '../../../src/cache/cache';
 import { Action, QueryResponse } from '../../../src/client/client.types';
 
 describe('Client test', () => {
@@ -89,7 +90,7 @@ describe('Client test', () => {
     const requestInterceptor = () => async (action: Action) => {
       return {
         ...action,
-        endpoint: `http://example.com/users/${action.endpoint}`
+        endpoint: `http://example.com/users/${action.endpoint}`,
       };
     };
 
@@ -100,5 +101,51 @@ describe('Client test', () => {
     const queryResponse = await client.query(action);
 
     expect(queryResponse.payload).toEqual({ users: [] });
+  });
+
+  it('returns cached value on second fetch', async () => {
+    const action: Action = {
+      method: 'GET',
+      endpoint: 'http://example.com/cached-endpoint',
+    };
+
+    fetchMock.get(
+      action.endpoint,
+      {
+        users: [],
+      },
+      { overwriteRoutes: true },
+    );
+
+    const cache = createCache<any>(
+      action => {
+        return true;
+      },
+      response => {
+        return true;
+      },
+    );
+
+    const client = createClient({
+      cacheProvider: cache,
+    });
+
+    const queryResponse = await client.query(action);
+    expect(queryResponse.payload).toEqual({ users: [] });
+
+    fetchMock.get(
+      action.endpoint,
+      {
+        users: [
+          {
+            uuid: 1,
+          },
+        ],
+      },
+      { overwriteRoutes: true },
+    );
+
+    const cachedQueryResponse = await client.query(action);
+    expect(cachedQueryResponse.payload).toEqual({ users: [] });
   });
 });

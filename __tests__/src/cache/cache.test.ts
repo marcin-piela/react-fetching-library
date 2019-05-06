@@ -16,7 +16,7 @@ describe('cache', () => {
 
   it('allows to add entry to cache storage', async () => {
     cache.add(testAction, { data: '/foo' });
-    expect(Object.values(cache.items).length).toEqual(1);
+    expect(Object.values(cache.getItems()).length).toEqual(1);
   });
 
   it('allows to get entry from cache', async () => {
@@ -27,10 +27,15 @@ describe('cache', () => {
   it('allows to remove entry from cache', async () => {
     cache.add(testAction, { data: '/foo' });
     cache.remove(testAction);
-    expect(Object.values(cache.items).length).toEqual(0);
+    expect(Object.values(cache.getItems()).length).toEqual(0);
   });
 
-  it('auto removes entry from cache when item is not valid', async () => {});
+  it('allows to set cache items', async () => {
+    cache.add(testAction, { data: '/foo' });
+    expect(Object.values(cache.getItems()).length).toEqual(1);
+    cache.setItems({});
+    expect(Object.values(cache.getItems()).length).toEqual(0);
+  });
 
   it('allows to specify cache options', async () => {
     const cacheWithOptions = createCache(

@@ -1,12 +1,26 @@
 import App, { Container } from 'next/app';
 import 'isomorphic-unfetch';
 
-import { ClientContextProvider } from "react-fetching-library";
-import client from '../client';
+import { ClientContextProvider } from 'react-fetching-library';
+import client from '../api/client';
 
 class MyApp extends App {
-  render () {
-    const { Component, pageProps } = this.props
+  static async getInitialProps(appContext) {
+    let appProps = {};
+
+    if (typeof App.getInitialProps === 'function') {
+      appProps = await App.getInitialProps(appContext);
+    }
+
+    return {
+      ...appProps,
+      cacheItems: client.cache.getItems(),
+    };
+  }
+
+  render() {
+    const { Component, pageProps, cacheItems } = this.props;
+    client.cache.setItems(cacheItems);
 
     return (
       <Container>
@@ -14,8 +28,8 @@ class MyApp extends App {
           <Component {...pageProps} />
         </ClientContextProvider>
       </Container>
-    )
+    );
   }
 }
 
-export default MyApp
+export default MyApp;

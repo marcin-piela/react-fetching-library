@@ -1,33 +1,39 @@
-import React from "react";
-import client from "../client";
+import React from 'react';
+import client from '../api/client';
+import { useQuery } from 'react-fetching-library';
 
 const action = {
-  method: "GET",
-  endpoint: "https://private-34f3a-reactapiclient.apiary-mock.com/users"
+  method: 'GET',
+  endpoint: 'https://private-34f3a-reactapiclient.apiary-mock.com/users',
 };
 
-const Users = ({ loading, payload, error, query }) => {
+const Users = () => {
+  const { loading, payload, error, query } = useQuery(action, true);
+
   return (
     <div>
       {loading && <span>Loading</span>}
 
       {error && <span>Error</span>}
 
-      {payload && <span>{payload.length}</span>}
+      {!loading &&
+        payload &&
+        payload.map((user, index) => (
+          <span key={user.uuid}>
+            {index + 1} - {user.firstName} <br />
+            <br />
+          </span>
+        ))}
 
       <button onClick={query}>Reload</button>
     </div>
   );
 };
 
-Users.getInitialProps = async ({ req }) => {
-  // fetch
-  const res = await client.query(action);
+Users.getInitialProps = async () => {
+  await client.query(action);
 
-  // get data from cache
-  console.log(client.cache.get(action));
-
-  return res;
-}
+  return {};
+};
 
 export default Users;

@@ -3517,10 +3517,13 @@ react-error-overlay@5.1.4:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-5.1.4.tgz#88dfb88857c18ceb3b9f95076f850d7121776991"
   integrity sha512-fp+U98OMZcnduQ+NSEiQa4s/XMsbp+5KlydmkbESOw4P69iWZ68ZMFM5a2BuE0FgqPBKApJyRuYHR95jM8lAmg==
 
-react-fetching-library@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/react-fetching-library/-/react-fetching-library-1.1.0.tgz#fc635cc59957a052080e24e01861609624493f50"
-  integrity sha512-UGR0XqYFQ8oWTuLnGJH3/8ksQfSMaxjSx70AyUtvXheim6hMlMvd//mRZc6QICTb2/gXpl7DzsDYn3HGM9iyLQ==
+react-fetching-library@/Users/marcinpiela/Development/react-fetching-library/react-fetching-library-1.1.5.tgz:
+  version "1.1.1"
+  resolved "/Users/marcinpiela/Development/react-fetching-library/react-fetching-library-1.1.5.tgz#e75bb3f09bb3f9b4fc174a8f5540a204525ee27b"
+
+"react-fetching-library@file:../react-fetching-library/react-fetching-library-1.1.4.tgz":
+  version "1.1.1"
+  resolved "file:../react-fetching-library/react-fetching-library-1.1.4.tgz#5341596e4d418b428c922e30d6ef1614f1d4d9cc"
 
 react-is@16.8.6, react-is@^16.8.1:
   version "16.8.6"

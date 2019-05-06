@@ -223,7 +223,8 @@ type Cache<T> = {
   add: (action: Action<any>, value: T) => void;
   remove: (action: Action<any>) => void;
   get: (action: Action<any>) => QueryResponse & { timestamp: number } | undefined;
-  items: { [key: string]: QueryResponse };
+  getItems: () => { [key: string]: QueryResponse };
+  setItems: (items:{ [key: string]: QueryResponse }) => void;
 };
 
 ```
@@ -232,7 +233,7 @@ where `T` is [`QueryResponse`][]
 
 ## Context
 
-You can get [`Client`][] instance in every place in your React application. To do it you have to use `ClientContext`
+You can get [`Client`][] instance in every place in your React application. To do it you have to use `ClientContext`. It returns `query` method and `cache` object when provided.
 
 ```js
 import { useState, useContext, useCallback } from 'react'; 
@@ -395,6 +396,38 @@ const App = () => {
 
 [![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/use-suspense-query-hook?module=/src/App.tsx)
 
+## useCachedResponse 
+
+This hook is used to get response object from cache.
+
+First param of this hook is [`Action`][]
+
+```js
+import { useCachedResponse } from 'react-fetching-library';
+
+const fetchUsersList = {
+  method: 'GET',
+  endpoint: '/users',
+};
+
+export const UsersListContainer = () => {
+  const { payload, error } = useCachedResponse(fetchUsersList);
+
+  return <UsersList error={error} users={payload} />;
+};
+```
+
+## useClient 
+
+This hook is used to get Client instance from ClientContext.
+
+```js
+import { useClient } from 'react-fetching-library';
+
+export const UsersListContainer = () => {
+  const { query, cache } = useClient();
+};
+```
 ---
 
 # FACCs (Function as Child Components)
@@ -468,10 +501,10 @@ const App = () => {
 
 To use react-fetching-library on server side you have to use isomporphic-fetch package ie. https://github.com/developit/unfetch#readme and then use library as in SPA apps.
 
-**Example app for next.js framework (responses are cached for 10s on server side):**
+**Example app for next.js framework (responses are cached for 100s on server side):**
 
-`next.config.js`:
-```
+`next.config.js`: - next.js configuration
+```js
 const withTM = require('next-transpile-modules')
 
 module.exports = withTM({
@@ -479,8 +512,8 @@ module.exports = withTM({
 });
 ```
 
-`client.js`
-```
+`client.js` - client and cache configuration
+```js
 import { createClient, createCache } from "react-fetching-library";
 
 const cache = createCache(
@@ -488,7 +521,7 @@ const cache = createCache(
     return action.method === 'GET';
   },
   (response) => {
-    return new Date().getTime() - response.timestamp < 10000;
+    return new Date().getTime() - response.timestamp < 100000;
   },
 );
 
@@ -500,18 +533,32 @@ export default client;
 
 ```
 
-`pages/_app.js`
+`pages/_app.js` - in this file we're providing saved cache from server to client and initializing client context
 
-```
+```js
 import App, { Container } from 'next/app';
 import 'isomorphic-unfetch';
 
-import { ClientContextProvider } from "react-fetching-library";
-import client from '../client';
+import { ClientContextProvider} from "react-fetching-library";
+import client from '../api/client';
 
 class MyApp extends App {
+  static async getInitialProps (appContext) {
+    let appProps = {}
+
+    if (typeof App.getInitialProps === 'function') {
+        appProps = await App.getInitialProps(appContext)
+    }
+
+    return {
+        ...appProps,
+        cacheItems: client.cache.getItems(),
+    }
+  }
+
   render () {
-    const { Component, pageProps } = this.props
+    const { Component, pageProps, cacheItems } = this.props
+    client.cache.setItems(cacheItems);
 
     return (
       <Container>
@@ -526,41 +573,48 @@ class MyApp extends App {
 export default MyApp
 ```
 
-`pages/index.js`
+`pages/index.js` - in component we're fetching data in `getInitialProps` on server side and then all data are available on client side without additional fetching and everything is rendered by server (no `loading` text in rendered html ;) )
 
-```
-import React from "react";
-import client from "../client";
+```js
+import React, { useContext } from "react";
+import client from "../api/client";
+import { useQuery, ClientContext} from 'react-fetching-library';
 
 const action = {
   method: "GET",
   endpoint: "https://private-34f3a-reactapiclient.apiary-mock.com/users"
 };
 
-const Users = ({ loading, payload, error }) => {
+const Users = () => {
+  const { loading, payload, error, query } = useQuery(action, true);
+
   return (
     <div>
       {loading && <span>Loading</span>}
 
       {error && <span>Error</span>}
 
-      {payload && <span>{payload.length}</span>}
+      {!loading && payload && payload.map((user, index) => (
+        <span key={user.uuid}>
+          {index + 1} - {user.firstName} <br/><br/>
+        </span>
+      ))}
+
+      <button onClick={query}>Reload</button>
     </div>
   );
 };
 
-Users.getInitialProps = async ({ req }) => {
-  // fetch
-  const res = await client.query(action);
+Users.getInitialProps = async () => {
+  await client.query(action);
 
-  // get data from cache
-  console.log(client.cache.get(action));
-
-  return res;
+  return {}
 }
 
 export default Users;
 ```
+
+[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/ssr)
 
 ---
 
@@ -611,7 +665,7 @@ describe('users list test', () => {
           }
         ]
       },
-    });,
+    }),
   };
 
   it('fetches users and returns proper data on success', async () => {
@@ -705,6 +759,12 @@ For an example of useSuspenseQuery (to see powerful of react suspense, you can s
 For an example of simple caching responses view this CodeSandbox (Typescript, CRA, Material-UI):
 
 [![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/cache-provider?module=/src/api/Client.ts)
+
+## SSR
+
+For an example of SSR with next.js framework view this CodeSandbox:
+
+[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/ssr)
 
 
 ---
