@@ -11,6 +11,8 @@ export type HandleResponseInterceptors<R> = (
   interceptors: Array<ResponseInterceptor<R, any>>,
 ) => Promise<QueryResponse<any>>;
 
+const emptyCodes = [204, 205];
+
 export const createClient = <R = any>(clientOptions: ClientOptions<R>) => {
   const cache = clientOptions.cacheProvider;
 
@@ -59,12 +61,15 @@ export const createClient = <R = any>(clientOptions: ClientOptions<R>) => {
           window: options.window,
         });
 
+        const contentType = response.headers.get('Content-Type');
+        const isJSON = emptyCodes.indexOf(response.status) === -1 && contentType && contentType.indexOf('json') !== -1;
+
         const queryResponse = await handleResponseInterceptors(
           action,
           {
             error: !response.ok,
             headers: response.headers,
-            payload: await response.json(),
+            payload: isJSON ? await response.json() : await response.text(),
             status: response.status,
           },
           clientOptions.responseInterceptors || [],

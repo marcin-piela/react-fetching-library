@@ -25,6 +25,23 @@ describe('Client test', () => {
     queryResponse.headers && expect(queryResponse.headers.get('Content-Length')).toEqual('12');
   });
 
+  it('responses correctly for empty API response', async () => {
+    const action: Action = {
+      method: 'GET',
+      endpoint: 'http://example.com/204',
+    };
+
+    fetchMock.get(action.endpoint, async () => '');
+
+    const client = createClient({});
+
+    const queryResponse = await client.query(action);
+
+    expect(queryResponse.payload).toEqual('');
+    expect(queryResponse.status).toEqual(200);
+    expect(queryResponse.error).toEqual(false);
+  });
+
   it('responses with queryResponse object containing error flag true on failed fetch', async () => {
     const action: Action = {
       method: 'GET',

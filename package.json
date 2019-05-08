@@ -1,6 +1,6 @@
 {
   "name": "react-fetching-library",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Simple and powerful API client for react. Use hooks or FACC's to fetch data in easy way. No dependencies! Just react under the hood.",
   "main": "lib/index.js",
   "files": [
