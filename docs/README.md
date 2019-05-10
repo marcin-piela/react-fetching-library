@@ -503,15 +503,6 @@ To use react-fetching-library on server side you have to use isomporphic-fetch p
 
 **Example app for next.js framework (responses are cached for 100s on server side):**
 
-`next.config.js`: - next.js configuration
-```js
-const withTM = require('next-transpile-modules')
-
-module.exports = withTM({
-  transpileModules: ['react-fetching-library']
-});
-```
-
 `client.js` - client and cache configuration
 ```js
 import { createClient, createCache } from "react-fetching-library";
