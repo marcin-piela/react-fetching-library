@@ -605,7 +605,7 @@ Users.getInitialProps = async () => {
 export default Users;
 ```
 
-[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/ssr)
+[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/ssr-nextjs)
 
 ---
 
@@ -755,7 +755,7 @@ For an example of simple caching responses view this CodeSandbox (Typescript, CR
 
 For an example of SSR with next.js framework view this CodeSandbox:
 
-[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/ssr)
+[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/ssr-nextjs)
 
 
 ---
