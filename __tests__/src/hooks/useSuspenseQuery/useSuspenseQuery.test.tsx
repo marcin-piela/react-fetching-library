@@ -45,7 +45,7 @@ describe('useSuspenseQuery test', () => {
       },
     );
 
-    expect(state).toEqual({});
+    expect(state.payload).toEqual(undefined);
 
     rerender();
 
