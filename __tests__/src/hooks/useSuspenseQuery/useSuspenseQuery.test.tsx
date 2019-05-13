@@ -67,6 +67,8 @@ describe('useSuspenseQuery test', () => {
       foo: 'bar',
     });
 
+    expect(fetchFunction).toHaveBeenCalledTimes(2);
+
     unmount();
   });
 });
