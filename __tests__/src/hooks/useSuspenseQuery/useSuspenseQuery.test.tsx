@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { renderHook } from 'react-hooks-testing-library';
+import { renderHook, act } from 'react-hooks-testing-library';
 
 import { useSuspenseQuery } from '../../../../src/hooks/useSuspenseQuery/useSuspenseQuery';
 import { Action, QueryResponse } from '../../../../src/client/client.types';
@@ -45,7 +45,7 @@ describe('useSuspenseQuery test', () => {
       },
     );
 
-    expect(state).toEqual({});
+    expect(state.payload).toEqual(undefined);
 
     rerender();
 
@@ -56,6 +56,18 @@ describe('useSuspenseQuery test', () => {
     });
 
     expect(fetchFunction).toHaveBeenCalledTimes(1);
+
+    act(() => {
+      state.query();
+    })
+    
+    rerender();
+
+    expect(state.payload).toEqual({
+      foo: 'bar',
+    });
+
+    expect(fetchFunction).toHaveBeenCalledTimes(2);
 
     unmount();
   });
