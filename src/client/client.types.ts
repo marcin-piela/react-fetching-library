@@ -2,6 +2,10 @@ import { Cache } from '../cache/cache.types';
 
 type Method = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS';
 
+export type ActionConfig = {
+  throwErrorForStatuses?: number[];
+};
+
 export type Action<T = any> = {
   endpoint: string;
   method: Method;
@@ -17,6 +21,7 @@ export type Action<T = any> = {
   redirect?: RequestRedirect;
   signal?: AbortSignal | null;
   window?: any;
+  config?: ActionConfig;
 } & T;
 
 export type QueryResponse<T = any> = {

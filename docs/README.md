@@ -93,8 +93,7 @@ const client = createClient(options);
 | cache         | cacheProvider object when provided in client options | 
 
 ```js
-import Action from 'react-fetching-library';
-
+import { Action } from 'react-fetching-library';
 const action:Action= { 
   method: 'GET',
   endpoint: '/users',

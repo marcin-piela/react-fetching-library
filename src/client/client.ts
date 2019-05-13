@@ -1,4 +1,5 @@
 import { Action, ClientOptions, QueryResponse, RequestInterceptor, ResponseInterceptor } from './client.types';
+import { QueryError } from './errors/QueryError';
 
 export type HandleRequestInterceptors<R> = (
   action: Action<R>,
@@ -75,8 +76,18 @@ export const createClient = <R = any>(clientOptions: ClientOptions<R>) => {
           clientOptions.responseInterceptors || [],
         );
 
-        if (cache) {
+        if (cache && response.ok) {
           cache.add(action, queryResponse);
+        }
+
+        if (
+          queryResponse.status &&
+          action.config &&
+          action.config.throwErrorForStatuses &&
+          action.config.throwErrorForStatuses.includes(queryResponse.status)
+        ) {
+          const error = new QueryError('request-error', queryResponse.status);
+          throw error;
         }
 
         return queryResponse;
