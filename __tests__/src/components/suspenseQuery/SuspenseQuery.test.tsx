@@ -46,7 +46,7 @@ describe('SuspenseQuery test', () => {
 
     await waitForElement(() => getByText('loaded'));
 
-    expect(children).toHaveBeenCalledWith({ error: false, payload: { foo: 'bar' }, status: 200 });
+    expect(children).toHaveBeenCalledWith(expect.objectContaining({payload: { foo: 'bar' }}));
 
     unmount();
   });
