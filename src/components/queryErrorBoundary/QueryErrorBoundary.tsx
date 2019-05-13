@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
-import { ErrorQueryBoundaryState, ErrorQueryBoundaryProps } from './QueryErrorBoundary.types';
 import { QueryError } from '../../client/errors/QueryError';
+import { ErrorQueryBoundaryProps, ErrorQueryBoundaryState } from './QueryErrorBoundary.types';
 
 export class QueryErrorBoundary extends Component<ErrorQueryBoundaryProps, ErrorQueryBoundaryState> {
+  static getDerivedStateFromError(error: Error) {
+    if (error instanceof QueryError) {
+      return { hasError: true, status: error.status };
+    }
+  }
   state: ErrorQueryBoundaryState = {
     hasError: false,
   };
@@ -10,12 +15,6 @@ export class QueryErrorBoundary extends Component<ErrorQueryBoundaryProps, Error
   constructor(props: ErrorQueryBoundaryProps) {
     super(props);
     this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError(error: Error) {
-    if (error instanceof QueryError) {
-      return { hasError: true, status: error.status };
-    }
   }
 
   render() {
