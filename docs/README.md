@@ -371,9 +371,9 @@ const fetchUsersList = {
 };
 
 export const UsersListContainer = () => {
-  const { payload, error } = useSuspenseQuery(fetchUsersList);
+  const { payload, error, query } = useSuspenseQuery(fetchUsersList);
 
-  return <UsersList error={error} users={payload} />;
+  return <UsersList error={error} users={payload} onReload={query} />;
 };
 
 ```
@@ -471,8 +471,8 @@ const fetchUsersList = {
 
 export const UsersListContainer = () => (
   <SuspenseQuery action={fetchUsersList}>
-    {({ error, payload }) => (
-      <UsersList error={error} users={payload} />
+    {({ error, payload, query }) => (
+      <UsersList error={error} users={payload} onReload={query} />
     )}
   </Query>
 );
