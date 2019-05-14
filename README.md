@@ -25,7 +25,7 @@ Simple and powerful fetching library for React. Use hooks to fetch data!
 
 ✅ Request and response interceptors allows to easily customize connection with API
 
-✅ React Suspense support 
+✅ React Suspense support ([experimental *](#using-suspense-to-fetch-data))
 
 ✅ TypeScript support 
 
@@ -82,6 +82,11 @@ export const UsersListContainer = () => {
 Fell free to open PRs and issues to make this library better !
 
 When making a PR, make sure all tests pass. If you add a new feature, please consider updating the documentation or codesandbox examples. Thank you!
+
+## Using Suspense to fetch data
+
+For now React Suspense is not production ready to use it for fetch data as described [here](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-mid-2019-the-one-with-suspense-for-data-fetching), so API of our component/hook may change in the future. 
+
 
 ## License
 

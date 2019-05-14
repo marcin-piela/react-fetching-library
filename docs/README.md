@@ -15,7 +15,7 @@ __react-fetching-library__ -  simple and powerful fetching library for React. Us
 
 ✅ Request and response interceptors allows to easily customize connection with API
 
-✅ React Suspense support 
+✅ React Suspense support ([experimental *](#using-suspense-to-fetch-data))
 
 ✅ TypeScript support 
 
@@ -763,7 +763,7 @@ For an example of SSR with next.js framework view this CodeSandbox:
 
 ## Using Suspense to fetch data
 
-For now React Suspense is not production ready to use it for fetch data as described [here](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-mid-2019-the-one-with-suspense-for-data-fetching), so API of our component/hook may change in the future. For now we're using our cache implementation instead of `react-cache` and everything is tested well.
+For now React Suspense is not production ready to use it for fetch data as described [here](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-mid-2019-the-one-with-suspense-for-data-fetching), so API of our component/hook may change in the future.
 
 [`Client`]: #client
 [`ClientContext`]: #context

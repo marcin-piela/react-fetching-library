@@ -8,7 +8,7 @@
 
 - Simple and lightweight (~2.2kB minizipped)
 - No dependencies, just React
-- hooks and FACCs, React Suspense support
+- hooks and FACCs, Experimental React Suspense support
 - SSR support
 - TypeScript support
 
