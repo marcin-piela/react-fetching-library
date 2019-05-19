@@ -3,7 +3,7 @@ import { Cache } from '../cache/cache.types';
 type Method = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS';
 
 export type ActionConfig = {
-  throwErrorForStatuses?: number[];
+  emitErrorForStatuses?: number[];
 };
 
 export type Action<T = any> = {

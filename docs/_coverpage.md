@@ -9,8 +9,8 @@
 - Simple and lightweight (~2.2kB minizipped)
 - No dependencies, just React
 - hooks and FACCs, Experimental React Suspense support
-- SSR support
-- TypeScript support
+- Error boundaries to catch errors
+- SSR and TypeScript support
 
 [GitHub](https://github.com/marcin-piela/react-fetching-library)
 [Get Started](#getting-started)

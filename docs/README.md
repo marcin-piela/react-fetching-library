@@ -19,7 +19,9 @@ __react-fetching-library__ -  simple and powerful fetching library for React. Us
 
 ✅ TypeScript support 
 
-✅ 2.2k minizipped
+✅ Error boundaries to catch bad API responses
+
+✅ Less than 3k minizipped
 
 ✅ Simple cache provider - easily to extend
 
@@ -296,6 +298,14 @@ const fetchUsersActions = {
 | redirect | - | [RequestRedirect](https://developer.mozilla.org/en-US/docs/Web/API/Request/redirect)         | no 
 | signal | - | [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) / null         | no 
 | window | - | any         | no 
+| config | additional config of action | see below         | no 
+
+
+### Config object:
+
+| option      | description   | type | required |
+| ------------------------- | ------------------ | ------------- | ------------- |
+| emitErrorForStatuses         | list of HTTP status codes which throw error to allow to catch it in error boundary       | number[] | no               |
 
 ---
 
@@ -492,6 +502,127 @@ const App = () => {
     </ClientContextProvider>
   );
 };
+```
+
+---
+
+# Error boundaries
+
+[See React documentation first](https://reactjs.org/docs/error-boundaries.html).
+
+If you want to use Error Boundary to easily handle API errors like 404, you can use QueryErrorBoundary in the three:
+
+```js
+import { ClientContextProvider, QueryErrorBoundary } from 'react-fetching-library';
+
+const App = () => (
+  <QueryErrorBoundary
+    statuses={[404]}
+    fallback={(response, restart) => (
+      <div>
+        Error {response.status} :(
+        <span onClick={restart}>Click here to try again</span>
+      </div>
+    )}
+  >
+    <UserProfile/>
+  </QueryErrorBoundary>
+);
+```
+
+And action inside `UserProfile` has to be configured with `config.emitErrorForStatuses` key i.e:
+
+```js
+export const fetchUserProfile = (profile) => ({
+  method: 'GET',
+  endpoint: `/profile/${profile}`,
+  config: {
+    emitErrorForStatuses: [404],
+  },
+});
+```
+
+Please remember that only actions fired with hooks or components can throw errors based on `config.emitErrorForStatuses`, when you use `client.query` directly:
+
+```js
+const { query } = useClient();
+
+const handleSubmit = async () => {
+  const response = await query(action);
+}
+```
+
+you have to throw error manually:
+
+```js
+export const UsersListContainer = () => {
+  const [error, setError] = useState<QueryError | undefined>(undefined);
+  const { query } = useClient();
+
+  const handleSubmit = async () => {
+    const response = await query(fetchUsersList);
+  
+    if (response.error && response.errorObject && response.errorObject instanceof QueryError) {
+      setError(response.errorObject);
+    }
+  }
+
+  if (error) {
+    throw error;
+  }
+
+  return (
+    <div>
+      <span onClick={handleSubmit}>Query</span>
+    </div>
+  );
+};
+```
+
+You can create your own ErrorBoundary, all you have to do is catch `QueryError` error.
+
+```js
+
+import React, { Component } from 'react';
+import { QueryError } from 'react-fetching-library';
+
+export class QueryErrorBoundary extends Component {
+  static getDerivedStateFromError(error) {
+    if (error instanceof QueryError) {
+      return { hasError: true, response: error.response };
+    }
+  }
+
+  state = {
+    hasError: false,
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, response: undefined };
+  }
+
+  restart = () => {
+    this.setState({
+      hasError: false,
+      response: undefined,
+    });
+  };
+
+  render() {
+    if (
+      this.state.hasError &&
+      this.state.response &&
+      this.state.response.status &&
+      this.props.statuses.includes(this.state.response.status)
+    ) {
+      return this.props.fallback(this.state.response, this.restart);
+    }
+
+    return this.props.children;
+  }
+}
+
 ```
 
 ---

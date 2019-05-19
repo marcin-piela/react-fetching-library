@@ -83,11 +83,10 @@ export const createClient = <R = any>(clientOptions: ClientOptions<R>) => {
         if (
           queryResponse.status &&
           action.config &&
-          action.config.throwErrorForStatuses &&
-          action.config.throwErrorForStatuses.includes(queryResponse.status)
+          action.config.emitErrorForStatuses &&
+          action.config.emitErrorForStatuses.includes(queryResponse.status)
         ) {
-          const error = new QueryError('request-error', queryResponse.status);
-          throw error;
+          throw new QueryError('request-error', queryResponse);
         }
 
         return queryResponse;

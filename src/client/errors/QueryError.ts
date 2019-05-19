@@ -1,9 +1,14 @@
-export class QueryError extends Error {
-  status?: number;
+import { QueryResponse } from '../client.types';
 
-  constructor(message: string, status?: number) {
+export class QueryError extends Error {
+  response: QueryResponse;
+
+  constructor(message: string, response: QueryResponse) {
     super(message);
+
+    Object.setPrototypeOf(this, QueryError.prototype);
+
     this.name = 'QueryError';
-    this.status = status;
+    this.response = response;
   }
 }

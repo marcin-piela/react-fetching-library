@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { createCache } from '../../cache/cache';
 import { Action, QueryResponse } from '../../client/client.types';
+import { QueryError } from '../../client/errors/QueryError';
 import { ClientContext } from '../../context/clientContext';
 
 type CacheItem = {
@@ -32,6 +33,10 @@ export const useSuspenseQuery = <T, R = any>(action: Action<R>) => {
 
   if (cacheItem) {
     if (cacheItem.response) {
+      if (cacheItem.response.errorObject && cacheItem.response.errorObject instanceof QueryError) {
+        throw cacheItem.response.errorObject;
+      }
+
       return {
         ...(cacheItem.response as QueryResponse<T>),
         query: forceQuery,

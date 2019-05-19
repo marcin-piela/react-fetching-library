@@ -5,21 +5,34 @@ import { ErrorQueryBoundaryProps, ErrorQueryBoundaryState } from './QueryErrorBo
 export class QueryErrorBoundary extends Component<ErrorQueryBoundaryProps, ErrorQueryBoundaryState> {
   static getDerivedStateFromError(error: Error) {
     if (error instanceof QueryError) {
-      return { hasError: true, status: error.status };
+      return { hasError: true, response: error.response };
     }
   }
+
   state: ErrorQueryBoundaryState = {
     hasError: false,
   };
 
   constructor(props: ErrorQueryBoundaryProps) {
     super(props);
-    this.state = { hasError: false };
+    this.state = { hasError: false, response: undefined };
   }
 
+  restart = () => {
+    this.setState({
+      hasError: false,
+      response: undefined,
+    });
+  };
+
   render() {
-    if (this.state.hasError && this.state.status && this.props.statuses.includes(this.state.status)) {
-      return this.props.fallback(this.state.status);
+    if (
+      this.state.hasError &&
+      this.state.response &&
+      this.state.response.status &&
+      this.props.statuses.includes(this.state.response.status)
+    ) {
+      return this.props.fallback(this.state.response, this.restart);
     }
 
     return this.props.children;
