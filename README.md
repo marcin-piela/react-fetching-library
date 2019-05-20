@@ -29,7 +29,9 @@ Simple and powerful fetching library for React. Use hooks to fetch data!
 
 ✅ TypeScript support 
 
-✅ 2.2k minizipped
+✅ Error boundaries to catch bad API responses
+
+✅ Less than 3k minizipped
 
 ✅ Simple cache provider - easily to extend
 

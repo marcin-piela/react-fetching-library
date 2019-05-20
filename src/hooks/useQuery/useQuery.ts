@@ -1,6 +1,7 @@
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 
 import { Action, QueryResponse } from '../../client/client.types';
+import { QueryError } from '../../client/errors/QueryError';
 import { ClientContext } from '../../context/clientContext';
 import { useCachedResponse } from '../useCachedResponse/useCachedResponse';
 
@@ -43,6 +44,10 @@ export const useQuery = <T = any, R = {}>(action: Action<R>, initFetch = true) =
     setLoading(false);
     setResponse(queryResponse);
   };
+
+  if (response && response.errorObject && response.errorObject instanceof QueryError) {
+    throw response.errorObject;
+  }
 
   return {
     loading: isLoading,
