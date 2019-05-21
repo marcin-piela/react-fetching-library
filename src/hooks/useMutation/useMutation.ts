@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect, useReducer, useRef } from 'react';
 
-import { Action } from '../../client/client.types';
+import { Action, QueryResponse } from '../../client/client.types';
 import { QueryError } from '../../client/errors/QueryError';
 import { ClientContext } from '../../context/clientContext';
 import { responseReducer, SET_LOADING, SET_RESPONSE } from '../../reducers/responseReducer';
@@ -28,7 +28,7 @@ export const useMutation = <T = any, R = {}, S = any>(actionCreator: ActionCreat
   const handleQuery = useCallback(
     async (...params: Parameters<typeof actionCreator>) => {
       if (!isMounted.current) {
-        return;
+        return { error: false } as QueryResponse<T>;
       }
 
       dispatch({ type: SET_LOADING });
@@ -38,6 +38,8 @@ export const useMutation = <T = any, R = {}, S = any>(actionCreator: ActionCreat
       if (isMounted.current) {
         dispatch({ type: SET_RESPONSE, response: queryResponse });
       }
+
+      return queryResponse;
     },
     [actionCreator],
   );

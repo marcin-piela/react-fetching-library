@@ -1,11 +1,10 @@
-import { ReactNode } from 'react';
 import { Action, QueryResponse } from '../../client/client.types';
 
 type ActionCreator<S, R> = (action: S) => Action<R>;
 
 export type MutationApi<T, S> = {
   loading: boolean;
-  mutate: (action: S) => Promise<void>;
+  mutate: (action: S) => Promise<QueryResponse<T>>;
 } & QueryResponse<T>;
 
 export type MutationProps<T, R, S> = {

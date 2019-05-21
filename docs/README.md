@@ -420,12 +420,12 @@ const addUserAction = (formValues) => ({
 });
 
 export const AddUserFormContainer = () => {
-  const { loading, payload, error, errorObject, mutate } = useMutation(addUserAction);
+  const { loading, payload, mutate, error } = useMutation(addUserAction);
 
   const handleSubmit = async (formValues) => {
-    await mutate(formValues);
+    const { error: mutateError } = await mutate(formValues);
 
-    if (error) {
+    if (mutateError) {
       //show ie. notification
     }
 
