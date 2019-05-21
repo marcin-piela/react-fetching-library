@@ -1,47 +1,48 @@
 import { useCallback, useContext, useEffect, useReducer, useRef } from 'react';
 
-import { Action } from '../../client/client.types';
+import { Action, QueryResponse } from '../../client/client.types';
 import { QueryError } from '../../client/errors/QueryError';
 import { ClientContext } from '../../context/clientContext';
 import { responseReducer, SET_LOADING, SET_RESPONSE } from '../../reducers/responseReducer';
 import { ResponseReducer } from '../../reducers/responseReducer.types';
-import { useCachedResponse } from '../useCachedResponse/useCachedResponse';
 
-export const useQuery = <T = any, R = {}>(action: Action<R>, initFetch = true) => {
+type ActionCreator<S, R> = (action: S) => Action<R>;
+
+export const useMutation = <T = any, R = {}, S = any>(actionCreator: ActionCreator<S, R>) => {
   const clientContext = useContext(ClientContext);
-  const cachedResponse = useCachedResponse<T>(action);
   const isMounted = useRef(true);
 
   const [state, dispatch] = useReducer(responseReducer as ResponseReducer<T>, {
-    loading: cachedResponse ? false : initFetch,
-    response: cachedResponse ? cachedResponse : { error: false },
+    loading: false,
+    response: { error: false },
   });
 
   useEffect(() => {
     isMounted.current = true;
 
-    if (initFetch && !cachedResponse) {
-      handleQuery();
-    }
-
     return () => {
       isMounted.current = false;
     };
-  }, [action]);
+  }, []);
 
-  const handleQuery = useCallback(async () => {
-    if (!isMounted.current) {
-      return;
-    }
+  const handleQuery = useCallback(
+    async (...params: Parameters<typeof actionCreator>) => {
+      if (!isMounted.current) {
+        return { error: false } as QueryResponse<T>;
+      }
 
-    dispatch({ type: SET_LOADING });
+      dispatch({ type: SET_LOADING });
 
-    const queryResponse = await clientContext.query<T>(action);
+      const queryResponse = await clientContext.query<T>(actionCreator(...params));
 
-    if (isMounted.current) {
-      dispatch({ type: SET_RESPONSE, response: queryResponse });
-    }
-  }, [action]);
+      if (isMounted.current) {
+        dispatch({ type: SET_RESPONSE, response: queryResponse });
+      }
+
+      return queryResponse;
+    },
+    [actionCreator],
+  );
 
   if (state.response && state.response.errorObject && state.response.errorObject instanceof QueryError) {
     throw state.response.errorObject;
@@ -49,7 +50,7 @@ export const useQuery = <T = any, R = {}>(action: Action<R>, initFetch = true) =
 
   return {
     loading: state.loading,
-    query: handleQuery,
+    mutate: handleQuery,
     ...state.response,
   };
 };
