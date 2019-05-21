@@ -16,7 +16,7 @@ describe('responseReducers', () => {
     });
   });
 
-  it('sets response object  on SET_ACTIVE_APPLICATION action', async () => {
+  it('sets response object on SET_RESPONSE action', async () => {
     expect(responseReducer(defaultState, { type: SET_RESPONSE, response: testResponse })).toEqual({
       response: testResponse,
       loading: false,
