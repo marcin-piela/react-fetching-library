@@ -405,6 +405,37 @@ const App = () => {
 
 [![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/use-suspense-query-hook?module=/src/App.tsx)
 
+## useMutation
+
+This hook is used when you need to mutate data, ie for POST/PATCH/PUT actions. 
+First param of this hook is function which returns [`Action`][] object. All params of this function have to be provided in returned `mutate` function. Hook returns loading flag, response payload, error flag and errorObject as well.
+
+```js
+import { useMutation } from 'react-fetching-library';
+
+const addUserAction = (formValues) => ({
+  method: 'POST',
+  endpoint: '/users',
+  body: formValues,
+});
+
+export const AddUserFormContainer = () => {
+  const { loading, payload, error, errorObject, mutate } = useMutation(addUserAction);
+
+  const handleSubmit = async (formValues) => {
+    await mutate(formValues);
+
+    if (error) {
+      //show ie. notification
+    }
+
+    //success
+  }
+
+  return <AddUserForm loading={loading} error={error} onSubmit={handleSubmit} />;
+};
+```
+
 ## useCachedResponse 
 
 This hook is used to get response object from cache.
@@ -460,7 +491,6 @@ export const UsersListContainer = () => (
     )}
   </Query>
 );
-
 ```
 
 [![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/query-facc?module=/src/usersList/UsersListContainer.tsx)
@@ -502,6 +532,28 @@ const App = () => {
     </ClientContextProvider>
   );
 };
+```
+
+## Mutation
+
+Higher Order Component to fire mutate action like POST/PUT/PATCH. The prop `actionCreator` is the function which returns `Action` object.
+
+```js
+import { Mutation } from 'react-fetching-library';
+
+const addUserAction = (formValues) => ({
+  method: 'POST',
+  endpoint: '/users',
+  body: formValues,
+});
+
+export const AddUserFormContainer = () => (
+  <Mutation actionCreator={addUserAction}>
+    {({ loading, error, payload, mutate }) => (
+      <AddUserForm loading={loading} error={error} onSubmit={formValues => mutate(formValues)} />
+    )}
+  </Mutation>
+);
 ```
 
 ---
