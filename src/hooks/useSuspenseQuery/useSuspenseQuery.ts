@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { createCache } from '../../cache/cache';
 import { Action, QueryResponse } from '../../client/client.types';
 import { QueryError } from '../../client/errors/QueryError';
-import { ClientContext } from '../../context/clientContext';
+import { ClientContext } from '../../context/clientContext/clientContext';
 
 type CacheItem = {
   fetch: any;

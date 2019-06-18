@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-import { Client } from '../client/client.types';
+import { Client } from '../../client/client.types';
 import { ClientContext } from './clientContext';
 
 export const ClientContextProvider = ({ client, children }: { client: Client; children: ReactNode }) => {

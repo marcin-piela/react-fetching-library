@@ -25,6 +25,8 @@ __react-fetching-library__ -  simple and powerful fetching library for React. Us
 
 ✅ Simple cache provider - easily to extend
 
+✅ Bult-in contexts to easily pass data down to child components
+
 ## Installation
 
 __react-fetching-library__ requires react and react-dom version 16.8 or higher.
@@ -468,6 +470,81 @@ export const UsersListContainer = () => {
   const { query, cache } = useClient();
 };
 ```
+
+## useQueryContext
+
+This hook is used to get all information from `useQuery` hook from child component. First you need to add context provider in parent component:
+
+```js
+import { useQuery, QueryContext } from 'react-fetching-library';
+
+const fetchUsersList = {
+  method: 'GET',
+  endpoint: '/users',
+};
+
+export const UsersListContainer = () => {
+  const query = useQuery(fetchUsersList);
+
+  return (
+    <QueryContext.Provider value={query}>
+      <UsersList />
+    </QueryContext.Provider>
+  );
+};
+```
+
+And use `useQueryContext` in child component:
+
+```js
+import {  useQueryContext } from 'react-fetching-library';
+
+export const UsersList = () => {
+  const { loading, payload, error, query } = useQueryContext();
+  .
+  .
+  .
+};
+
+```
+
+## useMutationContext
+
+This hook is used to get all information from `useMutation` hook from child component. First you need to add context provider in parent component:
+
+```js
+import { useMutation, MutationContext } from 'react-fetching-library';
+
+const addUser = (values) => ({
+  method: 'POST',
+  endpoint: '/users',
+  body: values,
+});
+
+export const AddUserContainer = () => {
+  const mutation = useMutation(addUser);
+
+  return (
+    <MutationContext.Provider value={mutation}>
+      <AddUserForm />
+    </MutationContext.Provider>
+  );
+};
+```
+
+And use `useMutationContext` in child component:
+
+```js
+import {  useMutationContext } from 'react-fetching-library';
+
+export const AddUserForm = () => {
+  const { loading, payload, error, mutate } = useMutationContext();
+  .
+  .
+  .
+};
+
+```
 ---
 
 # FACCs (Function as Child Components)
@@ -820,7 +897,7 @@ You've got 2 ways to do it. First is to mock [`ClientContext`][] in the followin
 
 ```js
 import React from 'react';
-import { act, render } from 'react-testing-library';
+import { act, render } from '@testing-library/react';
 import { ClientContextProvider } from 'react-fetching-library';
 
 import { UsersListContainer } from './UsersListContainer';
@@ -865,7 +942,7 @@ Second way (recommended) is to use [`fetch-mock`](https://github.com/wheresrhys/
 
 ```js
 import React from 'react';
-import { act, render } from 'react-testing-library';
+import { act, render } from '@testing-library/react';
 import fetchMock from 'fetch-mock';
 
 import { UsersListContainer } from './UsersListContainer';

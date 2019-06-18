@@ -1,8 +1,8 @@
 import { useCallback, useContext, useEffect, useReducer, useRef } from 'react';
 
-import { Action } from '../../client/client.types';
+import { Action, QueryResponse } from '../../client/client.types';
 import { QueryError } from '../../client/errors/QueryError';
-import { ClientContext } from '../../context/clientContext';
+import { ClientContext } from '../../context/clientContext/clientContext';
 import { responseReducer, SET_LOADING, SET_RESPONSE } from '../../reducers/responseReducer';
 import { ResponseReducer } from '../../reducers/responseReducer.types';
 import { useCachedResponse } from '../useCachedResponse/useCachedResponse';
@@ -31,7 +31,7 @@ export const useQuery = <T = any, R = {}>(action: Action<R>, initFetch = true) =
 
   const handleQuery = useCallback(async () => {
     if (!isMounted.current) {
-      return;
+      return { error: false } as QueryResponse<T>;
     }
 
     dispatch({ type: SET_LOADING });
@@ -41,6 +41,8 @@ export const useQuery = <T = any, R = {}>(action: Action<R>, initFetch = true) =
     if (isMounted.current) {
       dispatch({ type: SET_RESPONSE, response: queryResponse });
     }
+
+    return queryResponse;
   }, [action]);
 
   if (state.response && state.response.errorObject && state.response.errorObject instanceof QueryError) {

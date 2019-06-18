@@ -35,6 +35,8 @@ Simple and powerful fetching library for React. Use hooks to fetch data!
 
 ✅ Simple cache provider - easily to extend
 
+✅ Bult-in contexts to easily pass data down to child components
+
 ---
 
 # react-fetching-library
