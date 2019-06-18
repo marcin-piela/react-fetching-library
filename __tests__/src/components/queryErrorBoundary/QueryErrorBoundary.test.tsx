@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitForElement, fireEvent, act } from 'react-testing-library';
+import { render, waitForElement, fireEvent, act } from '@testing-library/react';
 import fetchMock from 'fetch-mock';
 
 import { createClient } from '../../../../src/client/client';
@@ -7,7 +7,7 @@ import { QueryErrorBoundary } from '../../../../src/components/queryErrorBoundar
 import { Query } from '../../../../src/components/query/Query';
 import { Mutation } from '../../../../src/components/mutation/Mutation';
 import { Action } from '../../../../src/client/client.types';
-import { ClientContextProvider } from '../../../../src/context/clientContextProvider';
+import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
 
 beforeEach(() => {
   jest.spyOn(console, 'error').mockImplementation(() => {});
@@ -30,8 +30,9 @@ describe('queryErrorBoundary test', () => {
 
   const wrapper = ({ children }: any) => <ClientContextProvider client={client}>{children}</ClientContextProvider>;
 
-  it('caught error and displays fallback for useQuery', async () => {
+  it('catches error and displays fallback for useQuery', async () => {
     const children = jest.fn(({ loading }) => (loading ? 'loading' : 'loaded'));
+
     const fallback = jest.fn((response, restart) => (
       <span data-testid="restart" onClick={restart}>
         fallback
@@ -55,17 +56,27 @@ describe('queryErrorBoundary test', () => {
     expect(getByText('loading')).toBeTruthy();
   });
 
-  it('caught error and displays fallback for useMutation', async () => {
-    const children = jest.fn(({ mutate, loading }) => (loading ? 'loading' : <span data-testid="mutate" onClick={mutate}>Mutate</span>));
-    const fallback = jest.fn((response, restart) => (
-      <span test-id="restart" onClick={restart}>
-        fallback
-      </span>
-    ));
-
+  it('catches error and displays fallback for useMutation', async () => {
     const { getByText, getByTestId } = render(
-      <QueryErrorBoundary statuses={[200]} fallback={fallback}>
-        <Mutation actionCreator={() => action}>{children}</Mutation>
+      <QueryErrorBoundary
+        statuses={[200]}
+        fallback={(response, restart) => (
+          <span data-test-id="restart" onClick={restart}>
+            fallback
+          </span>
+        )}
+      >
+        <Mutation actionCreator={() => action}>
+          {({ mutate, loading }) =>
+            loading ? (
+              'loading'
+            ) : (
+              <span data-testid="mutate" onClick={mutate}>
+                mutate
+              </span>
+            )
+          }
+        </Mutation>
       </QueryErrorBoundary>,
       {
         wrapper: wrapper,
@@ -74,15 +85,13 @@ describe('queryErrorBoundary test', () => {
 
     act(() => {
       fireEvent.click(getByTestId('mutate'));
-    })
+    });
 
-    expect(getByText('loading')).toBeTruthy();
-
+    await waitForElement(() => getByText('loading'));
     await waitForElement(() => getByText('fallback'));
-    expect(getByText('fallback')).toBeTruthy();
 
     // Check restart function
     fireEvent.click(getByText('fallback'));
-    expect(getByText('loading')).toBeTruthy();
+    await waitForElement(() => getByText('mutate'));
   });
 });

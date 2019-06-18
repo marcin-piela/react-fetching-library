@@ -17,7 +17,7 @@ module.exports = {
     '!src/index.ts',
     '!src/hooks/index.ts',
     '!src/components/index.ts',
-    '!src/context/clientContext.ts',
+    '!src/context/**/*Context.ts',
   ],
   coverageDirectory: './coverage/',
   collectCoverage: true,

@@ -1,9 +1,9 @@
 import React from 'react';
-import { render, act } from 'react-testing-library';
+import { render, act } from '@testing-library/react';
 
 import { Query } from '../../../../src/components/query/Query';
 import { Action, QueryResponse } from '../../../../src/client/client.types';
-import { ClientContextProvider } from '../../../../src/context/clientContextProvider';
+import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
 
 describe('Query test', () => {
   const action: Action = {

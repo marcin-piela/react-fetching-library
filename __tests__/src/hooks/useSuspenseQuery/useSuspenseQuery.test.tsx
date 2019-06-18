@@ -3,7 +3,7 @@ import { renderHook, act } from 'react-hooks-testing-library';
 
 import { useSuspenseQuery } from '../../../../src/hooks/useSuspenseQuery/useSuspenseQuery';
 import { Action, QueryResponse } from '../../../../src/client/client.types';
-import { ClientContextProvider } from '../../../../src/context/clientContextProvider';
+import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
 
 describe('useSuspenseQuery test', () => {
   const action: Action = {

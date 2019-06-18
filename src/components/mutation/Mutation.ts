@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '../../hooks';
+import { useMutation } from '../../hooks';
 
 import { MutationProps } from './Mutation.types';
 

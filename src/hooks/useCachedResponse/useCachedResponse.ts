@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
 import { Action } from '../../client/client.types';
-import { ClientContext } from '../../context/clientContext';
+import { ClientContext } from '../../context/clientContext/clientContext';
 
 export const useCachedResponse = <T = any, R = {}>(action: Action<R>) => {
   const clientContext = useContext(ClientContext);

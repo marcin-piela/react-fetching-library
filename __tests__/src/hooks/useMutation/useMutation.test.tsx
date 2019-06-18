@@ -3,7 +3,7 @@ import { act, renderHook } from 'react-hooks-testing-library';
 
 import { useMutation } from '../../../../src/hooks/useMutation/useMutation';
 import { Action, QueryResponse } from '../../../../src/client/client.types';
-import { ClientContextProvider } from '../../../../src//context/clientContextProvider';
+import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
 
 describe('useMutation test', () => {
   const actionCreator:any = jest.fn((endpoint: string) => ({
