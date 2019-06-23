@@ -47,7 +47,7 @@ export const createClient = <R = any>(clientOptions: ClientOptions<R>) => {
         }
 
         const response = await fetch(endpoint, {
-          body: body ? JSON.stringify(body) : undefined,
+          body: body ? (body instanceof URLSearchParams ? body : JSON.stringify(body)) : undefined,
           cache: options.cache,
           credentials: options.credentials,
           headers: { ...{ 'Content-Type': 'application/json; charset=utf-8' }, ...headers },
