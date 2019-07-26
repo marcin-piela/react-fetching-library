@@ -36,7 +36,7 @@ export const createClient = <R = any>(clientOptions: ClientOptions<R>) => {
     query: async <T>(actionInit: Action<R>): Promise<QueryResponse<T>> => {
       try {
         const action = await handleRequestInterceptors(actionInit, clientOptions.requestInterceptors || []);
-        const { endpoint, body, headers, ...options } = action;
+        const { endpoint, body, ...options } = action;
 
         if (cache) {
           const cachedResponse = cache.get(action);
@@ -46,11 +46,14 @@ export const createClient = <R = any>(clientOptions: ClientOptions<R>) => {
           }
         }
 
+        const headers = { ...{ 'Content-Type': 'application/json; charset=utf-8' }, ...options.headers };
+        const shouldStringify = headers['Content-Type'].indexOf('json') !== -1;
+
         const response = await fetch(endpoint, {
-          body: body ? (body instanceof URLSearchParams ? body : JSON.stringify(body)) : undefined,
+          body: body ? (shouldStringify ? JSON.stringify(body) : body) : undefined,
           cache: options.cache,
           credentials: options.credentials,
-          headers: { ...{ 'Content-Type': 'application/json; charset=utf-8' }, ...headers },
+          headers,
           integrity: options.integrity,
           keepalive: options.keepalive,
           method: options.method,
