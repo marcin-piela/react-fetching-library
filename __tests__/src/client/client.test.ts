@@ -165,4 +165,39 @@ describe('Client test', () => {
     const cachedQueryResponse = await client.query(action);
     expect(cachedQueryResponse.payload).toEqual({ users: [] });
   });
+
+  it('responses with corect payload for default content type', async () => {
+    const action: Action = {
+      method: 'POST',
+      endpoint: 'http://example.com/user/json',
+      body: { name: 'User Name' },
+    };
+
+    fetchMock.post(action.endpoint, action.body);
+
+    const client = createClient({});
+
+    const queryResponse = await client.query(action);
+
+    expect(queryResponse.payload).toEqual({ name: 'User Name' });
+    queryResponse.headers && expect(queryResponse.headers.get('Content-Length')).toEqual('20');
+  });
+
+  it('responses with corect payload for custom content type', async () => {
+    const action: Action = {
+      method: 'POST',
+      endpoint: 'http://example.com/user/text',
+      headers: { 'Content-Type': 'text/plain' },
+      body: 'User Name',
+    };
+
+    fetchMock.post(action.endpoint, { headers: action.headers, body: action.body });
+
+    const client = createClient({});
+
+    const queryResponse = await client.query(action);
+
+    expect(queryResponse.payload).toEqual('User Name');
+    queryResponse.headers && expect(queryResponse.headers.get('Content-Length')).toEqual('9');
+  });
 });
