@@ -1,5 +1,6 @@
 import { useCallback, useContext, useEffect, useReducer, useRef } from 'react';
 
+import { convertActionToBase64 } from '../../cache/cache';
 import { Action, QueryResponse } from '../../client/client.types';
 import { QueryError } from '../../client/errors/QueryError';
 import { ClientContext } from '../../context/clientContext/clientContext';
@@ -27,7 +28,7 @@ export const useQuery = <T = any, R = {}>(action: Action<R>, initFetch = true) =
     return () => {
       isMounted.current = false;
     };
-  }, [action]);
+  }, [convertActionToBase64(action)]);
 
   const handleQuery = useCallback(async () => {
     if (!isMounted.current) {
@@ -43,7 +44,7 @@ export const useQuery = <T = any, R = {}>(action: Action<R>, initFetch = true) =
     }
 
     return queryResponse;
-  }, [action]);
+  }, [convertActionToBase64(action)]);
 
   if (state.response && state.response.errorObject && state.response.errorObject instanceof QueryError) {
     throw state.response.errorObject;
