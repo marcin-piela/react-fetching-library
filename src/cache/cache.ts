@@ -2,13 +2,7 @@ import { Action } from '../client/client.types';
 import { Cache } from './cache.types';
 
 export const convertActionToBase64 = (action: Action<any>) => {
-  return Buffer.from(
-    JSON.stringify({
-      body: action.body,
-      endpoint: action.endpoint,
-      method: action.method,
-    }),
-  ).toString('base64');
+  return Buffer.from(JSON.stringify(action)).toString('base64');
 };
 
 export const createCache = <T>(
