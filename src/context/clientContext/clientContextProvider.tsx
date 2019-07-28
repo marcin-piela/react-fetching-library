@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
 import { Client } from 'fetching-library';
+import React, { ReactNode } from 'react';
 
 import { ClientContext } from './clientContext';
 
