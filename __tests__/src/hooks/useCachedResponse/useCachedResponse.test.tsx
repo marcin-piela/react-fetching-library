@@ -1,7 +1,7 @@
 import React from 'react';
 import { renderHook } from 'react-hooks-testing-library';
+import { Action } from 'fetching-library';
 
-import { Action } from '../../../../src/client/client.types';
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
 import { useCachedResponse } from '../../../../src/hooks/useCachedResponse/useCachedResponse';
 

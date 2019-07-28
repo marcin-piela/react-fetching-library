@@ -1,11 +1,10 @@
 import React, { Suspense } from 'react';
 import { render, waitForElement } from '@testing-library/react';
 import fetchMock from 'fetch-mock';
+import { Action, createClient } from 'fetching-library';
 
 import { SuspenseQuery } from '../../../../src/components/suspenseQuery/SuspenseQuery';
-import { Action } from '../../../../src/client/client.types';
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
-import { createClient } from '../../../../src/client/client';
 import { QueryErrorBoundary } from '../../../../src/components/queryErrorBoundary/QueryErrorBoundary';
 
 beforeEach(() => {

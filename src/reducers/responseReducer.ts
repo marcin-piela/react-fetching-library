@@ -1,4 +1,3 @@
-import { QueryResponse } from '../client/client.types';
 import { Action, ResponseReducerState } from './responseReducer.types';
 
 export const SET_LOADING = 'response/loading';

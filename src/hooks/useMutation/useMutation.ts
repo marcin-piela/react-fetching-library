@@ -1,7 +1,6 @@
 import { useCallback, useContext, useEffect, useReducer, useRef } from 'react';
 
-import { Action, QueryResponse } from '../../client/client.types';
-import { QueryError } from '../../client/errors/QueryError';
+import { Action, QueryError, QueryResponse } from 'fetching-library';
 import { ClientContext } from '../../context/clientContext/clientContext';
 import { responseReducer, SET_LOADING, SET_RESPONSE } from '../../reducers/responseReducer';
 import { ResponseReducer } from '../../reducers/responseReducer.types';

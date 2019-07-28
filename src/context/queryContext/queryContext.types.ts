@@ -1,4 +1,4 @@
-import { QueryResponse } from '../../client/client.types';
+import { QueryResponse } from 'fetching-library';
 
 export type QueryContextType<T> = {
   loading: boolean;

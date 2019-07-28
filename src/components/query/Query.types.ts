@@ -1,4 +1,4 @@
-import { Action, QueryResponse } from '../../client/client.types';
+import { Action, QueryResponse } from 'fetching-library';
 
 export type QueryApi<T> = {
   loading: boolean;

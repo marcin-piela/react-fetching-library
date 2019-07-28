@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, act } from '@testing-library/react';
+import { Action, QueryResponse } from 'fetching-library';
 
 import { Query } from '../../../../src/components/query/Query';
-import { Action, QueryResponse } from '../../../../src/client/client.types';
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
 
 describe('Query test', () => {

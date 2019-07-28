@@ -1,5 +1,5 @@
+import { QueryResponse } from 'fetching-library';
 import { ReactElement } from 'react';
-import { QueryResponse } from '../../client/client.types';
 
 export type ErrorQueryBoundaryProps = {
   fallback: (response: QueryResponse, restart: () => void) => ReactElement;

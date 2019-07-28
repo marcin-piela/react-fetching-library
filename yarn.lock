@@ -1474,6 +1474,11 @@ fetch-mock@^7.3.3:
     path-to-regexp "^2.2.1"
     whatwg-url "^6.5.0"
 
+fetching-library@^0.0.1-beta.1:
+  version "0.0.1-beta.1"
+  resolved "https://registry.yarnpkg.com/fetching-library/-/fetching-library-0.0.1-beta.1.tgz#c384b6551189a46f60a6d65b005d24f265b74310"
+  integrity sha512-VTbGC+jVgcgwxwus9WSp5ZGw78q2+R9jl5P7L1PIGNMV4psfUNcnsFhGUoDJAmJG+xEUrRfqLVeVHpnHw6M2xQ==
+
 figures@^1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/figures/-/figures-1.7.0.tgz#cbe1e3affcf1cd44b80cadfed28dc793a9701d2e"

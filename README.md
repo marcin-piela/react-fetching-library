@@ -15,9 +15,11 @@ Simple and powerful fetching library for React. Use hooks to fetch data!
 [![Build Status][build-badge]][build] [![version][version-badge]][package] ![downloads][downloads-badge] [![MIT License][license-badge]][license]
  [![PRs Welcome][prs-badge]][prs] [![Code of Conduct][coc-badge]][coc] ![Code of Conduct][gzip-badge] [![codecov](https://codecov.io/gh/marcin-piela/react-fetching-library/branch/master/graph/badge.svg)](https://codecov.io/gh/marcin-piela/react-fetching-library)
 
-✅ Zero dependencies (react, react-dom as peer deps)
+✅ Zero dependencies (react, fetching-library as peer deps)
 
 ✅ SSR support 
+
+✅ React Native support 
 
 ✅ Use hooks or FACC's (Function as Child Components) - depending on your needs
 

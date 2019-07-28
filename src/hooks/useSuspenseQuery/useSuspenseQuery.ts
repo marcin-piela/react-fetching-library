@@ -1,7 +1,5 @@
+import { Action, convertActionToBase64, createCache, QueryError, QueryResponse } from 'fetching-library';
 import { useContext, useEffect, useState } from 'react';
-import { convertActionToBase64, createCache } from '../../cache/cache';
-import { Action, QueryResponse } from '../../client/client.types';
-import { QueryError } from '../../client/errors/QueryError';
 import { ClientContext } from '../../context/clientContext/clientContext';
 
 type CacheItem = {

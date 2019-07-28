@@ -1,8 +1,8 @@
 import React from 'react';
 import { act, renderHook } from 'react-hooks-testing-library';
+import { Action, QueryResponse } from 'fetching-library';
 
 import { useQuery } from '../../../../src/hooks/useQuery/useQuery';
-import { Action, QueryResponse } from '../../../../src/client/client.types';
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
 
 describe('useQuery test', () => {

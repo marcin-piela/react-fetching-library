@@ -5,11 +5,13 @@ __react-fetching-library__ -  simple and powerful fetching library for React. Us
 [![Build Status][build-badge]][build] [![version][version-badge]][package] ![downloads][downloads-badge] [![MIT License][license-badge]][license]
  [![PRs Welcome][prs-badge]][prs] [![Code of Conduct][coc-badge]][coc] ![Code of Conduct][gzip-badge] [![codecov](https://codecov.io/gh/marcin-piela/react-fetching-library/branch/master/graph/badge.svg)](https://codecov.io/gh/marcin-piela/react-fetching-library)
 
-✅ Zero dependencies (react, react-dom as peer deps)
+✅ Zero dependencies (react, fetching-library as peer deps)
 
 ✅ Provides hooks and FACCs (Function as Child Components)
 
 ✅ SSR support 
+
+✅ React Native support 
 
 ✅ Uses Fetch API
 

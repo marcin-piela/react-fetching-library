@@ -1,6 +1,6 @@
 {
   "name": "react-fetching-library",
-  "version": "1.5.2",
+  "version": "2.0.0",
   "description": "Simple and powerful API client for react. Use hooks or FACC's to fetch data in easy way. No dependencies! Just react under the hood.",
   "main": "lib/index.js",
   "files": [
@@ -53,6 +53,7 @@
     "@types/react-dom": "^16.8.4",
     "codecov": "^3.5.0",
     "fetch-mock": "^7.3.3",
+    "fetching-library": "^0.0.1-beta.1",
     "husky": "^2.4.1",
     "jest": "^24.8.0",
     "jest-dom": "^3.5.0",
@@ -69,8 +70,8 @@
     "typescript": "^3.5.2"
   },
   "peerDependencies": {
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "fetching-library": "^0.0.1-beta.0",
+    "react": "^16.8.4"
   },
   "repository": {
     "type": "git",
