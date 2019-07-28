@@ -54,6 +54,18 @@ Library allows you to use it with connection of React Suspense ([read more about
 
 Full documentation is available at https://marcin-piela.github.io/react-fetching-library
 
+## Installation
+
+Run the following from your project root :
+
+```sh
+npm install react-fetching-library fetching-library
+```
+or
+```sh
+yarn add react-fetching-library fetching-library
+```
+
 ## Short example of use
 
 ```js
