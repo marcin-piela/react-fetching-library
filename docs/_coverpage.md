@@ -7,10 +7,10 @@
 [![Watch on GitHub][github-watch-badge]][github-watch][![Star on GitHub][github-star-badge]][github-star][![Tweet][twitter-badge]][twitter]
 
 - Simple and lightweight (~2.2kB minizipped)
-- No dependencies, just React
+- No dependencies(react, [fetching-library](https://github.com/marcin-piela/fetching-library) as peer deps)
 - hooks and FACCs, Experimental React Suspense support
 - Error boundaries to catch errors
-- SSR and TypeScript support
+- SSR, TypeScript, React Native support
 
 [GitHub](https://github.com/marcin-piela/react-fetching-library)
 [Get Started](#getting-started)

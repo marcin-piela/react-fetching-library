@@ -5,7 +5,7 @@ __react-fetching-library__ -  simple and powerful fetching library for React. Us
 [![Build Status][build-badge]][build] [![version][version-badge]][package] ![downloads][downloads-badge] [![MIT License][license-badge]][license]
  [![PRs Welcome][prs-badge]][prs] [![Code of Conduct][coc-badge]][coc] ![Code of Conduct][gzip-badge] [![codecov](https://codecov.io/gh/marcin-piela/react-fetching-library/branch/master/graph/badge.svg)](https://codecov.io/gh/marcin-piela/react-fetching-library)
 
-✅ Zero dependencies (react, fetching-library as peer deps)
+✅ Zero dependencies (react, [fetching-library](https://github.com/marcin-piela/fetching-library) as peer deps)
 
 ✅ Provides hooks and FACCs (Function as Child Components)
 
@@ -31,7 +31,7 @@ __react-fetching-library__ -  simple and powerful fetching library for React. Us
 
 ## Installation
 
-__react-fetching-library__ requires react and react-dom version 16.8 or higher.
+__react-fetching-library__ requires react 16.8 or higher and [fetching-library](https://github.com/marcin-piela/fetching-library).
 
 Run the following from your project root :
 
