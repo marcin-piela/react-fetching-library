@@ -36,11 +36,11 @@ __react-fetching-library__ requires react and react-dom version 16.8 or higher.
 Run the following from your project root :
 
 ```sh
-npm install react-fetching-library
+npm install react-fetching-library fetching-library
 ```
 or
 ```sh
-yarn add react-fetching-library
+yarn add react-fetching-library fetching-library
 ```
 
 That’s it! You may now use __react-fetching-library__ in your React application.
