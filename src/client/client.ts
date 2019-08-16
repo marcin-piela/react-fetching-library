@@ -33,12 +33,12 @@ export const createClient = <R = any>(clientOptions: ClientOptions<R>) => {
 
   const client = {
     cache,
-    query: async <T>(actionInit: Action<R>): Promise<QueryResponse<T>> => {
+    query: async <T>(actionInit: Action<R>, skipCache = false): Promise<QueryResponse<T>> => {
       try {
         const action = await handleRequestInterceptors(actionInit, clientOptions.requestInterceptors || []);
         const { endpoint, body, ...options } = action;
 
-        if (cache) {
+        if (cache && !skipCache) {
           const cachedResponse = cache.get(action);
 
           if (cachedResponse) {

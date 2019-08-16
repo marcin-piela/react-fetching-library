@@ -46,7 +46,7 @@ export const useSuspenseQuery = <T, R = any>(action: Action<R>) => {
     throw cacheItem.fetch;
   }
 
-  const fetch = clientContext.query(action).then(res => {
+  const fetch = clientContext.query(action, flag !== null).then(res => {
     cache.add(action, {
       fetch,
       response: res,
