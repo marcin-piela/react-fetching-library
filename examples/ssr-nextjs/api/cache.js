@@ -1,4 +1,4 @@
-import { createCache } from 'react-fetching-library';
+import { createCache } from 'fetching-library';
 
 export const cache = createCache(
   action => {

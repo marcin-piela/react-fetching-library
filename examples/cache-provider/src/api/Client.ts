@@ -1,4 +1,5 @@
-import { createClient, createCache, QueryResponse, Action } from 'react-fetching-library';
+import { createClient, createCache, requestJsonInterceptor, responseJsonInterceptor } from 'fetching-library';
+import { QueryResponse, Action } from 'react-fetching-library';
 
 import { requestHostInterceptor } from './requestInterceptors/requestHostInterceptor';
 
@@ -15,6 +16,7 @@ const cache = createCache<QueryResponse<any>>(
 );
 
 export const Client = createClient({
-  requestInterceptors: [requestHostInterceptor(HOST)],
+  requestInterceptors: [requestHostInterceptor(HOST), requestJsonInterceptor, responseJsonInterceptor],
+  responseInterceptors: [responseJsonInterceptor],
   cacheProvider: cache,
 });

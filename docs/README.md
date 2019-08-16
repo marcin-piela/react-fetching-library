@@ -52,14 +52,9 @@ To start using this library we have to create an instance of [`Client`][] and th
 First we need an instance of [`Client`][]:
 
 ```js
-import { createClient } from 'react-fetching-library';
+import { createClient } from 'fetching-library';
 
-const client = createClient({
-  //None of the options is required
-  requestInterceptors: [],
-  responseInterceptors: [],
-  cacheProvider: cacheProvider,
-});
+const client = createClient();
 ```
 
 Next we have to add `<ClientContextProvider>` component to the root of our React component tree. This component [provides](https://reactjs.org/docs/context.html) the react-fetching-library functionality to all the other components in the application without passing it explicitly. To use an `<ClientContextProvider>` with newly constructed client see the following:
@@ -86,7 +81,7 @@ Object which exposes `query` method and `cache` object.
 ## How to create instance of Client
 
 ```js
-import { createClient } from 'react-fetching-library';
+import { createClient } from 'fetching-library';
 
 const client = createClient(options);
 ```
@@ -222,22 +217,6 @@ Example of use:
 
 [![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/cache-provider?module=/src/api/Client.ts)
 
-## Own CacheProvider
-
-You can create your own cache provider. It should implement this type:
-
-```js
-type Cache<T> = {
-  add: (action: Action<any>, value: T) => void;
-  remove: (action: Action<any>) => void;
-  get: (action: Action<any>) => QueryResponse & { timestamp: number } | undefined;
-  getItems: () => { [key: string]: QueryResponse };
-  setItems: (items:{ [key: string]: QueryResponse }) => void;
-};
-
-```
-
-where `T` is [`QueryResponse`][] 
 
 ## Context
 
@@ -696,8 +675,8 @@ export const UsersListContainer = () => {
   const handleSubmit = async () => {
     const response = await query(fetchUsersList);
   
-    if (response.error && response.errorObject && response.errorObject instanceof QueryError) {
-      setError(response.errorObject);
+    if (response.error) {
+      setError(new QueryError('query-error', response));
     }
   }
 
@@ -769,7 +748,7 @@ To use react-fetching-library on server side you have to use isomporphic-fetch p
 
 `client.js` - client and cache configuration
 ```js
-import { createClient, createCache } from "react-fetching-library";
+import { createClient, createCache } from "fetching-library";
 
 const cache = createCache(
   (action) => {

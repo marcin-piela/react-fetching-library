@@ -1,4 +1,4 @@
-import { createClient } from 'react-fetching-library';
+import { createClient, requestJsonInterceptor, responseJsonInterceptor } from 'fetching-library';
 
 import { requestHostInterceptor } from './requestInterceptors/requestHostInterceptor';
 
@@ -6,5 +6,6 @@ import { requestHostInterceptor } from './requestInterceptors/requestHostInterce
 const HOST = 'https://private-34f3a-reactapiclient.apiary-mock.com';
 
 export const Client = createClient({
-  requestInterceptors: [requestHostInterceptor(HOST)],
+  requestInterceptors: [requestHostInterceptor(HOST), requestJsonInterceptor, responseJsonInterceptor],
+  responseInterceptors: [responseJsonInterceptor],
 });
