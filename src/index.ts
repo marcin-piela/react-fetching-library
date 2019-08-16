@@ -6,3 +6,4 @@ export * from './context/queryContext/queryContext';
 export * from './context/mutationContext/mutationContext';
 export * from './client/client.types';
 export * from './errors/QueryError';
+export { QueryResponse } from 'fetching-library';
