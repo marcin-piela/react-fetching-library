@@ -12,8 +12,7 @@ export const useDetectResponseError = (
 
   useEffect(() => {
     setQueryResponse(initQueryResponse);
-    setAction(initAction);
-  }, [initAction, initQueryResponse]);
+  }, [initQueryResponse]);
 
   if (
     action &&
