@@ -28,21 +28,24 @@ export const useQuery = <T = any, R = {}>(action: Action<R>, initFetch = true) =
     };
   }, [convertActionToBase64(action)]);
 
-  const handleQuery = useCallback(async () => {
-    if (!isMounted.current) {
-      return { error: false } as QueryResponse<T>;
-    }
+  const handleQuery = useCallback(
+    async (skipCache = false) => {
+      if (!isMounted.current) {
+        return { error: false } as QueryResponse<T>;
+      }
 
-    dispatch({ type: SET_LOADING });
+      dispatch({ type: SET_LOADING });
 
-    const queryResponse = await clientContext.query<T>(action);
+      const queryResponse = await clientContext.query<T>(action, skipCache);
 
-    if (isMounted.current) {
-      dispatch({ type: SET_RESPONSE, response: queryResponse });
-    }
+      if (isMounted.current) {
+        dispatch({ type: SET_RESPONSE, response: queryResponse });
+      }
 
-    return queryResponse;
-  }, [convertActionToBase64(action)]);
+      return queryResponse;
+    },
+    [convertActionToBase64(action)],
+  );
 
   if (state.response && state.response.errorObject && state.response.errorObject instanceof QueryError) {
     throw state.response.errorObject;
@@ -50,7 +53,7 @@ export const useQuery = <T = any, R = {}>(action: Action<R>, initFetch = true) =
 
   return {
     loading: state.loading,
-    query: handleQuery,
+    query: () => handleQuery(true),
     ...state.response,
   };
 };
