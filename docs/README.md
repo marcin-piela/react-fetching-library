@@ -57,6 +57,8 @@ import { createClient } from 'fetching-library';
 const client = createClient();
 ```
 
+If you need to define request or response interceptors, follow readme [here](https://marcin-piela.github.io/fetching-library/#/?id=interceptors)
+
 Next we have to add `<ClientContextProvider>` component to the root of our React component tree. This component [provides](https://reactjs.org/docs/context.html) the react-fetching-library functionality to all the other components in the application without passing it explicitly. To use an `<ClientContextProvider>` with newly constructed client see the following:
 
 ```js
@@ -74,144 +76,9 @@ And now we can add components that are connected to defined client.
 
 ---
 
-# Client
-
-Object which exposes `query` method and `cache` object. 
-
-## How to create instance of Client
-
-```js
-import { createClient } from 'fetching-library';
-
-const client = createClient(options);
-```
-
-## Available methods
-
-| name      | description                | param | response
-| ------------------------- | --------------------------------- | ------------- |------------- |
-| query         | function which dispatch request to API | [`Action`][], skipCache flag  | Promise which resolves to [`QueryResponse`][]
-| cache         | cacheProvider object when provided in client options | 
-
-```js
-import { Action } from 'react-fetching-library';
-
-const action:Action= { 
-  method: 'GET',
-  endpoint: '/users',
-};
-
-const skipCache = false;
-
-client.query(action, skipCache);
-
-client.cache.get(action);
-
-```
-
-## Available options
-
-| option      | description                             | required | default value |
-| ------------------------- | ----------------------------------------- | ------------- | ------------- |
-| requestInterceptors         | array of requestInterceptors                | no         | []               |
-| responseInterceptors | array of responseInterceptors | no        | []      |
-| cacheProvider                   | cache provider                    | no                   | undefined      |
-
-## Request interceptors
-
-You can intercept requests before they are handled by __Fetch__ function. Interceptor has access to [`Action`][] object.
-
-For example, when you want to add __HOST__ address to all API requests you can create such interceptor:
-
-```js
-export const requestHostInterceptor: host => client => async action => {
-  return {
-    ...action,
-    endpoint: `${host}${action.endpoint}`,
-  };
-};
-````
-
-And then you have to add it to the Client:
-
-```js
-import { createClient } from 'react-fetching-library';
-
-export const client = createClient({
-  requestInterceptors: [requestHostInterceptor('http://example.com/')]
-});
-```
-
-## Response interceptors
-
-You can intercept responses before they are handled by __then__. Interceptor has access to [`Action`][] and [`QueryResponse`][] objects.
-
-For example, your API responses with such object :
-
-```json
-{
-  data: {
-    ...
-  },
-}
-```
-
-and you want to get rid of `data` key, you can create response interceptor like that:
-
-```js
-export const responseInterceptor = client => async (action, response) => {
-  if (response.payload.data) {
-    return {
-      ...response,
-      payload: response.payload.data
-    };
-  }
-
-  return response;
-};
-````
-
-And then you have to add it to the Client:
-
-```js
-import { createClient } from 'react-fetching-library';
-
-export const client = createClient({
-  responseInterceptors: [responseInterceptor]
-});
-```
-
 ## Cache provider
 
-__react-fetching-library__  provides simple cache which you can customize:
-
-```js
-  import { createCache } from 'react-fetching-library';
-
-  const cache = createCache(isCacheable, isValid);
-```
-
-Parameters:
-
-| option      | description                                                            | required |
-| ------------------------- | ---------------------------------------------------------------------- | ------------- |
-| isCacheable         | function which checks if provided [`Action`][] is cacheable, returns bool                               | yes               |
-| isValid | function which checks if value stored in cache ([`QueryResponse`][] extended with timestamp property)  is valid, returns bool | yes         |
-
-Example of __Cache__ which caching all __GET__ requests for __10__ seconds:
-
-```js
-import { createCache } from 'react-fetching-library';
-
-const cache = createCache(
-  (action) => {
-    return action.method === 'GET';
-  },
-  (response) => {
-    return new Date().getTime() - response.timestamp < 10000;
-  },
-);
-```
+__fetching-library__  provides simple cache which you can customize, [read more here](https://marcin-piela.github.io/fetching-library/#/?id=cache-provider)
 
 Example of use:
 
