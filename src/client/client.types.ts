@@ -33,7 +33,7 @@ export type QueryResponse<T = any> = {
 };
 
 export type Client<R = any> = {
-  query: <T>(action: Action<R>) => Promise<QueryResponse<T>>;
+  query: <T>(action: Action<R>, skipCache?: boolean) => Promise<QueryResponse<T>>;
   cache?: Cache<QueryResponse>;
 };
 

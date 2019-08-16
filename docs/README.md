@@ -93,17 +93,20 @@ const client = createClient(options);
 
 | name      | description                | param | response
 | ------------------------- | --------------------------------- | ------------- |------------- |
-| query         | function which dispatch request to API | [`Action`][]  | Promise which resolves to [`QueryResponse`][]
+| query         | function which dispatch request to API | [`Action`][], skipCache flag  | Promise which resolves to [`QueryResponse`][]
 | cache         | cacheProvider object when provided in client options | 
 
 ```js
 import { Action } from 'react-fetching-library';
+
 const action:Action= { 
   method: 'GET',
   endpoint: '/users',
 };
 
-client.query(action);
+const skipCache = false;
+
+client.query(action, skipCache);
 
 client.cache.get(action);
 
