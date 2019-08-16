@@ -1,11 +1,12 @@
-import React, { Suspense } from 'react';
-import { render, waitForElement } from '@testing-library/react';
+import React, { Suspense, useState } from 'react';
+import { render, waitForElement, fireEvent } from '@testing-library/react';
 import fetchMock from 'fetch-mock';
-import { Action, createClient } from 'fetching-library';
+import { createClient } from 'fetching-library';
 
 import { SuspenseQuery } from '../../../../src/components/suspenseQuery/SuspenseQuery';
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
 import { QueryErrorBoundary } from '../../../../src/components/queryErrorBoundary/QueryErrorBoundary';
+import { Action } from '../../../../src/client/client.types';
 
 beforeEach(() => {
   jest.spyOn(console, 'error').mockImplementation(() => {});
@@ -52,6 +53,53 @@ describe('SuspenseQuery test', () => {
 
     unmount();
   });
+
+  it('reloads when action has changed', async () => {
+    const actionCreator:(page: number) => Action = (page) => ({
+      method: 'GET',
+      endpoint: `foo?page=${page}`,
+    });
+
+    fetchMock.get('foo?page=1', {
+      foo: 'bar',
+    });
+
+    fetchMock.get('foo?page=2', {
+      foo: 'baz',
+    });
+  
+    const children = jest.fn(() => 'loaded');
+
+    const TestComponent = () => {
+      const [page, setPage] = useState(1);
+
+      return <>
+      <span onClick={() => {setPage(page + 1)}}>Next</span>
+      <SuspenseQuery action={actionCreator(page)}>{children}</SuspenseQuery>
+      </>
+    }
+
+    const { unmount, getByText } = render(<TestComponent/>, {
+      wrapper: wrapper,
+    });
+
+    await waitForElement(() => getByText('loading'));
+
+    await waitForElement(() => getByText('loaded'));
+
+    expect(children).toHaveBeenCalledWith(expect.objectContaining({ payload: { foo: 'bar' } }));
+
+    fireEvent.click(getByText('Next'));
+
+    await waitForElement(() => getByText('loading'));
+
+    await waitForElement(() => getByText('loaded'));
+
+    expect(children).toHaveBeenCalledWith(expect.objectContaining({ payload: { foo: 'baz' } }));
+
+    unmount();
+  });
+
 
   it('shows fallback during fetch and then throws error when configured', async () => {
     const children = jest.fn(() => 'loaded');

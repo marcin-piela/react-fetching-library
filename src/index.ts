@@ -4,5 +4,5 @@ export * from './context/clientContext/clientContext';
 export * from './context/clientContext/clientContextProvider';
 export * from './context/queryContext/queryContext';
 export * from './context/mutationContext/mutationContext';
-
-export * from 'fetching-library';
+export * from './client/client.types';
+export * from './errors/QueryError';

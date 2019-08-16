@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { Action } from 'fetching-library';
+import { Action } from '../../client/client.types';
 import { ClientContext } from '../../context/clientContext/clientContext';
 
 export const useCachedResponse = <T = any, R = {}>(action: Action<R>) => {

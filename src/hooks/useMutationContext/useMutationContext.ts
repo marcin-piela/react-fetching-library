@@ -7,7 +7,7 @@ export const useMutationContext = <T = any, S = any>() => {
   const context = useContext(MutationContext);
 
   if (context === undefined) {
-    throw new Error('useMutationContext useQueryContext must be used within a MutationContext.Provider');
+    throw new Error('useMutationContext must be used within a MutationContext.Provider');
   }
 
   return context as MutationContextType<T, S>;

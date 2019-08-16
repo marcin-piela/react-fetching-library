@@ -60,4 +60,24 @@ describe('Query test', () => {
 
     unmount();
   });
+
+  it('desn`t fire query when initFetch is not true ', async () => {
+    jest.useFakeTimers();
+
+    const children = jest.fn(({ loading }) => (loading ? 'loading' : 'loaded'));
+
+    const { unmount } = render(<Query action={action} initFetch={false}>{children}</Query>, {
+      wrapper: wrapper,
+    });
+
+    expect(children).toHaveBeenCalledWith(
+      expect.objectContaining({ error: false, loading: false, query: expect.any(Function) }),
+    );
+
+    act(() => {
+      jest.runAllTimers();
+    });
+
+    expect(fetchFunction).toHaveBeenCalledTimes(0);
+  });
 });

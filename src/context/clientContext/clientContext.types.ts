@@ -1,6 +1,7 @@
-import { Action, Cache, QueryResponse } from 'fetching-library';
+import { Cache, QueryResponse } from 'fetching-library';
+import { Action } from '../../client/client.types';
 
 export type ClientContextType = {
-  query: <T>(actionInit: Action<any>, skipCache?: boolean) => Promise<QueryResponse<T>>;
+  query: <T>(actionInit: Action, skipCache?: boolean) => Promise<QueryResponse<T>>;
   cache?: Cache<QueryResponse>;
 };

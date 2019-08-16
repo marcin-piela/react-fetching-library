@@ -1,11 +1,12 @@
 import React from 'react';
 import { render, waitForElement, fireEvent, act } from '@testing-library/react';
 import fetchMock from 'fetch-mock';
-import { createClient, Action } from 'fetching-library';
+import { createClient } from 'fetching-library';
 
 import { QueryErrorBoundary } from '../../../../src/components/queryErrorBoundary/QueryErrorBoundary';
 import { Query } from '../../../../src/components/query/Query';
 import { Mutation } from '../../../../src/components/mutation/Mutation';
+import { Action } from '../../../../src/client/client.types';
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
 
 beforeEach(() => {

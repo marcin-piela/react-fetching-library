@@ -1,4 +1,5 @@
-import { Action, QueryResponse } from 'fetching-library';
+import { QueryResponse } from 'fetching-library';
+import { Action } from '../../client/client.types';
 
 type ActionCreator<S, R> = (action: S) => Action<R>;
 

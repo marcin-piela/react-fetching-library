@@ -1,10 +1,12 @@
 import { useCallback, useContext, useEffect, useReducer, useRef } from 'react';
 
-import { Action, convertActionToBase64, QueryError, QueryResponse } from 'fetching-library';
+import { convertActionToBase64, QueryResponse } from 'fetching-library';
+import { Action } from '../../client/client.types';
 import { ClientContext } from '../../context/clientContext/clientContext';
 import { responseReducer, SET_LOADING, SET_RESPONSE } from '../../reducers/responseReducer';
 import { ResponseReducer } from '../../reducers/responseReducer.types';
 import { useCachedResponse } from '../useCachedResponse/useCachedResponse';
+import { useDetectResponseError } from '../useDetectResponseError/useDetectResponseError';
 
 export const useQuery = <T = any, R = {}>(action: Action<R>, initFetch = true) => {
   const clientContext = useContext(ClientContext);
@@ -15,6 +17,8 @@ export const useQuery = <T = any, R = {}>(action: Action<R>, initFetch = true) =
     loading: cachedResponse ? false : initFetch,
     response: cachedResponse ? cachedResponse : { error: false },
   });
+
+  useDetectResponseError(state.response, action);
 
   useEffect(() => {
     isMounted.current = true;
@@ -46,10 +50,6 @@ export const useQuery = <T = any, R = {}>(action: Action<R>, initFetch = true) =
     },
     [convertActionToBase64(action)],
   );
-
-  if (state.response && state.response.errorObject && state.response.errorObject instanceof QueryError) {
-    throw state.response.errorObject;
-  }
 
   return {
     loading: state.loading,

@@ -18,6 +18,7 @@ module.exports = {
     '!src/hooks/index.ts',
     '!src/components/index.ts',
     '!src/context/**/*Context.ts',
+    '!src/errors/QueryError.ts'
   ],
   coverageDirectory: './coverage/',
   collectCoverage: true,

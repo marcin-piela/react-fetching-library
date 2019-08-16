@@ -1,4 +1,5 @@
-import { Action, QueryResponse } from 'fetching-library';
+import { QueryResponse } from 'fetching-library';
+import { Action } from '../../client/client.types';
 
 export type MutationContextType<T, S> = {
   loading: boolean;

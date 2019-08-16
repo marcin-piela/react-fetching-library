@@ -1,6 +1,8 @@
-import { Action, convertActionToBase64, createCache, QueryError, QueryResponse } from 'fetching-library';
+import { convertActionToBase64, createCache, QueryResponse } from 'fetching-library';
 import { useContext, useEffect, useState } from 'react';
+import { Action } from '../../client/client.types';
 import { ClientContext } from '../../context/clientContext/clientContext';
+import { QueryError } from '../../errors/QueryError';
 
 type CacheItem = {
   fetch: any;
@@ -15,10 +17,6 @@ export const useSuspenseQuery = <T, R = any>(action: Action<R>) => {
   const cacheItem = cache.get(action);
 
   useEffect(() => {
-    if (cacheItem && cacheItem.response && flag !== null) {
-      cache.remove(action);
-    }
-
     return () => {
       cache.remove(action);
     };
@@ -31,8 +29,13 @@ export const useSuspenseQuery = <T, R = any>(action: Action<R>) => {
 
   if (cacheItem) {
     if (cacheItem.response) {
-      if (cacheItem.response.errorObject && cacheItem.response.errorObject instanceof QueryError) {
-        throw cacheItem.response.errorObject;
+      if (
+        cacheItem.response.status &&
+        action.config &&
+        action.config.emitErrorForStatuses &&
+        action.config.emitErrorForStatuses.includes(cacheItem.response.status)
+      ) {
+        throw new QueryError('query-error', cacheItem.response);
       }
 
       return {

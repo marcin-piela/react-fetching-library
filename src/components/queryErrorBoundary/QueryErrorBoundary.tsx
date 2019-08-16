@@ -1,6 +1,6 @@
-import { QueryError } from 'fetching-library';
 import React, { Component } from 'react';
 
+import { QueryError } from '../../errors/QueryError';
 import { ErrorQueryBoundaryProps, ErrorQueryBoundaryState } from './QueryErrorBoundary.types';
 
 export class QueryErrorBoundary extends Component<ErrorQueryBoundaryProps, ErrorQueryBoundaryState> {

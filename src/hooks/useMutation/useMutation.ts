@@ -1,9 +1,11 @@
 import { useCallback, useContext, useEffect, useReducer, useRef } from 'react';
 
-import { Action, QueryError, QueryResponse } from 'fetching-library';
+import { QueryResponse } from 'fetching-library';
+import { Action } from '../../client/client.types';
 import { ClientContext } from '../../context/clientContext/clientContext';
 import { responseReducer, SET_LOADING, SET_RESPONSE } from '../../reducers/responseReducer';
 import { ResponseReducer } from '../../reducers/responseReducer.types';
+import { useDetectResponseError } from '../useDetectResponseError/useDetectResponseError';
 
 type ActionCreator<S, R> = (action: S) => Action<R>;
 
@@ -15,6 +17,8 @@ export const useMutation = <T = any, R = {}, S = any>(actionCreator: ActionCreat
     loading: false,
     response: { error: false },
   });
+
+  const setMeta = useDetectResponseError();
 
   useEffect(() => {
     isMounted.current = true;
@@ -31,21 +35,19 @@ export const useMutation = <T = any, R = {}, S = any>(actionCreator: ActionCreat
       }
 
       dispatch({ type: SET_LOADING });
+      const action = actionCreator(...params);
 
-      const queryResponse = await clientContext.query<T>(actionCreator(...params));
+      const queryResponse = await clientContext.query<T>(action);
 
       if (isMounted.current) {
         dispatch({ type: SET_RESPONSE, response: queryResponse });
+        setMeta(queryResponse, action);
       }
 
       return queryResponse;
     },
     [actionCreator],
   );
-
-  if (state.response && state.response.errorObject && state.response.errorObject instanceof QueryError) {
-    throw state.response.errorObject;
-  }
 
   return {
     loading: state.loading,

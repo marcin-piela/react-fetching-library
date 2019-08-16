@@ -38,6 +38,6 @@ describe('useMutationContext test', () => {
       useMutationContext();
     });
 
-    expect(result.error).toEqual(Error('useMutationContext useQueryContext must be used within a MutationContext.Provider'));
+    expect(result.error).toEqual(Error('useMutationContext must be used within a MutationContext.Provider'));
   });
 });
