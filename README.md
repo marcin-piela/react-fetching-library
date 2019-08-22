@@ -89,12 +89,6 @@ export const UsersListContainer = () => {
 
 <img src="/docs/_media/typescript.gif" />
 
-## Inspirations
-
-- [react-fetching-data by Robin Wieruch](https://www.robinwieruch.de/react-fetching-data/)
-- [fetch-suspense](https://github.com/CharlesStover/fetch-suspense)
-- [redux-api-middleware](https://github.com/agraboso/redux-api-middleware)
-
 ## Contributing
 
 Fell free to open PRs and issues to make this library better !
