@@ -4,7 +4,7 @@ import { convertActionToBase64 } from '../../cache/cache';
 import { Action, QueryResponse } from '../../client/client.types';
 import { QueryError } from '../../client/errors/QueryError';
 import { ClientContext } from '../../context/clientContext/clientContext';
-import { responseReducer, SET_LOADING, SET_RESPONSE } from '../../reducers/responseReducer';
+import { RESET, responseReducer, SET_LOADING, SET_RESPONSE } from '../../reducers/responseReducer';
 import { ResponseReducer } from '../../reducers/responseReducer.types';
 import { useCachedResponse } from '../useCachedResponse/useCachedResponse';
 
@@ -49,6 +49,10 @@ export const useQuery = <T = any, R = {}>(action: Action<R>, initFetch = true) =
     [convertActionToBase64(action)],
   );
 
+  const handleReset = useCallback(() => {
+    dispatch({ type: RESET });
+  }, []);
+
   if (state.response && state.response.errorObject && state.response.errorObject instanceof QueryError) {
     throw state.response.errorObject;
   }
@@ -56,6 +60,7 @@ export const useQuery = <T = any, R = {}>(action: Action<R>, initFetch = true) =
   return {
     loading: state.loading,
     query: () => handleQuery(true),
+    reset: handleReset,
     ...state.response,
   };
 };

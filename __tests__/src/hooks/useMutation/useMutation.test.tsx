@@ -57,6 +57,12 @@ describe('useMutation test', () => {
     expect(state.payload).toEqual({
       foo: 'bar',
     });
+
+    act(() => {
+      state.reset();
+    });
+
+    expect(state.payload).toEqual(undefined);
   });
 
   it('skips changing state after unmount', async () => {

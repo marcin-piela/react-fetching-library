@@ -3,6 +3,7 @@ import { Action, QueryResponse } from '../../client/client.types';
 export type QueryApi<T> = {
   loading: boolean;
   query: () => Promise<QueryResponse<T>>;
+  reset: () => void;
 } & QueryResponse<T>;
 
 export type QueryProps<T, R> = {

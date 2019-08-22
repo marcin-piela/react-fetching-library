@@ -3,7 +3,7 @@ import { useCallback, useContext, useEffect, useReducer, useRef } from 'react';
 import { Action, QueryResponse } from '../../client/client.types';
 import { QueryError } from '../../client/errors/QueryError';
 import { ClientContext } from '../../context/clientContext/clientContext';
-import { responseReducer, SET_LOADING, SET_RESPONSE } from '../../reducers/responseReducer';
+import { RESET, responseReducer, SET_LOADING, SET_RESPONSE } from '../../reducers/responseReducer';
 import { ResponseReducer } from '../../reducers/responseReducer.types';
 
 type ActionCreator<S, R> = (action: S) => Action<R>;
@@ -44,6 +44,10 @@ export const useMutation = <T = any, R = {}, S = any>(actionCreator: ActionCreat
     [actionCreator],
   );
 
+  const handleReset = useCallback(() => {
+    dispatch({ type: RESET });
+  }, []);
+
   if (state.response && state.response.errorObject && state.response.errorObject instanceof QueryError) {
     throw state.response.errorObject;
   }
@@ -51,6 +55,7 @@ export const useMutation = <T = any, R = {}, S = any>(actionCreator: ActionCreat
   return {
     loading: state.loading,
     mutate: handleQuery,
+    reset: handleReset,
     ...state.response,
   };
 };

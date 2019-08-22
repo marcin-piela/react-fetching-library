@@ -2,6 +2,7 @@ import { QueryResponse } from '../client/client.types';
 import { Action, ResponseReducerState } from './responseReducer.types';
 
 export const SET_LOADING = 'response/loading';
+export const RESET = 'response/reset';
 export const SET_RESPONSE = 'response/set';
 
 export const responseReducer = <T>(state: ResponseReducerState<T>, action: Action<T>) => {
@@ -20,6 +21,14 @@ export const responseReducer = <T>(state: ResponseReducerState<T>, action: Actio
         ...state,
         loading: false,
         response: action.response,
+      };
+    }
+    case RESET: {
+      return {
+        loading: false,
+        response: {
+          error: false,
+        },
       };
     }
     default: {
