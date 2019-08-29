@@ -39,7 +39,7 @@ export const createClient = <R = any>(clientOptions: ClientOptions<R>) => {
         const { endpoint, body, ...options } = action;
 
         if (cache && !skipCache) {
-          const cachedResponse = cache.get(action);
+          const cachedResponse = cache.get(actionInit);
 
           if (cachedResponse) {
             return cachedResponse;
@@ -80,7 +80,7 @@ export const createClient = <R = any>(clientOptions: ClientOptions<R>) => {
         );
 
         if (cache && response.ok) {
-          cache.add(action, queryResponse);
+          cache.add(actionInit, queryResponse);
         }
 
         if (
