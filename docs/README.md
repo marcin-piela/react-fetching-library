@@ -27,6 +27,10 @@ __react-fetching-library__ -  simple and powerful fetching library for React. Us
 
 ✅ Bult-in contexts to easily pass data down to child components
 
+✅ Handle race conditions
+
+✅ Allows to abort pending requests
+
 ## Installation
 
 __react-fetching-library__ requires react and react-dom version 16.8 or higher.
@@ -350,7 +354,7 @@ Available hooks
 
 ## useQuery
 
-This hook is used to query data (can be used to get data from API and mutate data as well) . By default request is sent immediately (`initFetch = true`). You can turn on lazy loading by setting second param as `false`. Response of hook is [`QueryResponse`][] extended by `query` function which allows you to re-run query again or first time (when lazy loading is turned on) and `reset` function to reset state of hook. First param of this hook is [`Action`][]
+This hook is used to query data (can be used to get data from API and mutate data as well) . By default request is sent immediately (`initFetch = true`). You can turn on lazy loading by setting second param as `false`. Response of hook is [`QueryResponse`][] extended by `query` function which allows you to re-run query again or first time (when lazy loading is turned on), `abort` function to abort pending request and `reset` function to reset state of hook. First param of this hook is [`Action`][]
 
 ```js
 import { useQuery } from 'react-fetching-library';
@@ -361,7 +365,7 @@ const fetchUsersList = {
 };
 
 export const UsersListContainer = () => {
-  const { loading, payload, error, query, reset } = useQuery(fetchUsersList);
+  const { loading, payload, error, query, reset, abort } = useQuery(fetchUsersList);
 
   return <UsersList loading={loading} error={error} users={payload} onReload={query} />;
 };
@@ -413,7 +417,7 @@ const App = () => {
 ## useMutation
 
 This hook is used when you need to mutate data, ie for POST/PATCH/PUT actions. 
-First param of this hook is function which returns [`Action`][] object. All params of this function have to be provided in returned `mutate` function. Hook returns loading flag, response payload, error flag and errorObject as well. To reset state of hook use `reset` method without any params.
+First param of this hook is function which returns [`Action`][] object. All params of this function have to be provided in returned `mutate` function. Hook returns loading flag, response payload, error flag and errorObject as well. To reset state of hook use `reset` method without any params. To abort pending request use `abort` function.
 
 ```js
 import { useMutation } from 'react-fetching-library';
@@ -425,7 +429,7 @@ const addUserAction = (formValues) => ({
 });
 
 export const AddUserFormContainer = () => {
-  const { loading, payload, mutate, error, reset } = useMutation(addUserAction);
+  const { loading, payload, mutate, error, reset, abort } = useMutation(addUserAction);
 
   const handleSubmit = async (formValues) => {
     const { error: mutateError } = await mutate(formValues);
