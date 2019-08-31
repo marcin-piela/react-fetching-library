@@ -1,4 +1,4 @@
-import { responseReducer, SET_RESPONSE, SET_LOADING } from '../../../src/reducers/responseReducer';
+import { responseReducer, SET_RESPONSE, SET_LOADING, RESET_LOADING } from '../../../src/reducers/responseReducer';
 
 describe('responseReducers', () => {
   const testResponse = { payload: { foo: 'bar' }, error: false };
@@ -20,6 +20,12 @@ describe('responseReducers', () => {
     expect(responseReducer(defaultState, { type: SET_RESPONSE, response: testResponse })).toEqual({
       response: testResponse,
       loading: false,
+    });
+  });
+
+  it('resets LOADING state', async () => {
+    expect(responseReducer({ ...defaultState, loading: true }, { type: RESET_LOADING })).toEqual({
+      ...defaultState, loading: false
     });
   });
 });

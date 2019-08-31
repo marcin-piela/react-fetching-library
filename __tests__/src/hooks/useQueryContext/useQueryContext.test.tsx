@@ -8,6 +8,8 @@ describe('useQueryContext test', () => {
   const wrapper = ({ children }: any) => (
     <QueryContext.Provider
       value={{
+        abort: () => {},
+        reset: () => {},
         loading: false,
         query: async () => ({ error: false }),
         error: false,

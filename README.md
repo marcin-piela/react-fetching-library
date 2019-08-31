@@ -37,6 +37,11 @@ Simple and powerful fetching library for React. Use hooks to fetch data!
 
 ✅ Bult-in contexts to easily pass data down to child components
 
+✅ Handle race conditions
+
+✅ Allows to abort pending requests
+
+
 ---
 
 # react-fetching-library
@@ -50,7 +55,7 @@ Library allows you to use it with connection of React Suspense ([read more about
 
 ## Documentation
 
-Full documentation is available at https://marcin-piela.github.io/react-fetching-library
+Full documentation is available __[HERE](https://marcin-piela.github.io/react-fetching-library)__ 
 
 ## Short example of use
 
