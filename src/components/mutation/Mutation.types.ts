@@ -6,6 +6,7 @@ export type MutationApi<T, S> = {
   loading: boolean;
   mutate: (action: S) => Promise<QueryResponse<T>>;
   reset: () => void;
+  abort: () => void;
 } & QueryResponse<T>;
 
 export type MutationProps<T, R, S> = {
