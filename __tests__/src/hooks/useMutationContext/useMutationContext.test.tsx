@@ -10,6 +10,8 @@ describe('useMutationContext test', () => {
       value={{
         loading: false,
         mutate: async () => ({ error: false }),
+        abort: () => {},
+        reset: () => {},
         error: false,
       }}
     >
