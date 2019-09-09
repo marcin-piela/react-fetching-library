@@ -21,7 +21,7 @@ Simple and powerful fetching library for React. Use hooks to fetch data!
 
 ✅ Use hooks or FACC's (Function as Child Components) - depending on your needs
 
-✅ Uses Fetch API
+✅ Uses Fetch API (but allows to use custom fetch implemenation and axios as well)
 
 ✅ Request and response interceptors allows to easily customize connection with API
 

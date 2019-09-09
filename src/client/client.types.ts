@@ -41,6 +41,7 @@ export type ClientOptions<T> = {
   requestInterceptors?: Array<RequestInterceptor<T>>;
   responseInterceptors?: Array<ResponseInterceptor<T, any>>;
   cacheProvider?: Cache<QueryResponse>;
+  fetch?: typeof fetch;
 };
 
 export type RequestInterceptor<T = any> = (client: Client<T>) => (action: Action<T>) => Promise<Action<T>>;

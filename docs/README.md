@@ -11,7 +11,7 @@ __react-fetching-library__ -  simple and powerful fetching library for React. Us
 
 ✅ SSR support 
 
-✅ Uses Fetch API
+✅ Uses Fetch API (but allows to use custom fetch implemenation and axios as well)
 
 ✅ Request and response interceptors allows to easily customize connection with API
 
@@ -61,6 +61,7 @@ const client = createClient({
   requestInterceptors: [],
   responseInterceptors: [],
   cacheProvider: cacheProvider,
+  fetch: customFetchImplementation,
 });
 ```
 
@@ -118,11 +119,12 @@ client.cache.get(action);
 
 ## Available options
 
-| option      | description                             | required | default value |
-| ------------------------- | ----------------------------------------- | ------------- | ------------- |
-| requestInterceptors         | array of requestInterceptors                | no         | []               |
-| responseInterceptors | array of responseInterceptors | no        | []      |
-| cacheProvider                   | cache provider                    | no                   | undefined      |
+| option                | description                               | required | default value |
+| --------------------- | ----------------------------------------- | -------- | ------------- |
+| requestInterceptors   | array of requestInterceptors              | no       | []            |
+| responseInterceptors  | array of responseInterceptors             | no       | []            |
+| cacheProvider         | cache provider                            | no       | undefined     |
+| fetch                 | custom  fetch implementation              | no       | undefined     |
 
 ## Request interceptors
 
@@ -763,6 +765,16 @@ export class QueryErrorBoundary extends Component {
 
 ---
 
+# Use with AXIOS
+
+react-fetching-library allows to use custom `fetch` implementation so it's doable to use this library with AXIOS.
+
+**See below example**
+
+[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/with-axios)
+
+---
+
 # SSR - server side rendering
 
 To use react-fetching-library on server side you have to use isomporphic-fetch package ie. https://github.com/developit/unfetch#readme and then use library as in SPA apps.
@@ -1022,6 +1034,13 @@ For an example of simple caching responses view this CodeSandbox (Typescript, CR
 For an example of SSR with next.js framework view this CodeSandbox:
 
 [![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/ssr-nextjs)
+
+
+## With AXIOS
+
+Example with AXIOS instead of native Fetch API
+
+[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/with-axios)
 
 
 ---
