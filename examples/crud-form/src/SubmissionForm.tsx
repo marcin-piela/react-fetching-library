@@ -2,7 +2,9 @@ import React from 'react';
 import { FormikProps, Field, FieldProps } from 'formik';
 import { Box, Button, Textarea, FormControl, Input, FormErrorMessage, FormLabel } from '@chakra-ui/core';
 
-interface SubmissionFormProps extends FormikProps<any> {}
+import { SubmissionValues } from './SubmissionFormContainer';
+
+interface SubmissionFormProps extends FormikProps<SubmissionValues> {}
 
 const renderNameFormControl = (props: FieldProps) => {
   const { field, form } = props;

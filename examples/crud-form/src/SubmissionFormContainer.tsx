@@ -12,8 +12,6 @@ export interface SubmissionValues {
   email: string;
 }
 
-console.log(process.env);
-
 const submitFormAction: Action = (formValues: SubmissionValues) => ({
   method: 'POST',
   endpoint: `https://formcarry.com/s/${process.env.REACT_APP_FORMCARRY_ID}`,
