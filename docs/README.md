@@ -1035,6 +1035,10 @@ For an example of SSR with next.js framework view this CodeSandbox:
 
 [![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/ssr-nextjs)
 
+## With Formik
+
+For an example of a contact form submission with Formik and the useMutation hook:
+[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/crud-form)
 
 ## With AXIOS
 

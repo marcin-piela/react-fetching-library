@@ -72,7 +72,7 @@ export const useQuery = <T = any, R = {}>(action: Action<R>, initFetch = true) =
 
   const handleReload = useCallback(() => {
     return handleQuery(true);
-  }, []);
+  }, [convertActionToBase64(action)]);
 
   const handleAbort = useCallback(() => {
     if (controller.current) {
