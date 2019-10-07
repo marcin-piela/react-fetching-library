@@ -356,7 +356,7 @@ Available hooks
 
 ## useQuery
 
-This hook is used to query data (can be used to get data from API and mutate data as well) . By default request is sent immediately (`initFetch = true`). You can turn on lazy loading by setting second param as `false`. Response of hook is [`QueryResponse`][] extended by `query` function which allows you to re-run query again or first time (when lazy loading is turned on), `abort` function to abort pending request and `reset` function to reset state of hook. First param of this hook is [`Action`][]
+This hook is used to query data (can be used to get data from API and mutate data as well) . By default request is sent immediately (`initFetch = true`). You can turn on lazy loading by setting second param as `false`. Response of hook is [`QueryResponse`][] extended by `query` function which allows you to re-run query again or first time (when lazy loading is turned on), `abort` function to abort pending request, `reset` function to reset state of hook and `loading` boolean to indicate if the query is still in progress. First param of this hook is [`Action`][]
 
 ```js
 import { useQuery } from 'react-fetching-library';
