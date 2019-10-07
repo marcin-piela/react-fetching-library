@@ -32,6 +32,13 @@ export type QueryResponse<T = any> = {
   headers?: Headers;
 };
 
+export type UseQueryResponse<T> = {
+  loading: boolean;
+  abort: () => void;
+  reset: () => void;
+  query: () => Promise<QueryResponse<T>>;
+} & QueryResponse<T>;
+
 export type Client<R = any> = {
   query: <T>(action: Action<R>, skipCache?: boolean) => Promise<QueryResponse<T>>;
   cache?: Cache<QueryResponse>;
