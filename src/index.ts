@@ -9,4 +9,11 @@ export * from './context/queryContext/queryContext';
 export * from './context/mutationContext/mutationContext';
 
 // typings
-export { Action, ClientOptions, QueryResponse, UseQueryResponse, RequestInterceptor, ResponseInterceptor } from './client/client.types';
+export {
+  Action,
+  ClientOptions,
+  QueryResponse,
+  UseQueryResponse,
+  RequestInterceptor,
+  ResponseInterceptor,
+} from './client/client.types';

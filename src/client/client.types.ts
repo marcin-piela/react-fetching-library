@@ -1,6 +1,7 @@
 import { Cache } from '../cache/cache.types';
 
 type Method = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS';
+export type ResponseType = 'arrayBuffer' | 'blob' | 'json' | 'text' | 'formData';
 
 export type ActionConfig = {
   emitErrorForStatuses?: number[];
@@ -22,6 +23,7 @@ export type Action<T = any> = {
   signal?: AbortSignal | null;
   window?: any;
   config?: ActionConfig;
+  responseType: ResponseType;
 } & T;
 
 export type QueryResponse<T = any> = {
