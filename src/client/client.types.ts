@@ -1,6 +1,7 @@
 import { Cache } from '../cache/cache.types';
 
 type Method = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS';
+export type ResponseType = 'arrayBuffer' | 'blob' | 'json' | 'text' | 'formData';
 
 export type ActionConfig = {
   emitErrorForStatuses?: number[];
@@ -22,6 +23,7 @@ export type Action<T = any> = {
   signal?: AbortSignal | null;
   window?: any;
   config?: ActionConfig;
+  responseType?: ResponseType;
 } & T;
 
 export type QueryResponse<T = any> = {
@@ -31,6 +33,13 @@ export type QueryResponse<T = any> = {
   payload?: T;
   headers?: Headers;
 };
+
+export type UseQueryResponse<T> = {
+  loading: boolean;
+  abort: () => void;
+  reset: () => void;
+  query: () => Promise<QueryResponse<T>>;
+} & QueryResponse<T>;
 
 export type Client<R = any> = {
   query: <T>(action: Action<R>, skipCache?: boolean) => Promise<QueryResponse<T>>;

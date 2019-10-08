@@ -1,4 +1,11 @@
-import { Action, ClientOptions, QueryResponse, RequestInterceptor, ResponseInterceptor } from './client.types';
+import {
+  Action,
+  ClientOptions,
+  QueryResponse,
+  RequestInterceptor,
+  ResponseInterceptor,
+  ResponseType,
+} from './client.types';
 import { QueryError } from './errors/QueryError';
 
 export type HandleRequestInterceptors<R> = (
@@ -11,8 +18,6 @@ export type HandleResponseInterceptors<R> = (
   response: QueryResponse<any>,
   interceptors: Array<ResponseInterceptor<R, any>>,
 ) => Promise<QueryResponse<any>>;
-
-const emptyCodes = [204, 205];
 
 export const createClient = <R = any>(clientOptions: ClientOptions<R>) => {
   const cache = clientOptions.cacheProvider;
@@ -36,7 +41,7 @@ export const createClient = <R = any>(clientOptions: ClientOptions<R>) => {
     query: async <T>(actionInit: Action<R>, skipCache = false): Promise<QueryResponse<T>> => {
       try {
         const action = await handleRequestInterceptors(actionInit, clientOptions.requestInterceptors || []);
-        const { endpoint, body, ...options } = action;
+        const { endpoint, body, responseType, ...options } = action;
 
         if (cache && !skipCache) {
           const cachedResponse = cache.get(actionInit);
@@ -66,15 +71,12 @@ export const createClient = <R = any>(clientOptions: ClientOptions<R>) => {
           window: options.window,
         });
 
-        const contentType = response.headers.get('Content-Type');
-        const isJSON = emptyCodes.indexOf(response.status) === -1 && contentType && contentType.indexOf('json') !== -1;
-
         const queryResponse = await handleResponseInterceptors(
           action,
           {
             error: !response.ok,
             headers: response.headers,
-            payload: isJSON ? await response.json() : await response.text(),
+            payload: await resolveResponse(response, responseType),
             status: response.status,
           },
           clientOptions.responseInterceptors || [],
@@ -105,3 +107,18 @@ export const createClient = <R = any>(clientOptions: ClientOptions<R>) => {
 
   return client;
 };
+
+async function resolveResponse(
+  response: Response,
+  responseType?: ResponseType,
+): Promise<any | string | ArrayBuffer | Blob | FormData> {
+  if (responseType) {
+    return response[responseType]();
+  } else {
+    const emptyCodes = [204, 205];
+    const contentType = response.headers.get('Content-Type');
+    const isJSON = emptyCodes.indexOf(response.status) === -1 && contentType && contentType.indexOf('json') !== -1;
+
+    return isJSON ? await response.json() : await response.text();
+  }
+}

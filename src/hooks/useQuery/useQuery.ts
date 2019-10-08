@@ -1,14 +1,14 @@
 import { useCallback, useContext, useEffect, useReducer, useRef } from 'react';
 
 import { convertActionToBase64 } from '../../cache/cache';
-import { Action, QueryResponse } from '../../client/client.types';
+import { Action, QueryResponse, UseQueryResponse } from '../../client/client.types';
 import { QueryError } from '../../client/errors/QueryError';
 import { ClientContext } from '../../context/clientContext/clientContext';
 import { RESET, RESET_LOADING, responseReducer, SET_LOADING, SET_RESPONSE } from '../../reducers/responseReducer';
 import { ResponseReducer } from '../../reducers/responseReducer.types';
 import { useCachedResponse } from '../useCachedResponse/useCachedResponse';
 
-export const useQuery = <T = any, R = {}>(action: Action<R>, initFetch = true) => {
+export const useQuery = <T = any, R = {}>(action: Action<R>, initFetch = true): UseQueryResponse<T> => {
   const clientContext = useContext(ClientContext);
   const cachedResponse = useCachedResponse<T>(action);
   const isMounted = useRef(true);

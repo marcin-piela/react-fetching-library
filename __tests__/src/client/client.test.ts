@@ -200,4 +200,25 @@ describe('Client test', () => {
     expect(queryResponse.payload).toEqual('User Name');
     queryResponse.headers && expect(queryResponse.headers.get('Content-Length')).toEqual('9');
   });
+
+  it('resolve a response correctly to a blob', async () => {
+    const action: Action = {
+      method: 'GET',
+      endpoint: 'http://example.com/user/blob',
+      responseType: 'blob',
+    };
+
+    fetchMock.get(action.endpoint, async () => 'example');
+
+    const client = createClient({});
+
+    const queryResponse = await client.query<Blob>(action);
+
+    if(queryResponse && queryResponse.payload) {
+      expect(queryResponse.payload.constructor.name).toEqual('Blob');
+    } else {
+      throw Error('Something went wrong resolving the response to a blob')
+    }
+
+  });
 });
