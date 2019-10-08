@@ -23,7 +23,7 @@ export type Action<T = any> = {
   signal?: AbortSignal | null;
   window?: any;
   config?: ActionConfig;
-  responseType: ResponseType;
+  responseType?: ResponseType;
 } & T;
 
 export type QueryResponse<T = any> = {
