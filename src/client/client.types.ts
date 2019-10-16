@@ -41,6 +41,13 @@ export type UseQueryResponse<T> = {
   query: () => Promise<QueryResponse<T>>;
 } & QueryResponse<T>;
 
+export type UseMutationResponse<S, T> = {
+  abort: () => void;
+  loading: boolean;
+  mutate: (action: S) => Promise<QueryResponse<T>>;
+  reset: () => void;
+} & QueryResponse<T>;
+
 export type Client<R = any> = {
   query: <T>(action: Action<R>, skipCache?: boolean) => Promise<QueryResponse<T>>;
   cache?: Cache<QueryResponse>;
