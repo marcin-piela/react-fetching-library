@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect, useReducer, useRef } from 'react';
 
-import { Action, QueryResponse } from '../../client/client.types';
+import { Action, QueryResponse, UseMutationResponse } from '../../client/client.types';
 import { QueryError } from '../../client/errors/QueryError';
 import { ClientContext } from '../../context/clientContext/clientContext';
 import { RESET, RESET_LOADING, responseReducer, SET_LOADING, SET_RESPONSE } from '../../reducers/responseReducer';
@@ -8,7 +8,9 @@ import { ResponseReducer } from '../../reducers/responseReducer.types';
 
 type ActionCreator<S, R> = (action: S) => Action<R>;
 
-export const useMutation = <T = any, R = {}, S = any>(actionCreator: ActionCreator<S, R>) => {
+export const useMutation = <T = any, R = {}, S = any>(
+  actionCreator: ActionCreator<S, R>,
+): UseMutationResponse<S, T> => {
   const clientContext = useContext(ClientContext);
   const isMounted = useRef(true);
   const controller = useRef<AbortController | null>();
