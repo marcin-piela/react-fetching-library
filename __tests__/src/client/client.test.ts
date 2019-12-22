@@ -15,7 +15,7 @@ describe('Client test', () => {
       users: [],
     });
 
-    const client = createClient({});
+    const client = createClient();
 
     const queryResponse = await client.query(action);
 
