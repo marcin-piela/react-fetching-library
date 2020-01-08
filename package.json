@@ -63,6 +63,7 @@
     "react-dom": "^16.8.6",
     "react-hooks-testing-library": "^0.5.1",
     "react-test-renderer": "^16.8.6",
+    "set-value": "3.0.1",
     "ts-jest": "^24.0.2",
     "tslint": "^5.17.0",
     "tslint-config-prettier": "^1.18.0",
