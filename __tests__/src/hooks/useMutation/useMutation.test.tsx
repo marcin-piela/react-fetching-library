@@ -2,8 +2,9 @@ import React from 'react';
 import { act, renderHook } from 'react-hooks-testing-library';
 
 import { useMutation } from '../../../../src/hooks/useMutation/useMutation';
-import { Action, QueryResponse } from '../../../../src/client/client.types';
+import { Action, QueryResponse, SuspenseCacheItem } from '../../../../src/client/client.types';
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
+import { createCache } from '../../../../src/cache/cache';
 
 describe('useMutation test', () => {
   const actionCreator: any = jest.fn((endpoint: string) => ({
@@ -21,6 +22,7 @@ describe('useMutation test', () => {
 
   const client = {
     query: fetchFunction,
+    suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
   };
 
   const wrapper = ({ children }: any) => <ClientContextProvider client={client}>{children}</ClientContextProvider>;
@@ -173,6 +175,7 @@ describe('useMutation test', () => {
   
     const client = {
       query: fetchFunction,
+      suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
     };
   
     const wrapper = ({ children }: any) => <ClientContextProvider client={client}>{children}</ClientContextProvider>;

@@ -4,30 +4,23 @@ import { Action, QueryResponse } from '../../client/client.types';
 import { QueryError } from '../../client/errors/QueryError';
 import { ClientContext } from '../../context/clientContext/clientContext';
 
-type CacheItem = {
-  fetch: any;
-  response?: QueryResponse;
-};
-
-const cache = createCache<CacheItem>(() => true, () => true);
-
 export const useSuspenseQuery = <T, R = any>(action: Action<R>) => {
   const clientContext = useContext(ClientContext);
   const [flag, setFlag] = useState<null | boolean>(null);
-  const cacheItem = cache.get(action);
+  const cacheItem = clientContext.suspenseCache.get(action);
 
   useEffect(() => {
     if (cacheItem && cacheItem.response && flag !== null) {
-      cache.remove(action);
+      clientContext.suspenseCache.remove(action);
     }
 
     return () => {
-      cache.remove(action);
+      clientContext.suspenseCache.remove(action);
     };
   }, [convertActionToBase64(action)]);
 
   const forceQuery = () => {
-    cache.remove(action);
+    clientContext.suspenseCache.remove(action);
     setFlag(!flag);
   };
 
@@ -47,13 +40,13 @@ export const useSuspenseQuery = <T, R = any>(action: Action<R>) => {
   }
 
   const fetch = clientContext.query(action, flag !== null).then(res => {
-    cache.add(action, {
+    clientContext.suspenseCache.add(action, {
       fetch,
       response: res,
     });
   });
 
-  cache.add(action, {
+  clientContext.suspenseCache.add(action, {
     fetch,
   });
 

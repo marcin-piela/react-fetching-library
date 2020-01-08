@@ -2,8 +2,9 @@ import React from 'react';
 import { act, renderHook } from 'react-hooks-testing-library';
 
 import { useQuery } from '../../../../src/hooks/useQuery/useQuery';
-import { Action, QueryResponse } from '../../../../src/client/client.types';
+import { Action, QueryResponse, SuspenseCacheItem } from '../../../../src/client/client.types';
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
+import { createCache } from '../../../../src/cache/cache';
 
 describe('useQuery test', () => {
   const action: Action = {
@@ -21,6 +22,7 @@ describe('useQuery test', () => {
 
   const client = {
     query: fetchFunction,
+    suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
   };
 
   const wrapper = ({ children }: any) => <ClientContextProvider client={client}>{children}</ClientContextProvider>;
@@ -196,6 +198,7 @@ describe('useQuery test', () => {
   
     const client = {
       query: fetchFunction,
+      suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
     };
   
     const wrapper = ({ children }: any) => <ClientContextProvider client={client}>{children}</ClientContextProvider>;

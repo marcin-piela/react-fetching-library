@@ -2,8 +2,9 @@ import React, { Suspense } from 'react';
 import { renderHook, act } from 'react-hooks-testing-library';
 
 import { useSuspenseQuery } from '../../../../src/hooks/useSuspenseQuery/useSuspenseQuery';
-import { Action, QueryResponse } from '../../../../src/client/client.types';
+import { Action, QueryResponse, SuspenseCacheItem } from '../../../../src/client/client.types';
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
+import { createCache } from '../../../../src/cache/cache';
 
 describe('useSuspenseQuery test', () => {
   const action: Action = {
@@ -25,6 +26,7 @@ describe('useSuspenseQuery test', () => {
 
   const client = {
     query: fetchFunction,
+    suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
   };
 
   const wrapper = ({ children }: any) => (
