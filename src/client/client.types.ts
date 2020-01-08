@@ -48,9 +48,15 @@ export type UseMutationResponse<S, T> = {
   reset: () => void;
 } & QueryResponse<T>;
 
+export type SuspenseCacheItem = {
+  fetch: any;
+  response?: QueryResponse;
+};
+
 export type Client<R = any> = {
   query: <T>(action: Action<R>, skipCache?: boolean) => Promise<QueryResponse<T>>;
   cache?: Cache<QueryResponse>;
+  suspenseCache: Cache<SuspenseCacheItem>;
 };
 
 export type ClientOptions<T> = {

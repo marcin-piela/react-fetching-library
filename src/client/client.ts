@@ -1,3 +1,4 @@
+import { createCache } from '../cache/cache';
 import {
   Action,
   ClientOptions,
@@ -5,6 +6,7 @@ import {
   RequestInterceptor,
   ResponseInterceptor,
   ResponseType,
+  SuspenseCacheItem,
 } from './client.types';
 import { QueryError } from './errors/QueryError';
 
@@ -21,6 +23,7 @@ export type HandleResponseInterceptors<R> = (
 
 export const createClient = <R = any>(clientOptions: ClientOptions<R> = {}) => {
   const cache = clientOptions.cacheProvider;
+  const suspenseCache = createCache<SuspenseCacheItem>(() => true, () => true);
 
   const handleRequestInterceptors: HandleRequestInterceptors<R> = async (action, interceptors) => {
     const [interceptor, ...next] = interceptors;
@@ -103,6 +106,7 @@ export const createClient = <R = any>(clientOptions: ClientOptions<R> = {}) => {
         };
       }
     },
+    suspenseCache,
   };
 
   return client;

@@ -2,8 +2,9 @@ import React from 'react';
 import { render, act } from '@testing-library/react';
 
 import { Query } from '../../../../src/components/query/Query';
-import { Action, QueryResponse } from '../../../../src/client/client.types';
+import { Action, QueryResponse, SuspenseCacheItem } from '../../../../src/client/client.types';
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
+import { createCache } from '../../../../src/cache/cache';
 
 describe('Query test', () => {
   const action: Action = {
@@ -25,6 +26,7 @@ describe('Query test', () => {
 
   const client = {
     query: fetchFunction,
+    suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
   };
 
   const wrapper = ({ children }: any) => <ClientContextProvider client={client}>{children}</ClientContextProvider>;
