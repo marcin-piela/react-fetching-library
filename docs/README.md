@@ -310,6 +310,7 @@ const fetchUsersActions = {
 | signal | - | [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) / null         | no 
 | window | - | any         | no 
 | config | additional config of action | see below         | no 
+| responseType | type of expected response | arrayBuffer &#124; blob &#124; json &#124; text &#124; formData | no
 
 
 ### Config object:

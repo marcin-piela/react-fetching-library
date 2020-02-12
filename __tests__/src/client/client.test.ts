@@ -201,6 +201,27 @@ describe('Client test', () => {
     queryResponse.headers && expect(queryResponse.headers.get('Content-Length')).toEqual('9');
   });
 
+  it('skips content-type for FormData body', async () => {
+    const body = new FormData();
+    body.append('key', 'test');
+
+    const action: Action = {
+      method: 'POST',
+      endpoint: 'http://example.com/user/file',
+      body,
+    };
+
+    const mock = fetchMock.post(action.endpoint, { body: action.body });
+
+    const client = createClient({});
+
+    const queryResponse = await client.query(action);
+
+    expect(queryResponse.payload).toEqual({});
+    expect(fetchMock.called())
+    expect(mock.called(action.endpoint, { headers: {} })).toEqual(true);
+  });
+
   it('resolve a response correctly to a blob', async () => {
     const action: Action = {
       method: 'GET',
@@ -214,7 +235,7 @@ describe('Client test', () => {
 
     const queryResponse = await client.query<Blob>(action);
 
-    if(queryResponse && queryResponse.payload) {
+    if (queryResponse && queryResponse.payload) {
       expect(queryResponse.payload.constructor.name).toEqual('Blob');
     } else {
       throw Error('Something went wrong resolving the response to a blob')

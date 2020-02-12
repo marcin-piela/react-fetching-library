@@ -54,8 +54,13 @@ export const createClient = <R = any>(clientOptions: ClientOptions<R> = {}) => {
           }
         }
 
-        const headers = { ...{ 'Content-Type': 'application/json; charset=utf-8' }, ...options.headers };
-        const shouldStringify = headers['Content-Type'].indexOf('json') !== -1;
+        let headers = options.headers;
+
+        if (!(body && (body instanceof FormData || body instanceof Blob || body instanceof ArrayBuffer))) {
+          headers = { ...{ 'Content-Type': 'application/json; charset=utf-8' }, ...options.headers };
+        }
+
+        const shouldStringify = headers && headers['Content-Type'] && headers['Content-Type'].indexOf('json') !== -1;
         const fetchFunction = clientOptions.fetch || fetch;
 
         const response = await fetchFunction(endpoint, {
