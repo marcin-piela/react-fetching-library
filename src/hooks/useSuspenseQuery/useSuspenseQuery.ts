@@ -4,7 +4,7 @@ import { Action, QueryResponse } from '../../client/client.types';
 import { QueryError } from '../../client/errors/QueryError';
 import { ClientContext } from '../../context/clientContext/clientContext';
 
-export const useSuspenseQuery = <T, R = any>(action: Action<R>) => {
+export const useSuspenseQuery = <T, R = any>(action: Action<T, R>) => {
   const clientContext = useContext(ClientContext);
   const [flag, setFlag] = useState<null | boolean>(null);
   const cacheItem = clientContext.suspenseCache.get(action);

@@ -1,6 +1,6 @@
 {
   "name": "react-fetching-library",
-  "version": "1.5.15-next",
+  "version": "1.6.0-next",
   "description": "Simple and powerful API client for react. Use hooks or FACC's to fetch data in easy way. No dependencies! Just react under the hood.",
   "main": "lib/index.js",
   "files": [
@@ -10,8 +10,7 @@
   "scripts": {
     "clean": "rm -rf lib",
     "test": "jest --verbose --env=jsdom",
-    "build-package": "tsc --module CommonJS",
-    "closure-compiler": "rollup --config",
+    "build-package": "rollup --config",
     "pre-commit": "yarn lint-fix && yarn format",
     "build": "yarn clean && yarn build-package",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\"  \"src/**/*.js\" \"examples/**/*.ts\" \"examples/**/*.js\" \"examples/**/*.tsx\"",

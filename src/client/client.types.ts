@@ -7,7 +7,7 @@ export type ActionConfig = {
   emitErrorForStatuses?: number[];
 };
 
-export type Action<T = any> = {
+export type Action<Response = any, Ext = { [key: string]: any }> = {
   endpoint: string;
   method: Method;
   body?: any;
@@ -24,7 +24,7 @@ export type Action<T = any> = {
   window?: any;
   config?: ActionConfig;
   responseType?: ResponseType;
-} & T;
+} & Ext;
 
 export type QueryResponse<T = any> = {
   status?: number;
@@ -48,13 +48,20 @@ export type UseMutationResponse<S, T> = {
   reset: () => void;
 } & QueryResponse<T>;
 
+export type UseParametrizedQuery<S, T> = {
+  abort: () => void;
+  loading: boolean;
+  query: (action: S) => Promise<QueryResponse<T>>;
+  reset: () => void;
+} & QueryResponse<T>;
+
 export type SuspenseCacheItem = {
   fetch: any;
   response?: QueryResponse;
 };
 
 export type Client<R = any> = {
-  query: <T>(action: Action<R>, skipCache?: boolean) => Promise<QueryResponse<T>>;
+  query: <T>(action: Action<T, R>, skipCache?: boolean) => Promise<QueryResponse<T>>;
   cache?: Cache<QueryResponse>;
   suspenseCache: Cache<SuspenseCacheItem>;
 };
@@ -66,8 +73,8 @@ export type ClientOptions<T> = {
   fetch?: typeof fetch;
 };
 
-export type RequestInterceptor<T = any> = (client: Client<T>) => (action: Action<T>) => Promise<Action<T>>;
+export type RequestInterceptor<T = any> = (client: Client<T>) => (action: Action<any, T>) => Promise<Action<any, T>>;
 
 export type ResponseInterceptor<T = any, R = any> = (
   client: Client<T>,
-) => (action: Action<T>, response: QueryResponse<R>) => Promise<QueryResponse<R>>;
+) => (action: Action<R, T>, response: QueryResponse<R>) => Promise<QueryResponse<R>>;

@@ -9,6 +9,6 @@ export type QueryApi<T> = {
 
 export type QueryProps<T, R> = {
   initFetch?: boolean;
-  action: Action<R>;
+  action: Action<T, R>;
   children: (props: QueryApi<T>) => any;
 };

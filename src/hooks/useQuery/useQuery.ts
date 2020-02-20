@@ -8,7 +8,7 @@ import { RESET, RESET_LOADING, responseReducer, SET_LOADING, SET_RESPONSE } from
 import { ResponseReducer } from '../../reducers/responseReducer.types';
 import { useCachedResponse } from '../useCachedResponse/useCachedResponse';
 
-export const useQuery = <T = any, R = {}>(action: Action<R>, initFetch = true): UseQueryResponse<T> => {
+export const useQuery = <T = any, R = any>(action: Action<T, R>, initFetch = true) => {
   const clientContext = useContext(ClientContext);
   const cachedResponse = useCachedResponse<T>(action);
   const isMounted = useRef(true);

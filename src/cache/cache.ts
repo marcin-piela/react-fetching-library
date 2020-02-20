@@ -6,22 +6,22 @@ export const convertActionToBase64 = (action: Action<any>) => {
 };
 
 export const createCache = <T>(
-  isCacheable: (action: Action<T>) => boolean,
+  isCacheable: (action: Action<any, any>) => boolean,
   isValid: (response: T & { timestamp: number }) => boolean,
 ) => {
   let items: { [key: string]: any } = {};
 
-  const add = (action: Action<any>, value: T) => {
+  const add = (action: Action<any, any>, value: T) => {
     if (isCacheable(action)) {
       items[convertActionToBase64(action)] = { ...value, timestamp: Date.now() };
     }
   };
 
-  const remove = (action: Action<any>) => {
+  const remove = (action: Action<any, any>) => {
     delete items[convertActionToBase64(action)];
   };
 
-  const get = (action: Action<any>) => {
+  const get = (action: Action<any, any>) => {
     const response = items[convertActionToBase64(action)];
     const valid = response && isValid(response);
 
