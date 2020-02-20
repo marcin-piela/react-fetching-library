@@ -4,7 +4,7 @@ import { ClientContext } from 'react-fetching-library';
 import { fetchUsersList } from '../api/actions/fetchUsersList';
 
 import { UsersList } from './UsersList';
-import { User } from './UsersList.types';
+import { User } from '../api/types';
 
 export const UsersListContainer = () => {
   const clientContext = useContext(ClientContext);

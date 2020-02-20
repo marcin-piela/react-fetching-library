@@ -1,4 +1,4 @@
-import { News } from "../api/types";
+import { News } from '../api/types';
 
 export type NewsListProps = {
   error: boolean;
