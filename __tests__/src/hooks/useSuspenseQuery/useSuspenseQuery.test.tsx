@@ -79,7 +79,7 @@ describe('useSuspenseQuery test', () => {
     const cache = createCache<SuspenseCacheItem>(() => true, () => true);
     const remove = jest.fn();
 
-    const secondAction = {
+    const secondAction: Action = {
       method: 'GET',
       endpoint: 'bar',
     }
@@ -115,7 +115,7 @@ describe('useSuspenseQuery test', () => {
       </div>;
     }
 
-    const { container, unmount, getByTestId, debug } = render(
+    const { unmount, getByTestId } = render(
       <TestComponent />,
       {
         wrapper: testWrapper,
