@@ -11,12 +11,12 @@ import {
 import { QueryError } from './errors/QueryError';
 
 export type HandleRequestInterceptors<R> = (
-  action: Action<R>,
+  action: Action<any, R>,
   interceptors: Array<RequestInterceptor<R>>,
-) => Promise<Action<R>>;
+) => Promise<Action<any, R>>;
 
 export type HandleResponseInterceptors<R> = (
-  action: Action<R>,
+  action: Action<any, R>,
   response: QueryResponse<any>,
   interceptors: Array<ResponseInterceptor<R, any>>,
 ) => Promise<QueryResponse<any>>;
@@ -41,7 +41,7 @@ export const createClient = <R = any>(clientOptions: ClientOptions<R> = {}) => {
 
   const client = {
     cache,
-    query: async <T>(actionInit: Action<R>, skipCache = false): Promise<QueryResponse<T>> => {
+    query: async <T>(actionInit: Action<any, R>, skipCache = false): Promise<QueryResponse<T>> => {
       try {
         const action = await handleRequestInterceptors(actionInit, clientOptions.requestInterceptors || []);
         const { endpoint, body, responseType, ...options } = action;

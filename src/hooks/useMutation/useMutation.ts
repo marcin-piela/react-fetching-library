@@ -6,10 +6,10 @@ import { ClientContext } from '../../context/clientContext/clientContext';
 import { RESET, RESET_LOADING, responseReducer, SET_LOADING, SET_RESPONSE } from '../../reducers/responseReducer';
 import { ResponseReducer } from '../../reducers/responseReducer.types';
 
-type ActionCreator<S, R> = (action: S) => Action<R>;
+type ActionCreator<S, R, T> = (action: S) => Action<T, R>;
 
 export const useMutation = <T = any, R = {}, S = any>(
-  actionCreator: ActionCreator<S, R>,
+  actionCreator: ActionCreator<S, R, T>,
 ): UseMutationResponse<S, T> => {
   const clientContext = useContext(ClientContext);
   const isMounted = useRef(true);

@@ -25,8 +25,6 @@ __react-fetching-library__ -  simple and powerful fetching library for React. Us
 
 ✅ Simple cache provider - easily to extend
 
-✅ Bult-in contexts to easily pass data down to child components
-
 ✅ Handle race conditions
 
 ✅ Allows to abort pending requests
@@ -104,7 +102,7 @@ const client = createClient(options);
 ```js
 import { Action } from 'react-fetching-library';
 
-const action:Action= { 
+const action: Action = { 
   method: 'GET',
   endpoint: '/users',
 };
@@ -232,9 +230,9 @@ You can create your own cache provider. It should implement this type:
 
 ```js
 type Cache<T> = {
-  add: (action: Action<any>, value: T) => void;
-  remove: (action: Action<any>) => void;
-  get: (action: Action<any>) => QueryResponse & { timestamp: number } | undefined;
+  add: (action: Action, value: T) => void;
+  remove: (action: Action) => void;
+  get: (action: Action) => QueryResponse & { timestamp: number } | undefined;
   getItems: () => { [key: string]: QueryResponse };
   setItems: (items:{ [key: string]: QueryResponse }) => void;
 };
@@ -448,6 +446,30 @@ export const AddUserFormContainer = () => {
 };
 ```
 
+## useParametrizedQuery
+
+This hook is used when you need to lazy load data with some parameters (parameters are not known during first render) passed to action creator.
+First param of this hook is function which returns [`Action`][] object. All params of this function have to be provided in returned `query` function. Hook returns loading flag, response payload, error flag and errorObject as well. To reset state of hook use `reset` method without any params. To abort pending request use `abort` function.
+
+```js
+import { useParametrizedQuery } from 'react-fetching-library';
+
+const fetchUserAction = (userId) => ({
+  method: 'GET',
+  endpoint: `/users/${userId}`,
+});
+
+export const UserDetailsContainer = ({ userId }) => {
+  const { loading, payload, query, error, reset, abort } = useParametrizedQuery(fetchUserAction);
+
+  useEffect(() => { 
+    query(userId);
+  }, [userId]);
+
+  return <UserDetails loading={loading} error={error} user={payload} />;
+};
+```
+
 ## useCachedResponse 
 
 This hook is used to get response object from cache.
@@ -481,80 +503,6 @@ export const UsersListContainer = () => {
 };
 ```
 
-## useQueryContext
-
-This hook is used to get all information from `useQuery` hook from child component. First you need to add context provider in parent component:
-
-```js
-import { useQuery, QueryContext } from 'react-fetching-library';
-
-const fetchUsersList = {
-  method: 'GET',
-  endpoint: '/users',
-};
-
-export const UsersListContainer = () => {
-  const query = useQuery(fetchUsersList);
-
-  return (
-    <QueryContext.Provider value={query}>
-      <UsersList />
-    </QueryContext.Provider>
-  );
-};
-```
-
-And use `useQueryContext` in child component:
-
-```js
-import {  useQueryContext } from 'react-fetching-library';
-
-export const UsersList = () => {
-  const { loading, payload, error, query } = useQueryContext();
-  .
-  .
-  .
-};
-
-```
-
-## useMutationContext
-
-This hook is used to get all information from `useMutation` hook from child component. First you need to add context provider in parent component:
-
-```js
-import { useMutation, MutationContext } from 'react-fetching-library';
-
-const addUser = (values) => ({
-  method: 'POST',
-  endpoint: '/users',
-  body: values,
-});
-
-export const AddUserContainer = () => {
-  const mutation = useMutation(addUser);
-
-  return (
-    <MutationContext.Provider value={mutation}>
-      <AddUserForm />
-    </MutationContext.Provider>
-  );
-};
-```
-
-And use `useMutationContext` in child component:
-
-```js
-import {  useMutationContext } from 'react-fetching-library';
-
-export const AddUserForm = () => {
-  const { loading, payload, error, mutate } = useMutationContext();
-  .
-  .
-  .
-};
-
-```
 ---
 
 # FACCs (Function as Child Components)

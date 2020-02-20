@@ -1,6 +1,8 @@
 import { Action } from 'react-fetching-library';
 
-export const fetchUsersList: Action = {
+import { User } from '../types';
+
+export const fetchUsersList: Action<User[]> = {
   method: 'GET',
   endpoint: '/users',
 };
