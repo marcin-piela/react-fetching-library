@@ -5,10 +5,9 @@ import { fetchNewsList } from '../api/actions/fetchNewsList';
 import { Button } from '../shared';
 
 import { NewsList } from './NewsList';
-import { News } from './NewsList.types';
 
 export const NewsListContainer = () => {
-  const { payload, error, query } = useSuspenseQuery<News[]>(fetchNewsList);
+  const { payload, error, query } = useSuspenseQuery(fetchNewsList);
 
   return (
     <div>

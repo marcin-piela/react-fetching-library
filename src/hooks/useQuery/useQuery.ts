@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect, useReducer, useRef } from 'react';
 
 import { convertActionToBase64 } from '../../cache/cache';
-import { Action, QueryResponse, UseQueryResponse } from '../../client/client.types';
+import { Action, QueryResponse } from '../../client/client.types';
 import { QueryError } from '../../client/errors/QueryError';
 import { ClientContext } from '../../context/clientContext/clientContext';
 import { RESET, RESET_LOADING, responseReducer, SET_LOADING, SET_RESPONSE } from '../../reducers/responseReducer';
