@@ -7,7 +7,7 @@ export type ActionConfig = {
   emitErrorForStatuses?: number[];
 };
 
-export type Action<Response = any, Ext = { [key: string]: any }> = {
+export type Action<R = any, Ext = { [key: string]: any }> = {
   endpoint: string;
   method: Method;
   body?: any;

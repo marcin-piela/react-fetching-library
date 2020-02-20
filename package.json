@@ -1,6 +1,6 @@
 {
   "name": "react-fetching-library",
-  "version": "1.6.0-next",
+  "version": "1.6.0",
   "description": "Simple and powerful API client for react. Use hooks or FACC's to fetch data in easy way. No dependencies! Just react under the hood.",
   "main": "lib/index.js",
   "files": [
@@ -72,7 +72,7 @@
     "ts-jest": "^24.0.2",
     "tslint": "^5.17.0",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.5.2"
+    "typescript": "3.7.5"
   },
   "peerDependencies": {
     "react": "^16.8.4",
