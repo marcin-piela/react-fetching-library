@@ -1,12 +1,12 @@
 import React from 'react';
 import { act, renderHook } from 'react-hooks-testing-library';
 
-import { useParametrizedQuery } from '../../../../src/hooks/useParametrizedQuery/useParametrizedQuery';
+import { useParameterizedQuery } from '../../../../src/hooks/useParameterizedQuery/useParameterizedQuery';
 import { QueryResponse, SuspenseCacheItem } from '../../../../src/client/client.types';
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
 import { createCache } from '../../../../src/cache/cache';
 
-describe('useParametrizedQuery test', () => {
+describe('useParameterizedQuery test', () => {
   const actionCreator: any = jest.fn((endpoint: string) => ({
     method: 'GET',
     endpoint,
@@ -34,7 +34,7 @@ describe('useParametrizedQuery test', () => {
 
     renderHook(
       () => {
-        state = useParametrizedQuery(actionCreator);
+        state = useParameterizedQuery(actionCreator);
       },
       {
         wrapper: wrapper,

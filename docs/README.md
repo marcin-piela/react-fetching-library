@@ -446,13 +446,13 @@ export const AddUserFormContainer = () => {
 };
 ```
 
-## useParametrizedQuery
+## useParameterizedQuery
 
 This hook is used when you need to lazy load data with some parameters (parameters are not known during first render) passed to action creator.
 First param of this hook is function which returns [`Action`][] object. All params of this function have to be provided in returned `query` function. Hook returns loading flag, response payload, error flag and errorObject as well. To reset state of hook use `reset` method without any params. To abort pending request use `abort` function.
 
 ```js
-import { useParametrizedQuery } from 'react-fetching-library';
+import { useParameterizedQuery } from 'react-fetching-library';
 
 const fetchUserAction = (userId) => ({
   method: 'GET',
@@ -460,7 +460,7 @@ const fetchUserAction = (userId) => ({
 });
 
 export const UserDetailsContainer = ({ userId }) => {
-  const { loading, payload, query, error, reset, abort } = useParametrizedQuery(fetchUserAction);
+  const { loading, payload, query, error, reset, abort } = useParameterizedQuery(fetchUserAction);
 
   useEffect(() => { 
     query(userId);

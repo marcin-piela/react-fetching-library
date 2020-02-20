@@ -3,4 +3,4 @@ export { useMutation } from './useMutation/useMutation';
 export { useSuspenseQuery } from './useSuspenseQuery/useSuspenseQuery';
 export { useCachedResponse } from './useCachedResponse/useCachedResponse';
 export { useClient } from './useClient/useClient';
-export { useParametrizedQuery } from './useParametrizedQuery/useParametrizedQuery';
+export { useParameterizedQuery } from './useParameterizedQuery/useParameterizedQuery';

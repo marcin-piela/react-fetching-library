@@ -48,7 +48,7 @@ export type UseMutationResponse<S, T> = {
   reset: () => void;
 } & QueryResponse<T>;
 
-export type UseParametrizedQuery<S, T> = {
+export type UseParameterizedQuery<S, T> = {
   abort: () => void;
   loading: boolean;
   query: (action: S) => Promise<QueryResponse<T>>;
