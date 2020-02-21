@@ -4679,7 +4679,7 @@ type-fest@^0.4.1:
 
 typescript@3.7.5:
   version "3.7.5"
-  resolved "http://artifactory.service/api/npm/npm-release/typescript/-/typescript-3.7.5.tgz#0692e21f65fd4108b9330238aac11dd2e177a1ae"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.5.tgz#0692e21f65fd4108b9330238aac11dd2e177a1ae"
   integrity sha1-BpLiH2X9QQi5MwI4qsEd0uF3oa4=
 
 uglify-js@^3.1.4:
