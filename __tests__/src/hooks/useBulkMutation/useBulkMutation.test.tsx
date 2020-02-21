@@ -247,6 +247,79 @@ describe('useBulkMutation test', () => {
     expect(state.loading).toEqual(false);
   });
 
+  it('support manual abort', async () => {
+    jest.useFakeTimers();
+
+    let state: any = {};
+
+    renderHook(
+      () => {
+        state = useBulkMutation(actionCreator);
+      },
+      {
+        wrapper,
+      },
+    );
+
+    expect(state.loading).toEqual(false);
+    expect(state.responses).toHaveLength(0);
+
+    act(() => {
+      state.mutate(['endpoint']);
+      state.abort();
+      state.mutate(['endpoint']);
+      jest.runAllTimers();
+    });
+
+    expect(actionCreator).toHaveBeenCalledWith('endpoint');
+    expect(state.loading).toEqual(false);
+    expect(state.responses).toHaveLength(1);
+  });
+
+  it('works without AbortController', async () => {
+    delete(window.AbortController);
+
+    const localFetchFunction: () => Promise<QueryResponse> = async () => ({
+      error: true,
+      errorObject: {
+        name: 'AbortError'
+      }
+    });
+
+    const localClient = {
+      query: localFetchFunction,
+      suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
+    };
+
+    const localWrapper = ({ children }: any) => <ClientContextProvider client={localClient}>{children}</ClientContextProvider>;
+
+    jest.useFakeTimers();
+
+    let state: any = {};
+
+    renderHook(
+      () => {
+        state = useBulkMutation(actionCreator);
+      },
+      {
+        wrapper: localWrapper,
+      },
+    );
+
+    expect(state.loading).toEqual(false);
+    expect(state.responses).toHaveLength(0);
+
+    act(() => {
+      state.mutate(['endpoint']);
+      state.mutate(['endpoint']);
+      state.mutate(['endpoint']);
+      jest.runAllTimers();
+    });
+
+    expect(actionCreator).toHaveBeenCalledWith('endpoint');
+    expect(state.loading).toEqual(false);
+  });
+
   it('may return errors and success responses', async () => {
 
     const localFetchFunction: (action: Action) => Promise<QueryResponse> = async (action) => {
