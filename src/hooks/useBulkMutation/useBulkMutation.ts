@@ -42,7 +42,7 @@ export const useBulkMutation = <T = any, R = {}, S = any>(
   const handleQuery = useCallback(
     async (actionParams: S[]) => {
       if (!isMounted.current) {
-        return [...Array(actionParams.length)].map(() => ({
+        return Array.from(Array(10).keys()).map(() => ({
           error: false,
         }));
       }
