@@ -48,6 +48,14 @@ export type UseMutationResponse<S, T> = {
   reset: () => void;
 } & QueryResponse<T>;
 
+export type UseBulkMutationResponse<S, T> = {
+  abort: () => void;
+  loading: boolean;
+  mutate: (actions: S[]) => Promise<Array<QueryResponse<T> | undefined>>;
+  reset: () => void;
+  responses: Array<QueryResponse<T> | undefined>;
+};
+
 export type UseParameterizedQuery<S, T> = {
   abort: () => void;
   loading: boolean;
