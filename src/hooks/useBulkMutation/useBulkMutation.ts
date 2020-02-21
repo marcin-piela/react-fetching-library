@@ -100,12 +100,6 @@ export const useBulkMutation = <T = any, R = {}, S = any>(
     });
   }, [setState]);
 
-  state.responses.forEach(response => {
-    if (response && response.errorObject && response.errorObject instanceof QueryError) {
-      throw response.errorObject;
-    }
-  });
-
   return {
     abort: handleAbort,
     loading: state.loading,
