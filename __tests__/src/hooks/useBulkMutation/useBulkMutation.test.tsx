@@ -6,16 +6,16 @@ import { Action, QueryResponse, SuspenseCacheItem } from '../../../../src/client
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
 import { createCache } from '../../../../src/cache/cache';
 
-describe('useMutation test', () => {
-  const actionCreator: any = jest.fn((endpoint: string) => ({
+describe('useBulkMutation test', () => {
+  const actionCreator: any = jest.fn((endpoint: string): Action => ({
     endpoint,
     method: 'GET',
   }));
 
-  const fetchFunction: () => Promise<QueryResponse> = async () => ({
+  const fetchFunction: (action: Action) => Promise<QueryResponse> = async (action) => ({
     error: false,
     payload: {
-      foo: 'bar',
+      foo: action.endpoint,
     },
     status: 200,
   });
@@ -45,7 +45,7 @@ describe('useMutation test', () => {
     expect(state.responses).toHaveLength(0);
 
     act(() => {
-      state.mutate(['foo', 'bar']);
+      state.mutate(['foo']);
     });
 
     expect(state.loading).toEqual(true);
@@ -55,8 +55,53 @@ describe('useMutation test', () => {
     });
 
     expect(state.loading).toEqual(false);
+    expect(state.responses).toHaveLength(1);
+    expect(state.responses[0].payload).toEqual({
+      foo: 'foo',
+    });
+
+    act(() => {
+      state.reset();
+    });
+
+    expect(state.responses).toHaveLength(0);
+  });
+
+  it('fetches multiple resources and returns proper data on success', async () => {
+    jest.useFakeTimers();
+
+    let state: any = {};
+
+    renderHook(
+      () => {
+        state = useBulkMutation(actionCreator);
+      },
+      {
+        wrapper,
+      },
+    );
+
+    expect(state.loading).toEqual(false);
+    expect(state.responses).toHaveLength(0);
+
+    act(() => {
+      state.mutate(['foo', 'bar']);
+    });
+
+    expect(state.loading).toEqual(true);
+    expect(actionCreator).toHaveBeenCalledWith('foo');
+    expect(actionCreator).toHaveBeenCalledWith('bar');
+
+    act(() => {
+      jest.runAllTimers();
+    });
+
+    expect(state.loading).toEqual(false);
     expect(state.responses).toHaveLength(2);
     expect(state.responses[0].payload).toEqual({
+      foo: 'foo',
+    });
+    expect(state.responses[1].payload).toEqual({
       foo: 'bar',
     });
 
@@ -200,5 +245,64 @@ describe('useMutation test', () => {
 
     expect(actionCreator).toHaveBeenCalledWith('endpoint');
     expect(state.loading).toEqual(false);
+  });
+
+  it('may return errors and success responses', async () => {
+
+    const localFetchFunction: (action: Action) => Promise<QueryResponse> = async (action) => {
+      if (action.endpoint === 'error') {
+        return {
+          error: true,
+          errorObject: {
+            name: 'Some error'
+          }
+        }
+      }
+
+      return {
+        error: false,
+        payload: {
+          foo: action.endpoint,
+        },
+        status: 200,
+      };
+    };
+
+    const localClient = {
+      query: localFetchFunction,
+      suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
+    };
+
+    const localWrapper = ({ children }: any) => <ClientContextProvider client={localClient}>{children}</ClientContextProvider>;
+
+    jest.useFakeTimers();
+
+    let state: any = {};
+
+    renderHook(
+      () => {
+        state = useBulkMutation(actionCreator);
+      },
+      {
+        wrapper: localWrapper,
+      },
+    );
+
+    expect(state.loading).toEqual(false);
+    expect(state.responses).toHaveLength(0);
+
+    act(() => {
+      state.mutate(['foo', 'error', 'bar']);
+      jest.runAllTimers();
+    });
+
+    expect(actionCreator).toHaveBeenCalledWith('foo');
+    expect(actionCreator).toHaveBeenCalledWith('error');
+    expect(actionCreator).toHaveBeenCalledWith('bar');
+    expect(state.loading).toEqual(false);
+    expect(state.responses).toHaveLength(3);
+    expect(state.responses[0].error).toEqual(false);
+    expect(state.responses[1].error).toEqual(true);
+    expect(state.responses[2].error).toEqual(false);
   });
 });
