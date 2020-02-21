@@ -987,6 +987,7 @@ For an example of SSR with next.js framework view this CodeSandbox:
 ## With Formik
 
 For an example of a contact form submission with Formik and the useMutation hook:
+
 [![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/crud-form)
 
 ## With AXIOS
@@ -1029,4 +1030,4 @@ For now React Suspense is not production ready to use it for fetch data as descr
 [github-star]: https://github.com/marcin-piela/react-fetching-library/stargazers
 [twitter]: https://twitter.com/intent/tweet?text=Check%20out%20react-fetching-library%20https%3A%2F%2Fgithub.com%2Fmarcin-piela%2Freact-fetching-library%20%F0%9F%91%8D
 [twitter-badge]: https://img.shields.io/twitter/url/https/github.com/marcin-piela/react-fetching-library.svg?style=social
-[gzip-badge]:https://badgen.net/bundlephobia/minzip/react-fetching-library
+[gzip-badge]:https://badgen.net/bundlephobia/minzip/react-fetching-library@1.6.1

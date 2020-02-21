@@ -1,4 +1,4 @@
-import { User } from "../api/types";
+import { User } from '../api/types';
 
 export type UsersListProps = {
   loading: boolean;

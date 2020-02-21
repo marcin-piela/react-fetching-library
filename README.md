@@ -118,4 +118,4 @@ react-fetching-library is licensed under the [MIT license](http://opensource.org
 [github-star]: https://github.com/marcin-piela/react-fetching-library/stargazers
 [twitter]: https://twitter.com/intent/tweet?text=Check%20out%20react-fetching-library%20https%3A%2F%2Fgithub.com%2Fmarcin-piela%2Freact-fetching-library%20%F0%9F%91%8D
 [twitter-badge]: https://img.shields.io/twitter/url/https/github.com/marcin-piela/react-fetching-library.svg?style=social
-[gzip-badge]:https://badgen.net/bundlephobia/minzip/react-fetching-library
+[gzip-badge]:https://badgen.net/bundlephobia/minzip/react-fetching-library@1.6.1
