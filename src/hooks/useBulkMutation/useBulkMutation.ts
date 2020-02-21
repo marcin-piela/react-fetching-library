@@ -42,7 +42,7 @@ export const useBulkMutation = <T = any, R = {}, S = any>(
   const handleQuery = useCallback(
     async (actionParams: S[]) => {
       if (!isMounted.current) {
-        return Array(actionParams.length).map(() => ({
+        return [...Array(actionParams.length)].map(() => ({
           error: false,
         }));
       }
@@ -63,9 +63,7 @@ export const useBulkMutation = <T = any, R = {}, S = any>(
         loading: true,
       }));
 
-      const queryResponses: Array<QueryResponse<T>> = await Promise.all(
-        actions.map(action => query<T>(action)).map(p => p.catch(e => e)),
-      );
+      const queryResponses: Array<QueryResponse<T>> = await Promise.all(actions.map(action => query<T>(action)));
 
       if (isMounted.current) {
         setState({
