@@ -446,6 +446,39 @@ export const AddUserFormContainer = () => {
 };
 ```
 
+## useBulkMutation
+
+This hook is used when you need to mutate multiple data, ie for POST/PATCH/PUT actions for mass delete using a delete endpoint of one element. 
+First param of this hook is function which returns [`Action`][] object. An array of params of this function have to be provided in returned `mutate` function. Hook returns loading flag, responses array, each containing the payload, error flag and errorObject. To reset state of hook use `reset` method without any params. To abort pending request use `abort` function.
+
+```js
+import { useBulkMutation } from 'react-fetching-library';
+
+const deleteUserAction = (user) => ({
+  method: 'DELETE',
+  endpoint: '/users?id=' + user.id
+});
+
+export const DeleteUserFormContainer = () => {
+  const { loading, responses, mutate, reset, abort } = useBulkMutation(deleteUserAction);
+
+  const handleSubmit = async (selectedUsers) => {
+    const { responses: responses } = await mutate(selectedUsers);
+ 
+    const errors = responses.filter(response => response).map(response => response.error);
+
+
+    if (errors.length > 0) {
+      //show ie. notification
+    }
+
+    //success
+  }
+
+  return <DeleteUserFormContainer loading={loading} onSubmit={handleSubmit} />;
+};
+```
+
 ## useParameterizedQuery
 
 This hook is used when you need to lazy load data with some parameters (parameters are not known during first render) passed to action creator.
