@@ -5,7 +5,7 @@ import { QueryError } from '../../client/errors/QueryError';
 import { ClientContext } from '../../context/clientContext/clientContext';
 import { ClientContextType } from '../../context/clientContext/clientContext.types';
 
-type ActionCreator<S, R> = (action: S) => Action<R>;
+type ActionCreator<S, R, T> = (action: S) => Action<T, R>;
 
 type UseBulkMutationState<T> = {
   responses: Array<QueryResponse<T> | undefined>;
@@ -13,7 +13,7 @@ type UseBulkMutationState<T> = {
 };
 
 export const useBulkMutation = <T = any, R = {}, S = any>(
-  actionCreator: ActionCreator<S, R>,
+  actionCreator: ActionCreator<S, R, T>,
 ): UseBulkMutationResponse<S, T> => {
   const { query } = useContext<ClientContextType>(ClientContext);
   const isMounted = useRef(true);
