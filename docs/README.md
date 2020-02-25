@@ -317,6 +317,63 @@ const fetchUsersActions = {
 | ------------------------- | ------------------ | ------------- | ------------- |
 | emitErrorForStatuses         | list of HTTP status codes which throw error to allow to catch it in error boundary       | number[] | no               |
 
+When you're using TypeScript and need to add some new params to config object or directly to `Action` then you have to 3 possibilities to do that:
+
+1. Add second param to `Action` config interface directly in action definition (`skipAuth` in example):
+
+```js
+
+type Response = {
+  name: string;
+}
+
+const action:Action<Response, { skipAuth: boolean }> = {
+    method: 'GET',
+    endpoint: '/',
+    config: {
+      skipAuth: true,
+    }
+}
+```
+
+Obviously you can define that type before and use it in whole project:
+
+```js
+import { Action as BaseAction } from 'react-fetching-library';
+
+type Action<R> = BaseAction<R, { skipAuth: boolean }>
+```
+
+1. Extend `ActionConfig` interface in `rfc-extended.d.ts` file with new params:
+
+```js
+
+import * as RFC from 'react-fetching-library';
+
+declare module 'react-fetching-library' {
+  export interface ActionConfig {
+    // Only new params
+    skipAuth: boolean;
+    params: any;
+  };
+}
+```
+
+1. Extend `Action` interface in `rfc-extended.d.ts` with new params:
+   
+```js
+
+import 'react-fetching-library';
+
+declare module 'react-fetching-library' {
+  export interface Action<R = any, Ext = any> {
+    // Only new params
+    skipAuth: boolean;
+  }
+}
+
+
+```
 ---
 
 # QueryResponse

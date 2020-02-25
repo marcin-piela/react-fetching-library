@@ -1,10 +1,10 @@
 import React from 'react';
 import { act, renderHook } from 'react-hooks-testing-library';
 
-import { useMutation } from '../../../../src/hooks/useMutation/useMutation';
+import { createCache } from '../../../../src/cache/cache';
 import { Action, QueryResponse, SuspenseCacheItem } from '../../../../src/client/client.types';
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
-import { createCache } from '../../../../src/cache/cache';
+import { useMutation } from '../../../../src/hooks/useMutation/useMutation';
 
 describe('useMutation test', () => {
   const actionCreator: any = jest.fn((endpoint: string) => ({
@@ -37,7 +37,7 @@ describe('useMutation test', () => {
         state = useMutation(actionCreator);
       },
       {
-        wrapper: wrapper,
+        wrapper,
       },
     );
 
@@ -77,7 +77,7 @@ describe('useMutation test', () => {
         state = useMutation(actionCreator);
       },
       {
-        wrapper: wrapper,
+        wrapper,
       },
     );
 
@@ -107,7 +107,7 @@ describe('useMutation test', () => {
         state = useMutation(actionCreator);
       },
       {
-        wrapper: wrapper,
+        wrapper,
       },
     );
 
@@ -140,7 +140,7 @@ describe('useMutation test', () => {
         state = useMutation(actionCreator);
       },
       {
-        wrapper: wrapper,
+        wrapper,
       },
     );
 
@@ -189,7 +189,7 @@ describe('useMutation test', () => {
         state = useMutation(actionCreator);
       },
       {
-        wrapper: wrapper,
+        wrapper,
       },
     );
 

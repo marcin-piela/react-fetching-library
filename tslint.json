@@ -5,6 +5,7 @@
     "import-name": false,
     "prefer-array-literal": false,
     "object-shorthand-properties-first": false,
+    "object-literal-sort-keys": false,
     "trailing-comma": [true, "always"],
     "interface-over-type-literal": false,
     "interface-name": false,

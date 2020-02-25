@@ -1,12 +1,12 @@
-import React from 'react';
-import { render, waitForElement, fireEvent, act } from '@testing-library/react';
+import { act, fireEvent, render, waitForElement } from '@testing-library/react';
 import fetchMock from 'fetch-mock';
+import React from 'react';
 
 import { createClient } from '../../../../src/client/client';
-import { QueryErrorBoundary } from '../../../../src/components/queryErrorBoundary/QueryErrorBoundary';
-import { Query } from '../../../../src/components/query/Query';
-import { Mutation } from '../../../../src/components/mutation/Mutation';
 import { Action } from '../../../../src/client/client.types';
+import { Mutation } from '../../../../src/components/mutation/Mutation';
+import { Query } from '../../../../src/components/query/Query';
+import { QueryErrorBoundary } from '../../../../src/components/queryErrorBoundary/QueryErrorBoundary';
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
 
 beforeEach(() => {
@@ -44,7 +44,7 @@ describe('queryErrorBoundary test', () => {
         <Query action={action}>{children}</Query>
       </QueryErrorBoundary>,
       {
-        wrapper: wrapper,
+        wrapper,
       },
     );
 
@@ -79,7 +79,7 @@ describe('queryErrorBoundary test', () => {
         </Mutation>
       </QueryErrorBoundary>,
       {
-        wrapper: wrapper,
+        wrapper,
       },
     );
 

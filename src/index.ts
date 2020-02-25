@@ -9,9 +9,11 @@ export * from './context/clientContext/clientContextProvider';
 // typings
 export {
   Action,
+  ActionConfig,
   ClientOptions,
   QueryResponse,
   UseQueryResponse,
   RequestInterceptor,
   ResponseInterceptor,
+  Client,
 } from './client/client.types';

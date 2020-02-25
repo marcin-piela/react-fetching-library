@@ -6,7 +6,7 @@ import { requestHostInterceptor } from './requestInterceptors/requestHostInterce
 const HOST = 'https://private-34f3a-reactapiclient.apiary-mock.com';
 
 const cache = createCache<QueryResponse<any>>(
-  (action: Action<any>) => {
+  (action: Action) => {
     return action.method === 'GET';
   },
   (response: QueryResponse<any> & { timestamp: number }) => {

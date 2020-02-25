@@ -1,12 +1,12 @@
-import React, { Suspense } from 'react';
 import { render, waitForElement } from '@testing-library/react';
 import fetchMock from 'fetch-mock';
+import React, { Suspense } from 'react';
 
-import { SuspenseQuery } from '../../../../src/components/suspenseQuery/SuspenseQuery';
-import { Action } from '../../../../src/client/client.types';
-import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
 import { createClient } from '../../../../src/client/client';
+import { Action } from '../../../../src/client/client.types';
 import { QueryErrorBoundary } from '../../../../src/components/queryErrorBoundary/QueryErrorBoundary';
+import { SuspenseQuery } from '../../../../src/components/suspenseQuery/SuspenseQuery';
+import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
 
 beforeEach(() => {
   jest.spyOn(console, 'error').mockImplementation(() => {});
@@ -42,7 +42,7 @@ describe('SuspenseQuery test', () => {
     const children = jest.fn(() => 'loaded');
 
     const { unmount, getByText } = render(<SuspenseQuery action={action}>{children}</SuspenseQuery>, {
-      wrapper: wrapper,
+      wrapper,
     });
 
     await waitForElement(() => getByText('loading'));
@@ -68,7 +68,7 @@ describe('SuspenseQuery test', () => {
         <SuspenseQuery action={actionWithError}>{children}</SuspenseQuery>
       </QueryErrorBoundary>,
       {
-        wrapper: wrapper,
+        wrapper,
       },
     );
 

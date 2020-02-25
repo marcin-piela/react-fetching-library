@@ -25,7 +25,7 @@ describe('useClient test', () => {
         clientFromHook = useClient();
       },
       {
-        wrapper: wrapper,
+        wrapper,
       },
     );
 

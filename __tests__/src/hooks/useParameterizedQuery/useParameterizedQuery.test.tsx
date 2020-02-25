@@ -1,10 +1,10 @@
 import React from 'react';
 import { act, renderHook } from 'react-hooks-testing-library';
 
-import { useParameterizedQuery } from '../../../../src/hooks/useParameterizedQuery/useParameterizedQuery';
+import { createCache } from '../../../../src/cache/cache';
 import { QueryResponse, SuspenseCacheItem } from '../../../../src/client/client.types';
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
-import { createCache } from '../../../../src/cache/cache';
+import { useParameterizedQuery } from '../../../../src/hooks/useParameterizedQuery/useParameterizedQuery';
 
 describe('useParameterizedQuery test', () => {
   const actionCreator: any = jest.fn((endpoint: string) => ({
@@ -37,7 +37,7 @@ describe('useParameterizedQuery test', () => {
         state = useParameterizedQuery(actionCreator);
       },
       {
-        wrapper: wrapper,
+        wrapper,
       },
     );
 
