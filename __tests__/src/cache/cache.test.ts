@@ -1,4 +1,5 @@
 import { createCache } from '../../../src/cache/cache';
+import { Action } from '../../../src/client/client.types';
 
 describe('cache', () => {
   jest.spyOn(Date, 'now').mockImplementation(() => 1479427200000);
@@ -12,7 +13,7 @@ describe('cache', () => {
     },
   );
 
-  const testAction = { method: 'GET', endpoint: '/foo' };
+  const testAction:Action = { method: 'GET', endpoint: '/foo' };
 
   it('allows to add entry to cache storage', async () => {
     cache.add(testAction, { data: '/foo' });
@@ -49,7 +50,7 @@ describe('cache', () => {
       },
     );
 
-    const cacheableAction = { method: 'POST', endpoint: '/bar' };
+    const cacheableAction:Action = { method: 'POST', endpoint: '/bar' };
 
     cacheWithOptions.add(testAction, { data: '/foo' });
     expect(cacheWithOptions.get(testAction)).toEqual(undefined);

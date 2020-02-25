@@ -1,10 +1,10 @@
 import React from 'react';
 import { act, renderHook } from 'react-hooks-testing-library';
 
-import { useBulkMutation } from '../../../../src/hooks/useBulkMutation/useBulkMutation';
+import { createCache } from '../../../../src/cache/cache';
 import { Action, QueryResponse, SuspenseCacheItem } from '../../../../src/client/client.types';
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
-import { createCache } from '../../../../src/cache/cache';
+import { useBulkMutation } from '../../../../src/hooks/useBulkMutation/useBulkMutation';
 
 describe('useBulkMutation test', () => {
   const actionCreator: any = jest.fn((endpoint: string): Action => ({

@@ -1,6 +1,7 @@
 import { createCache } from '../cache/cache';
 import {
   Action,
+  Client,
   ClientOptions,
   QueryResponse,
   RequestInterceptor,
@@ -28,20 +29,20 @@ export const createClient = <R = any>(clientOptions: ClientOptions<R> = {}) => {
   const handleRequestInterceptors: HandleRequestInterceptors<R> = async (action, interceptors) => {
     const [interceptor, ...next] = interceptors;
 
-    return interceptor ? await handleRequestInterceptors(await interceptor(client)(action), next) : action;
+    return interceptor ? await handleRequestInterceptors(await interceptor(client as Client)(action), next) : action;
   };
 
   const handleResponseInterceptors: HandleResponseInterceptors<R> = async (action, response, interceptors) => {
     const [interceptor, ...next] = interceptors;
 
     return interceptor
-      ? await handleResponseInterceptors(action, await interceptor(client)(action, response), next)
+      ? await handleResponseInterceptors(action, await interceptor(client as Client)(action, response), next)
       : response;
   };
 
   const client = {
     cache,
-    query: async <T>(actionInit: Action<any, R>, skipCache = false): Promise<QueryResponse<T>> => {
+    query: async <T>(actionInit: Action<T, R>, skipCache = false): Promise<QueryResponse<T>> => {
       try {
         const action = await handleRequestInterceptors(actionInit, clientOptions.requestInterceptors || []);
         const { endpoint, body, responseType, ...options } = action;

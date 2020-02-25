@@ -31,7 +31,7 @@ describe('useQuery test', () => {
         state = useCachedResponse(action);
       },
       {
-        wrapper: wrapper,
+        wrapper,
       },
     );
 

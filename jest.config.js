@@ -4,7 +4,7 @@ module.exports = {
   coveragePathIgnorePatterns: ['/node_modules/'],
   moduleFileExtensions: ['ts', 'tsx', 'js'],
   testEnvironment: 'node',
-  testMatch: ['<rootDir>/__tests__/src/**/*.{js,jsx,ts,tsx}'],
+  testMatch: ['<rootDir>/__tests__/src/**/*.{ts,tsx}'],
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
   },

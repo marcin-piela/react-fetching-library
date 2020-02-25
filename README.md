@@ -86,7 +86,7 @@ export const UsersListContainer = () => {
 
 ## Contributing
 
-Fell free to open PRs and issues to make this library better !
+Feel free to open PRs and issues to make this library better !
 
 When making a PR, make sure all tests pass. If you add a new feature, please consider updating the documentation or codesandbox examples. Thank you!
 

@@ -1,13 +1,13 @@
 import { Cache } from '../cache/cache.types';
 
-type Method = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS';
+export type Method = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS';
 export type ResponseType = 'arrayBuffer' | 'blob' | 'json' | 'text' | 'formData';
 
-export type ActionConfig = {
+export interface ActionConfig {
   emitErrorForStatuses?: number[];
-};
+}
 
-export type Action<R = any, Ext = { [key: string]: any }> = {
+export interface Action<R = any, Ext = any> {
   endpoint: string;
   method: Method;
   body?: any;
@@ -22,9 +22,9 @@ export type Action<R = any, Ext = { [key: string]: any }> = {
   redirect?: RequestRedirect;
   signal?: AbortSignal | null;
   window?: any;
-  config?: ActionConfig;
+  config?: ActionConfig & Ext;
   responseType?: ResponseType;
-} & Ext;
+}
 
 export type QueryResponse<T = any> = {
   status?: number;

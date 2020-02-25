@@ -1,4 +1,4 @@
-import { responseReducer, SET_RESPONSE, SET_LOADING, RESET_LOADING } from '../../../src/reducers/responseReducer';
+import { RESET_LOADING, responseReducer, SET_LOADING, SET_RESPONSE } from '../../../src/reducers/responseReducer';
 
 describe('responseReducers', () => {
   const testResponse = { payload: { foo: 'bar' }, error: false };

@@ -1,7 +1,7 @@
 import fetchMock from 'fetch-mock';
 
-import { createClient } from '../../../src/client/client';
 import { createCache } from '../../../src/cache/cache';
+import { createClient } from '../../../src/client/client';
 import { Action, QueryResponse } from '../../../src/client/client.types';
 
 describe('Client test', () => {

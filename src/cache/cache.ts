@@ -1,27 +1,27 @@
 import { Action } from '../client/client.types';
 import { Cache } from './cache.types';
 
-export const convertActionToBase64 = (action: Action<any>) => {
+export const convertActionToBase64 = (action: Action) => {
   return Buffer.from(JSON.stringify(action)).toString('base64');
 };
 
 export const createCache = <T>(
-  isCacheable: (action: Action<any, any>) => boolean,
+  isCacheable: (action: Action) => boolean,
   isValid: (response: T & { timestamp: number }) => boolean,
 ) => {
   let items: { [key: string]: any } = {};
 
-  const add = (action: Action<any, any>, value: T) => {
+  const add = (action: Action, value: T) => {
     if (isCacheable(action)) {
       items[convertActionToBase64(action)] = { ...value, timestamp: Date.now() };
     }
   };
 
-  const remove = (action: Action<any, any>) => {
+  const remove = (action: Action) => {
     delete items[convertActionToBase64(action)];
   };
 
-  const get = (action: Action<any, any>) => {
+  const get = (action: Action) => {
     const response = items[convertActionToBase64(action)];
     const valid = response && isValid(response);
 

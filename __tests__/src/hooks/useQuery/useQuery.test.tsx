@@ -1,10 +1,10 @@
 import React from 'react';
 import { act, renderHook } from 'react-hooks-testing-library';
 
-import { useQuery } from '../../../../src/hooks/useQuery/useQuery';
+import { createCache } from '../../../../src/cache/cache';
 import { Action, QueryResponse, SuspenseCacheItem } from '../../../../src/client/client.types';
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
-import { createCache } from '../../../../src/cache/cache';
+import { useQuery } from '../../../../src/hooks/useQuery/useQuery';
 
 describe('useQuery test', () => {
   const action: Action = {
@@ -37,7 +37,7 @@ describe('useQuery test', () => {
         state = useQuery(action);
       },
       {
-        wrapper: wrapper,
+        wrapper,
       },
     );
 
@@ -66,7 +66,7 @@ describe('useQuery test', () => {
         state = useQuery(action, false);
       },
       {
-        wrapper: wrapper,
+        wrapper,
       },
     );
 
@@ -106,7 +106,7 @@ describe('useQuery test', () => {
         state = useQuery(action, false);
       },
       {
-        wrapper: wrapper,
+        wrapper,
       },
     );
 
@@ -134,7 +134,7 @@ describe('useQuery test', () => {
         state = useQuery(action, false);
       },
       {
-        wrapper: wrapper,
+        wrapper,
       },
     );
 
@@ -165,7 +165,7 @@ describe('useQuery test', () => {
         state = useQuery(action, false);
       },
       {
-        wrapper: wrapper,
+        wrapper,
       },
     );
 
@@ -212,7 +212,7 @@ describe('useQuery test', () => {
         state = useQuery(action, false);
       },
       {
-        wrapper: wrapper,
+        wrapper,
       },
     );
 

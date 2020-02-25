@@ -1,11 +1,11 @@
+import { fireEvent, getByTestId, render, waitForDomChange, waitForElement } from '@testing-library/react';
 import React, { Suspense, useState } from 'react';
-import { renderHook, act } from 'react-hooks-testing-library';
-import { render, waitForElement, waitForDomChange, fireEvent, getByTestId } from '@testing-library/react';
+import { act, renderHook } from 'react-hooks-testing-library';
 
-import { useSuspenseQuery } from '../../../../src/hooks/useSuspenseQuery/useSuspenseQuery';
+import { createCache } from '../../../../src/cache/cache';
 import { Action, QueryResponse, SuspenseCacheItem } from '../../../../src/client/client.types';
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
-import { createCache } from '../../../../src/cache/cache';
+import { useSuspenseQuery } from '../../../../src/hooks/useSuspenseQuery/useSuspenseQuery';
 
 describe('useSuspenseQuery test', () => {
   const action: Action = {
@@ -44,7 +44,7 @@ describe('useSuspenseQuery test', () => {
         state = useSuspenseQuery(action);
       },
       {
-        wrapper: wrapper,
+        wrapper,
       },
     );
 

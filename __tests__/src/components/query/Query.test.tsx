@@ -1,10 +1,10 @@
+import { act, render } from '@testing-library/react';
 import React from 'react';
-import { render, act } from '@testing-library/react';
 
-import { Query } from '../../../../src/components/query/Query';
-import { Action, QueryResponse, SuspenseCacheItem } from '../../../../src/client/client.types';
-import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
 import { createCache } from '../../../../src/cache/cache';
+import { Action, QueryResponse, SuspenseCacheItem } from '../../../../src/client/client.types';
+import { Query } from '../../../../src/components/query/Query';
+import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
 
 describe('Query test', () => {
   const action: Action = {
@@ -37,7 +37,7 @@ describe('Query test', () => {
     const children = jest.fn(({ loading }) => (loading ? 'loading' : 'loaded'));
 
     const { unmount } = render(<Query action={action}>{children}</Query>, {
-      wrapper: wrapper,
+      wrapper,
     });
 
     expect(children).toHaveBeenCalledWith(
