@@ -23,6 +23,7 @@ export interface Action<R = any, Ext = any> {
   signal?: AbortSignal | null;
   window?: any;
   config?: ActionConfig & Ext;
+  resourceName?: string;
   responseType?: ResponseType;
 }
 
@@ -45,6 +46,13 @@ export type UseMutationResponse<S, T> = {
   abort: () => void;
   loading: boolean;
   mutate: (action: S) => Promise<QueryResponse<T>>;
+  reset: () => void;
+} & QueryResponse<T>;
+
+export type UseBaseQuery<S, T> = {
+  abort: () => void;
+  loading: boolean;
+  query: (action: S) => Promise<QueryResponse<T>>;
   reset: () => void;
 } & QueryResponse<T>;
 
