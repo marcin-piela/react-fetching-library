@@ -1,7 +1,6 @@
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 
 import { Action, QueryResponse, UseBulkMutationResponse } from '../../client/client.types';
-import { QueryError } from '../../client/errors/QueryError';
 import { ClientContext } from '../../context/clientContext/clientContext';
 import { ClientContextType } from '../../context/clientContext/clientContext.types';
 

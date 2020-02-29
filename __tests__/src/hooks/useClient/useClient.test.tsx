@@ -29,6 +29,6 @@ describe('useClient test', () => {
       },
     );
 
-    expect(clientFromHook).toEqual(client);
+    expect(clientFromHook.cache).toEqual(client.cache);
   });
 });

@@ -1,6 +1,6 @@
 {
   "name": "react-fetching-library",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "Simple and powerful API client for react. Use hooks or FACC's to fetch data in easy way. No dependencies! Just react under the hood.",
   "main": "lib/index.js",
   "files": [
@@ -68,8 +68,12 @@
     "react-test-renderer": "^16.8.6",
     "rollup": "1.31.1",
     "rollup-plugin-dts": "1.2.1",
+    "rollup-plugin-peer-deps-external": "2.2.2",
+    "rollup-plugin-size": "0.2.2",
+    "rollup-plugin-terser": "5.2.0",
     "set-value": "3.0.1",
     "ts-jest": "^24.0.2",
+    "tslib": "1.11.1",
     "tslint": "^5.17.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "3.7.5"
