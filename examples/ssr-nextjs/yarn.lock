@@ -873,9 +873,9 @@ acorn-dynamic-import@^4.0.0:
   integrity sha512-d3OEjQV4ROpoflsnUA8HozoIR504TFxNivYEUi6uwz0IYhBkTDXGuWlNdMtybRt3nqVx/L6XqMt0FxkXuWKZhw==
 
 acorn@^6.0.5:
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.1.1.tgz#7d25ae05bb8ad1f9b699108e1094ecd7884adc1f"
-  integrity sha512-jPTiwtOxaHNaAPg/dmrJ/beuzLRnXtB0kQPQ8JpotKJgTB6rX6c8mlf315941pyjBSaPg8NHXS9fhP4u17DpGA==
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.4.1.tgz#531e58ba3f51b9dacb9a6646ca4debf5b14ca474"
+  integrity sha512-ZVA9k326Nwrj3Cj9jlh3wGFutC2ZornPNARZwsNYqQYgN0EsV2d53w5RN/co65Ohn4sUAUtb1rSUAOD6XN9idA==
 
 ajv-errors@^1.0.0:
   version "1.0.1"
@@ -3512,10 +3512,10 @@ react-error-overlay@5.1.4:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-5.1.4.tgz#88dfb88857c18ceb3b9f95076f850d7121776991"
   integrity sha512-fp+U98OMZcnduQ+NSEiQa4s/XMsbp+5KlydmkbESOw4P69iWZ68ZMFM5a2BuE0FgqPBKApJyRuYHR95jM8lAmg==
 
-react-fetching-library@^1.2.0:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/react-fetching-library/-/react-fetching-library-1.5.1.tgz#077cf1ae36b41dedac63c2c9e04b19df05af95f6"
-  integrity sha512-V/gte3PF2XFdzusFQMZTGe5CCZ1u4+N4qDJKkEs6guNSNSPRiGH+ixZVl9SQWrQ4gWTECY4kEjk0ytZjnIrXSg==
+react-fetching-library@^1.6.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/react-fetching-library/-/react-fetching-library-1.7.0.tgz#7982e8eb3103ae06172ecec47fb3c1a2ffe99714"
+  integrity sha512-dM7oWfM1eP2+KmyOKLm9M6ulET9n6NNgFC2H1mrFIgrZgbahw1byb8lqjLbIv3kSEUG+TQiWBldfazs2z4IHIg==
 
 react-is@16.8.6, react-is@^16.8.1:
   version "16.8.6"
