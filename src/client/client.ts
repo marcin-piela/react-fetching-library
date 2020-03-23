@@ -65,19 +65,9 @@ export const createClient = <R = any>(clientOptions: ClientOptions<R> = {}) => {
         const fetchFunction = clientOptions.fetch || fetch;
 
         const response = await fetchFunction(endpoint, {
+          ...options,
           body: body ? (shouldStringify ? JSON.stringify(body) : body) : undefined,
-          cache: options.cache,
-          credentials: options.credentials,
           headers,
-          integrity: options.integrity,
-          keepalive: options.keepalive,
-          method: options.method,
-          mode: options.mode,
-          redirect: options.redirect,
-          referrer: options.referrer,
-          referrerPolicy: options.referrerPolicy,
-          signal: options.signal,
-          window: options.window,
         });
 
         const queryResponse = await handleResponseInterceptors(
