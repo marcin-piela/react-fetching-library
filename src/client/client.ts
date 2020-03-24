@@ -68,6 +68,7 @@ export const createClient = <R = any>(clientOptions: ClientOptions<R> = {}) => {
           ...options,
           body: body ? (shouldStringify ? JSON.stringify(body) : body) : undefined,
           headers,
+          responseType,
         });
 
         const queryResponse = await handleResponseInterceptors(

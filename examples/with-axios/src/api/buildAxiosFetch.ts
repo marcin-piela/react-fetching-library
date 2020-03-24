@@ -29,14 +29,13 @@ export const buildAxiosFetch = (axiosInstance: AxiosInstance) => async (init: Re
   }
 
   const result = await axiosInstance.request(config);
-  const responseBody = typeof result.data === `object` ? JSON.stringify(result.data) : result.data;
   const headers = new Headers();
 
   Object.entries(result.headers).forEach(function([key, value]) {
     headers.append(key, value as string);
   });
 
-  return new Response(responseBody, {
+  return new Response(result.data, {
     status: result.status,
     statusText: result.statusText,
     headers,
