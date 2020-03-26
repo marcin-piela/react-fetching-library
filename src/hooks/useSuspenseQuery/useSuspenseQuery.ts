@@ -17,7 +17,7 @@ export const useSuspenseQuery = <T, R = any>(action: Action<T, R>) => {
     return () => {
       clientContext.suspenseCache.remove(action);
     };
-  }, [convertActionToBase64(action), clientContext.suspenseCache]);
+  }, [convertActionToBase64(action)]);
 
   const forceQuery = () => {
     clientContext.suspenseCache.remove(action);
