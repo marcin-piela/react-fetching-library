@@ -1,12 +1,15 @@
 import axios, { AxiosInstance, Method } from 'axios';
 import { Action } from 'react-fetching-library';
 
-export const buildAxiosFetch = (axiosInstance: AxiosInstance) => async (init: RequestInfo, options?: Partial<Action> & RequestInit) => {
+export const buildAxiosFetch = (axiosInstance: AxiosInstance) => async (
+  init: RequestInfo,
+  options?: Partial<Action> & RequestInit,
+) => {
   const cancelSource = axios.CancelToken.source();
 
   const config = {
     ...options,
-    responseType: options && options.responseType  ? options.responseType.toLocaleLowerCase() as any : undefined,
+    responseType: options && options.responseType ? (options.responseType.toLocaleLowerCase() as any) : undefined,
     url: init as string,
     method: (options && options.method ? options.method : 'GET') as Method,
     data: options && options.body ? options.body : undefined,
