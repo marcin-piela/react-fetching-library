@@ -67,7 +67,7 @@ export const useQuery = <T = any, R = any>(action: Action<T, R>, initFetch = tru
 
       return queryResponse;
     },
-    [convertActionToBase64(action)],
+    [convertActionToBase64(action), clientContext.query],
   );
 
   const handleReload = useCallback(() => {

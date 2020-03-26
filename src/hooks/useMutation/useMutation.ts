@@ -65,7 +65,7 @@ export const useMutation = <T = any, R = {}, S = any>(
 
       return queryResponse;
     },
-    [actionCreator],
+    [actionCreator, clientContext.query],
   );
 
   const handleAbort = useCallback(() => {
