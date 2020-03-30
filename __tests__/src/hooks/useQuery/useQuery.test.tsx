@@ -273,15 +273,15 @@ describe('useQuery test', () => {
       },
     );
 
-    const prevMutate = hookResults.result.current.mutate;
+    const prevQuery = hookResults.result.current.query;
     hookResults.rerender(action);
 
-    expect(hookResults.result.current.mutate).toBe(prevMutate);
+    expect(hookResults.result.current.query).toBe(prevQuery);
 
     // Update client
     localClientUsed = localClient2;
     hookResults.rerender(action);
-    expect(hookResults.result.current.mutate).not.toBe(prevMutate);
+    expect(hookResults.result.current.query).not.toBe(prevQuery);
 
   });
 });
