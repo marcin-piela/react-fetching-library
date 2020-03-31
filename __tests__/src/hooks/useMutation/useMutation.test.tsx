@@ -172,12 +172,12 @@ describe('useMutation test', () => {
         name: 'AbortError'
       }
     });
-  
+
     const client = {
       query: fetchFunction,
       suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
     };
-  
+
     const wrapper = ({ children }: any) => <ClientContextProvider client={client}>{children}</ClientContextProvider>;
 
     jest.useFakeTimers();
@@ -204,5 +204,62 @@ describe('useMutation test', () => {
 
     expect(actionCreator).toHaveBeenCalledWith('endpoint');
     expect(state.loading).toEqual(false);
+  });
+
+  it('updates mutate function with new client', async () => {
+    const abort = jest.fn();
+    const abortController = jest.fn(() => ({ abort }));
+    Object.defineProperty(window, 'AbortController', { value: abortController, writable: true });
+
+    const localFetchFunction1: () => Promise<QueryResponse> = async () => ({
+      error: true,
+      errorObject: {
+        name: 'AbortError'
+      }
+    });
+
+    const localFetchFunction2: () => Promise<QueryResponse> = async () => ({
+      error: true,
+      errorObject: {
+        name: 'AbortError'
+      }
+    });
+
+    const localClient1 = {
+      query: localFetchFunction1,
+      suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
+    };
+
+    const localClient2 = {
+      query: localFetchFunction2,
+      suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
+    };
+
+    let localClientUsed = localClient1;
+
+    const localWrapper = ({ children }: any) => <ClientContextProvider client={ localClientUsed }>{ children }</ClientContextProvider>;
+
+    jest.useFakeTimers();
+
+    const hookResults = renderHook<any, any>(
+      (props) => {
+        return useMutation(props);
+      },
+      {
+        wrapper: localWrapper,
+        initialProps: actionCreator
+      },
+    );
+
+    const prevMutate = hookResults.result.current.mutate;
+    hookResults.rerender(actionCreator);
+
+    expect(hookResults.result.current.mutate).toBe(prevMutate);
+
+    // Update client
+    localClientUsed = localClient2;
+    hookResults.rerender(actionCreator);
+    expect(hookResults.result.current.mutate).not.toBe(prevMutate);
+
   });
 });

@@ -195,12 +195,12 @@ describe('useQuery test', () => {
         name: 'AbortError'
       }
     });
-  
+
     const client = {
       query: fetchFunction,
       suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
     };
-  
+
     const wrapper = ({ children }: any) => <ClientContextProvider client={client}>{children}</ClientContextProvider>;
 
     jest.useFakeTimers();
@@ -226,5 +226,62 @@ describe('useQuery test', () => {
     });
 
     expect(state.loading).toEqual(false);
+  });
+
+  it('updates query function with new client', async () => {
+    const abort = jest.fn();
+    const abortController = jest.fn(() => ({ abort }));
+    Object.defineProperty(window, 'AbortController', { value: abortController, writable: true });
+
+    const localFetchFunction1: () => Promise<QueryResponse> = async () => ({
+      error: true,
+      errorObject: {
+        name: 'AbortError'
+      }
+    });
+
+    const localFetchFunction2: () => Promise<QueryResponse> = async () => ({
+      error: true,
+      errorObject: {
+        name: 'AbortError'
+      }
+    });
+
+    const localClient1 = {
+      query: localFetchFunction1,
+      suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
+    };
+
+    const localClient2 = {
+      query: localFetchFunction2,
+      suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
+    };
+
+    let localClientUsed = localClient1;
+
+    const localWrapper = ({ children }: any) => <ClientContextProvider client={ localClientUsed }>{ children }</ClientContextProvider>;
+
+    jest.useFakeTimers();
+
+    const hookResults = renderHook<any, any>(
+      (props) => {
+        return useQuery(props);
+      },
+      {
+        wrapper: localWrapper,
+        initialProps: action
+      },
+    );
+
+    const prevQuery = hookResults.result.current.query;
+    hookResults.rerender(action);
+
+    expect(hookResults.result.current.query).toBe(prevQuery);
+
+    // Update client
+    localClientUsed = localClient2;
+    hookResults.rerender(action);
+    expect(hookResults.result.current.query).not.toBe(prevQuery);
+
   });
 });
