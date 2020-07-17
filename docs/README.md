@@ -131,7 +131,7 @@ You can intercept requests before they are handled by __Fetch__ function. Interc
 For example, when you want to add __HOST__ address to all API requests you can create such interceptor:
 
 ```js
-export const requestHostInterceptor: host => client => async action => {
+export const requestHostInterceptor = host => client => async action => {
   return {
     ...action,
     endpoint: `${host}${action.endpoint}`,
