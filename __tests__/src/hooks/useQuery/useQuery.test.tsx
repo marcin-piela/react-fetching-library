@@ -249,21 +249,27 @@ describe('useQuery test', () => {
       wrapper: localWrapper,
       initialProps: action,
     });
+    expect(result.current.loading).toBe(true);
     expect(result.current.payload).toBe(undefined);
 
     await waitForNextUpdate();
+    expect(result.current.loading).toBe(false);
     expect(result.current.payload).toStrictEqual({ foo: 'bar' });
 
     rerender(anotherAction);
-    expect(result.current.payload).toStrictEqual({ foo: 'bar' });
+    expect(result.current.loading).toBe(true);
+    expect(result.current.payload).toBe(undefined);
 
     await waitForNextUpdate();
+    expect(result.current.loading).toBe(false);
     expect(result.current.payload).toStrictEqual({ bar: 'baz' });
 
     rerender(action);
+    expect(result.current.loading).toBe(false);
     expect(result.current.payload).toStrictEqual({ foo: 'bar' });
 
     rerender(anotherAction);
+    expect(result.current.loading).toBe(false);
     expect(result.current.payload).toStrictEqual({ bar: 'baz' });
   });
 

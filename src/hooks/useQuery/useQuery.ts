@@ -23,6 +23,7 @@ export const useQuery = <T = any, R = any>(action: Action<T, R>, initFetch = tru
   const prevCacheKey = useRef<string>(cacheKey);
   if (cacheKey !== prevCacheKey.current) {
     prevCacheKey.current = cacheKey;
+    dispatch({ type: RESET });
     if (cachedResponse) {
       dispatch({ type: SET_RESPONSE, response: cachedResponse });
     }
