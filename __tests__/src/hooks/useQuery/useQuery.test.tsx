@@ -1,7 +1,9 @@
+import fetchMock from 'fetch-mock';
 import React from 'react';
 import { act, renderHook } from 'react-hooks-testing-library';
 
 import { createCache } from '../../../../src/cache/cache';
+import { createClient } from '../../../../src/client/client';
 import { Action, QueryResponse, SuspenseCacheItem } from '../../../../src/client/client.types';
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
 import { useQuery } from '../../../../src/hooks/useQuery/useQuery';
@@ -226,6 +228,43 @@ describe('useQuery test', () => {
     });
 
     expect(state.loading).toEqual(false);
+  });
+
+  it('resets payload when re-rendered with changed query', async () => {
+    const anotherAction: Action = {
+      method: 'GET',
+      endpoint: 'bar',
+    };
+
+    fetchMock.get(action.endpoint, { foo: 'bar' });
+    fetchMock.get(anotherAction.endpoint, { bar: 'baz' });
+
+    const localClient = createClient({ cacheProvider: createCache(() => true, () => true) });
+
+    const localWrapper = ({ children }: any) => (
+      <ClientContextProvider client={localClient}>{children}</ClientContextProvider>
+    );
+
+    const { rerender, result, waitForNextUpdate } = renderHook(useQuery, {
+      wrapper: localWrapper,
+      initialProps: action,
+    });
+    expect(result.current.payload).toBe(undefined);
+
+    await waitForNextUpdate();
+    expect(result.current.payload).toStrictEqual({ foo: 'bar' });
+
+    rerender(anotherAction);
+    expect(result.current.payload).toStrictEqual({ foo: 'bar' });
+
+    await waitForNextUpdate();
+    expect(result.current.payload).toStrictEqual({ bar: 'baz' });
+
+    rerender(action);
+    expect(result.current.payload).toStrictEqual({ foo: 'bar' });
+
+    rerender(anotherAction);
+    expect(result.current.payload).toStrictEqual({ bar: 'baz' });
   });
 
   it('updates query function with new client', async () => {

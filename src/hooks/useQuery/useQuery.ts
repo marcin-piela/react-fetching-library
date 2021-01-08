@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useReducer, useRef } from 'react';
+import { useCallback, useContext, useEffect, useReducer, useRef, useState } from 'react';
 
 import { convertActionToBase64 } from '../../cache/cache';
 import { Action, QueryResponse } from '../../client/client.types';
@@ -19,6 +19,15 @@ export const useQuery = <T = any, R = any>(action: Action<T, R>, initFetch = tru
     response: cachedResponse ? cachedResponse : { error: false },
   });
 
+  const cacheKey = convertActionToBase64(action);
+  const prevCacheKey = useRef<string>(cacheKey);
+  if (cacheKey !== prevCacheKey.current) {
+    prevCacheKey.current = cacheKey;
+    if (cachedResponse) {
+      dispatch({ type: SET_RESPONSE, response: cachedResponse });
+    }
+  }
+
   useEffect(() => {
     isMounted.current = true;
 
@@ -30,7 +39,7 @@ export const useQuery = <T = any, R = any>(action: Action<T, R>, initFetch = tru
       isMounted.current = false;
       handleAbort();
     };
-  }, [convertActionToBase64(action)]);
+  }, [cacheKey]);
 
   const handleQuery = useCallback(
     async (skipCache = false) => {
@@ -67,7 +76,7 @@ export const useQuery = <T = any, R = any>(action: Action<T, R>, initFetch = tru
 
       return queryResponse;
     },
-    [convertActionToBase64(action), clientContext.query],
+    [cacheKey, clientContext.query],
   );
 
   const handleReload = useCallback(() => {
