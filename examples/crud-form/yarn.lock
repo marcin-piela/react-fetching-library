@@ -8510,10 +8510,10 @@ react-fast-compare@^2.0.1:
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
   integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
 
-react-fetching-library@^1.5.9:
-  version "1.5.9"
-  resolved "https://registry.yarnpkg.com/react-fetching-library/-/react-fetching-library-1.5.9.tgz#36130282a3dc75285fc9bdf49985506c5476db45"
-  integrity sha512-kmtimBuITi3Mg2zCN7rYqMiL3vV5JZ1CRuqMyRUHVT4vXzf4HoHoHd3lid3uPBc7ZORNAGf4LUpOxS6reJWZWQ==
+react-fetching-library@^1.6.0:
+  version "1.7.6"
+  resolved "https://registry.yarnpkg.com/react-fetching-library/-/react-fetching-library-1.7.6.tgz#8086e459395e165252b60f0713f88d55acd4ca52"
+  integrity sha512-+A+I4TzuVTqfOGCJ1UrZbOVvXdcl8hCUCITto8p9QW2v7hqgiHThQhG9hOPjCqDnLTdw041+7D9ploHDUPZS4w==
 
 react-focus-lock@1.19.1, react-focus-lock@^1.17.7:
   version "1.19.1"
@@ -10060,9 +10060,9 @@ typescript@3.6.3:
   integrity sha512-N7bceJL1CtRQ2RiG0AQME13ksR7DiuQh/QehubYcghzv20tnh+MQnQIuJddTmsbqYj+dztchykemz0zFzlvdQw==
 
 ua-parser-js@^0.7.18:
-  version "0.7.20"
-  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.20.tgz#7527178b82f6a62a0f243d1f94fd30e3e3c21098"
-  integrity sha512-8OaIKfzL5cpx8eCMAhhvTlft8GYF8b2eQr6JkCyVdrgjcytyOmPCXrqXFcUnhonRpLlh5yxEZVohm6mzaowUOw==
+  version "0.7.28"
+  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.28.tgz#8ba04e653f35ce210239c64661685bf9121dec31"
+  integrity sha512-6Gurc1n//gjp9eQNXjD9O3M/sMwVtN5S8Lv9bvOYBfKfDNiIIhqiyi01vMBO45u4zkDE420w/e0se7Vs+sIg+g==
 
 uglify-js@3.4.x:
   version "3.4.10"
