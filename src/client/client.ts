@@ -61,7 +61,7 @@ export const createClient = <R = any>(clientOptions: ClientOptions<R> = {}) => {
           headers = { ...{ 'Content-Type': 'application/json; charset=utf-8' }, ...options.headers };
         }
 
-        const shouldStringify = headers && headers['Content-Type'] && headers['Content-Type'].indexOf('json') !== -1;
+        const shouldStringify = headers && headers['Content-Type'] && /\bjson\b/.test(headers['Content-Type']);
         const fetchFunction = clientOptions.fetch || fetch;
 
         const response = await fetchFunction(endpoint, {

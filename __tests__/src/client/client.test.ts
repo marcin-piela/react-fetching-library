@@ -183,6 +183,24 @@ describe('Client test', () => {
     queryResponse.headers && expect(queryResponse.headers.get('Content-Length')).toEqual('20');
   });
 
+  it('does not stringify ndjson', async () => {
+    const action: Action = {
+      method: 'POST',
+      endpoint: 'http://example.com/user/ndjson',
+      headers: { 'Content-Type': 'application/x-ndjson' },
+      body: "{\"foo\": 1}\n{\"bar\": 2}",
+    };
+
+    fetchMock.post(action.endpoint, action.body);
+
+    const client = createClient({});
+
+    const queryResponse = await client.query(action);
+
+    expect(queryResponse.payload).toEqual("{\"foo\": 1}\n{\"bar\": 2}");
+    queryResponse.headers && expect(queryResponse.headers.get('Content-Length')).toEqual('21');
+  });
+
   it('responses with corect payload for custom content type', async () => {
     const action: Action = {
       method: 'POST',
