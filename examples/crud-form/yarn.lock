@@ -7404,9 +7404,9 @@ path-key@^2.0.0, path-key@^2.0.1:
   integrity sha1-QRyttXTFoUDTpLGRDUDYDMn0C0A=
 
 path-parse@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.6.tgz#d62dbb5679405d72c4737ec58600e9ddcf06d24c"
-  integrity sha512-GSmOT2EbHrINBf9SR7CDELwlJ8AENk3Qn7OikK4nFYAu3Ote2+JYNVvkpAEQm3/TLNEJFD/xZJjzyxg3KBWOzw==
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.7.tgz#fbc114b60ca42b30d9daf5858e4bd68bbedb6735"
+  integrity sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==
 
 path-to-regexp@0.1.7:
   version "0.1.7"
@@ -8510,10 +8510,10 @@ react-fast-compare@^2.0.1:
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
   integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
 
-react-fetching-library@^1.5.9:
-  version "1.5.9"
-  resolved "https://registry.yarnpkg.com/react-fetching-library/-/react-fetching-library-1.5.9.tgz#36130282a3dc75285fc9bdf49985506c5476db45"
-  integrity sha512-kmtimBuITi3Mg2zCN7rYqMiL3vV5JZ1CRuqMyRUHVT4vXzf4HoHoHd3lid3uPBc7ZORNAGf4LUpOxS6reJWZWQ==
+react-fetching-library@^1.6.0:
+  version "1.7.6"
+  resolved "https://registry.yarnpkg.com/react-fetching-library/-/react-fetching-library-1.7.6.tgz#8086e459395e165252b60f0713f88d55acd4ca52"
+  integrity sha512-+A+I4TzuVTqfOGCJ1UrZbOVvXdcl8hCUCITto8p9QW2v7hqgiHThQhG9hOPjCqDnLTdw041+7D9ploHDUPZS4w==
 
 react-focus-lock@1.19.1, react-focus-lock@^1.17.7:
   version "1.19.1"
