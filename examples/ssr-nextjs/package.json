@@ -15,7 +15,7 @@
   "devDependencies": {
     "isomorphic-unfetch": "^3.0.0",
     "serialize-javascript": "2.1.2",
-    "set-value": "3.0.1",
+    "set-value": "4.0.1",
     "xmlhttprequest": "^1.8.0"
   }
 }
