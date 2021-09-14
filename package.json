@@ -68,7 +68,7 @@
     "react-test-renderer": "^16.8.6",
     "rollup": "1.31.1",
     "rollup-plugin-dts": "1.2.1",
-    "set-value": "3.0.1",
+    "set-value": "4.0.1",
     "ts-jest": "^24.0.2",
     "tslint": "^5.17.0",
     "tslint-config-prettier": "^1.18.0",
