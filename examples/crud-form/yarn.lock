@@ -8510,10 +8510,10 @@ react-fast-compare@^2.0.1:
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
   integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
 
-react-fetching-library@^1.5.9:
-  version "1.5.9"
-  resolved "https://registry.yarnpkg.com/react-fetching-library/-/react-fetching-library-1.5.9.tgz#36130282a3dc75285fc9bdf49985506c5476db45"
-  integrity sha512-kmtimBuITi3Mg2zCN7rYqMiL3vV5JZ1CRuqMyRUHVT4vXzf4HoHoHd3lid3uPBc7ZORNAGf4LUpOxS6reJWZWQ==
+react-fetching-library@^1.6.0:
+  version "1.7.6"
+  resolved "https://registry.yarnpkg.com/react-fetching-library/-/react-fetching-library-1.7.6.tgz#8086e459395e165252b60f0713f88d55acd4ca52"
+  integrity sha512-+A+I4TzuVTqfOGCJ1UrZbOVvXdcl8hCUCITto8p9QW2v7hqgiHThQhG9hOPjCqDnLTdw041+7D9ploHDUPZS4w==
 
 react-focus-lock@1.19.1, react-focus-lock@^1.17.7:
   version "1.19.1"
@@ -9898,9 +9898,9 @@ tmp@^0.0.33:
     os-tmpdir "~1.0.2"
 
 tmpl@1.0.x:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/tmpl/-/tmpl-1.0.4.tgz#23640dd7b42d00433911140820e5cf440e521dd1"
-  integrity sha1-I2QN17QtAEM5ERQIIOXPRA5SHdE=
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/tmpl/-/tmpl-1.0.5.tgz#8683e0b902bb9c20c4f726e3c0b69f36518c07cc"
+  integrity sha512-3f0uOEAQwIqGuWW2MVzYg8fV/QNnc/IpuJNG837rLuczAaLVHslWHZQj4IGiEl5Hs3kkbhwL9Ab7Hrsmuj+Smw==
 
 to-arraybuffer@^1.0.0:
   version "1.0.1"
