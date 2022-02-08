@@ -969,7 +969,7 @@ describe('users list test', () => {
         data: [
           {
             id: 'foo',
-            name: 'foo,
+            name: 'foo',
           }
         ]
       },
