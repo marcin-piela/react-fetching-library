@@ -1,14 +1,22 @@
-import { useCallback, useContext, useEffect, useReducer, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useReducer, useRef } from 'react';
 
-import { convertActionToBase64 } from '../../cache/cache';
 import { Action, QueryResponse } from '../../client/client.types';
 import { QueryError } from '../../client/errors/QueryError';
 import { ClientContext } from '../../context/clientContext/clientContext';
 import { RESET, RESET_LOADING, responseReducer, SET_LOADING, SET_RESPONSE } from '../../reducers/responseReducer';
 import { ResponseReducer } from '../../reducers/responseReducer.types';
+import { convertActionToBase64 } from '../../utils';
 import { useCachedResponse } from '../useCachedResponse/useCachedResponse';
 
-export const useQuery = <T = any, R = any>(action: Action<T, R>, initFetch = true) => {
+type UseQueryOptionsType = Partial<{
+  initFetch: boolean;
+  pollInterval: number;
+}>;
+
+export const useQuery = <T = any, R = any>(
+  action: Action<T, R>,
+  { initFetch = true, pollInterval }: UseQueryOptionsType = {},
+) => {
   const clientContext = useContext(ClientContext);
   const cachedResponse = useCachedResponse<T>(action);
   const isMounted = useRef(true);
@@ -40,6 +48,23 @@ export const useQuery = <T = any, R = any>(action: Action<T, R>, initFetch = tru
       handleAbort();
     };
   }, [cacheKey]);
+
+  useEffect(() => {
+    let intervalId: number | null = null;
+
+    if (pollInterval) {
+      intervalId = window.setInterval(() => {
+        handleQuery(true);
+      }, pollInterval);
+    }
+
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+        intervalId = null;
+      }
+    };
+  }, [pollInterval]);
 
   const handleQuery = useCallback(
     async (skipCache = false) => {

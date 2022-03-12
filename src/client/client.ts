@@ -1,4 +1,5 @@
 import { createCache } from '../cache/cache';
+import { requestStore } from '../store';
 import {
   Action,
   Client,
@@ -10,7 +11,7 @@ import {
   SuspenseCacheItem,
 } from './client.types';
 import { QueryError } from './errors/QueryError';
-
+  
 export type HandleRequestInterceptors<R> = (
   action: Action<any, R>,
   interceptors: Array<RequestInterceptor<R>>,
@@ -62,21 +63,30 @@ export const createClient = <R = any>(clientOptions: ClientOptions<R> = {}) => {
         }
 
         const shouldStringify = headers && headers['Content-Type'] && headers['Content-Type'].indexOf('json') !== -1;
+        const shouldStartNewRequest = !requestStore.has(action);
         const fetchFunction = clientOptions.fetch || fetch;
 
-        const response = await fetchFunction(endpoint, {
-          ...options,
-          body: body ? (shouldStringify ? JSON.stringify(body) : body) : undefined,
-          headers,
-          responseType,
-        });
+        if (shouldStartNewRequest) {
+          requestStore.add(action, fetchFunction(endpoint, {
+            ...options,
+            body: body ? (shouldStringify ? JSON.stringify(body) : body) : undefined,
+            headers,
+            responseType,
+          }).then(async response => {
+            const payload = await resolveResponse(response, responseType);
+
+            return { response, payload };
+          }), { removeTimeout: clientOptions?.dedupingInterval ?? 2000, removeOnError: true });
+        }
+
+        const { response, payload } = await requestStore.get(action);
 
         const queryResponse = await handleResponseInterceptors(
           action,
           {
             error: !response.ok,
             headers: response.headers,
-            payload: await resolveResponse(response, responseType),
+            payload,
             status: response.status,
           },
           clientOptions.responseInterceptors || [],

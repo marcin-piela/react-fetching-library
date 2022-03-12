@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
-import { convertActionToBase64, createCache } from '../../cache/cache';
 import { Action, QueryResponse } from '../../client/client.types';
 import { QueryError } from '../../client/errors/QueryError';
 import { ClientContext } from '../../context/clientContext/clientContext';
+import { convertActionToBase64 } from '../../utils';
 
 export const useSuspenseQuery = <T, R = any>(action: Action<T, R>) => {
   const clientContext = useContext(ClientContext);

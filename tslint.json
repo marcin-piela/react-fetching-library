@@ -15,6 +15,7 @@
       true,
       "no-public"
     ],
-    "no-console": false
+    "no-console": false,
+    "no-shadowed-variable": false
   }
 }

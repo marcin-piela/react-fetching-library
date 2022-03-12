@@ -65,7 +65,7 @@ describe('useQuery test', () => {
 
     renderHook(
       () => {
-        state = useQuery(action, false);
+        state = useQuery(action, { initFetch: false });
       },
       {
         wrapper,
@@ -105,7 +105,7 @@ describe('useQuery test', () => {
 
     const { unmount } = renderHook(
       () => {
-        state = useQuery(action, false);
+        state = useQuery(action, { initFetch: false });
       },
       {
         wrapper,
@@ -133,7 +133,7 @@ describe('useQuery test', () => {
 
     const { unmount } = renderHook(
       () => {
-        state = useQuery(action, false);
+        state = useQuery(action, { initFetch: false });
       },
       {
         wrapper,
@@ -164,7 +164,7 @@ describe('useQuery test', () => {
 
     renderHook(
       () => {
-        state = useQuery(action, false);
+        state = useQuery(action, { initFetch: false });
       },
       {
         wrapper,
@@ -211,7 +211,7 @@ describe('useQuery test', () => {
 
     renderHook(
       () => {
-        state = useQuery(action, false);
+        state = useQuery(action, { initFetch: false });
       },
       {
         wrapper,

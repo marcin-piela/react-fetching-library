@@ -1,9 +1,6 @@
 import { Action } from '../client/client.types';
+import { convertActionToBase64 } from '../utils';
 import { Cache } from './cache.types';
-
-export const convertActionToBase64 = (action: Action) => {
-  return Buffer.from(JSON.stringify(action)).toString('base64');
-};
 
 export const createCache = <T>(
   isCacheable: (action: Action) => boolean,

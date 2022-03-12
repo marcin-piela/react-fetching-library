@@ -79,6 +79,7 @@ export type ClientOptions<T> = {
   responseInterceptors?: Array<ResponseInterceptor<T, any>>;
   cacheProvider?: Cache<QueryResponse>;
   fetch?: (input: RequestInfo, init?: Partial<Action> & RequestInit) => Promise<Response>;
+  dedupingInterval?: number;
 };
 
 export type RequestInterceptor<T = any> = (client: Client<T>) => (action: Action<any, T>) => Promise<Action<any, T>>;
