@@ -24,11 +24,15 @@ describe('SuspenseQuery test', () => {
 
   const actionWithError: Action = {
     method: 'GET',
-    endpoint: 'foo',
+    endpoint: 'foo1',
     config: {
       emitErrorForStatuses: [200],
     },
   };
+
+  fetchMock.get(actionWithError.endpoint, {
+      baz: 'bar',
+  })
 
   const client = createClient({});
 

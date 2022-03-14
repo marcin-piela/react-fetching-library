@@ -1,10 +1,10 @@
 import React from 'react';
 import { act, renderHook } from 'react-hooks-testing-library';
 
-import { createCache } from '../../../../src/cache/cache';
-import { Action, QueryResponse, SuspenseCacheItem } from '../../../../src/client/client.types';
+import { Action, QueryResponse } from '../../../../src/client/client.types';
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
 import { useBulkMutation } from '../../../../src/hooks/useBulkMutation/useBulkMutation';
+import { CacheStore, SuspenseCacheStore } from '../../../../src/store';
 
 describe('useBulkMutation test', () => {
   const actionCreator: any = jest.fn((endpoint: string): Action => ({
@@ -22,7 +22,8 @@ describe('useBulkMutation test', () => {
 
   const client = {
     query: fetchFunction,
-    suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
+    cache: new CacheStore(),
+    suspenseCache: new SuspenseCacheStore(),
   };
 
   const wrapper = ({ children }: any) => <ClientContextProvider client={client}>{children}</ClientContextProvider>;
@@ -217,7 +218,8 @@ describe('useBulkMutation test', () => {
 
     const localClient = {
       query: localFetchFunction,
-      suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
+      cache: new CacheStore(),
+      suspenseCache: new SuspenseCacheStore(),
     };
 
     const localWrapper = ({ children }: any) => <ClientContextProvider client={localClient}>{children}</ClientContextProvider>;
@@ -277,6 +279,7 @@ describe('useBulkMutation test', () => {
   });
 
   it('works without AbortController', async () => {
+    // @ts-ignore
     delete(window.AbortController);
 
     const localFetchFunction: () => Promise<QueryResponse> = async () => ({
@@ -288,7 +291,8 @@ describe('useBulkMutation test', () => {
 
     const localClient = {
       query: localFetchFunction,
-      suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
+      cache: new CacheStore(),
+      suspenseCache: new SuspenseCacheStore(),
     };
 
     const localWrapper = ({ children }: any) => <ClientContextProvider client={localClient}>{children}</ClientContextProvider>;
@@ -343,7 +347,8 @@ describe('useBulkMutation test', () => {
 
     const localClient = {
       query: localFetchFunction,
-      suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
+      cache: new CacheStore(),
+      suspenseCache: new SuspenseCacheStore(),
     };
 
     const localWrapper = ({ children }: any) => <ClientContextProvider client={localClient}>{children}</ClientContextProvider>;

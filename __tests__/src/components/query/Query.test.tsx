@@ -1,8 +1,8 @@
 import { act, render } from '@testing-library/react';
 import React from 'react';
 
-import { createCache } from '../../../../src/cache/cache';
-import { Action, QueryResponse, SuspenseCacheItem } from '../../../../src/client/client.types';
+import { CacheStore, SuspenseCacheStore } from '../../../../src/store';
+import { Action, QueryResponse } from '../../../../src/client/client.types';
 import { Query } from '../../../../src/components/query/Query';
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
 
@@ -26,7 +26,8 @@ describe('Query test', () => {
 
   const client = {
     query: fetchFunction,
-    suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
+    cache: new CacheStore(),
+    suspenseCache: new SuspenseCacheStore(),
   };
 
   const wrapper = ({ children }: any) => <ClientContextProvider client={client}>{children}</ClientContextProvider>;

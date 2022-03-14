@@ -1,10 +1,10 @@
 import React from 'react';
 import { act, renderHook } from 'react-hooks-testing-library';
 
-import { createCache } from '../../../../src/cache/cache';
-import { QueryResponse, SuspenseCacheItem } from '../../../../src/client/client.types';
+import { QueryResponse } from '../../../../src/client/client.types';
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
 import { useParameterizedQuery } from '../../../../src/hooks/useParameterizedQuery/useParameterizedQuery';
+import { CacheStore, SuspenseCacheStore } from '../../../../src/store';
 
 describe('useParameterizedQuery test', () => {
   const actionCreator: any = jest.fn((endpoint: string) => ({
@@ -22,7 +22,8 @@ describe('useParameterizedQuery test', () => {
 
   const client = {
     query: fetchFunction,
-    suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
+    cache: new CacheStore(),
+    suspenseCache: new SuspenseCacheStore(),
   };
 
   const wrapper = ({ children }: any) => <ClientContextProvider client={client}>{children}</ClientContextProvider>;

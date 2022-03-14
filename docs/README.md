@@ -58,7 +58,6 @@ const client = createClient({
   //None of the options is required
   requestInterceptors: [],
   responseInterceptors: [],
-  cacheProvider: cacheProvider,
   fetch: customFetchImplementation,
 });
 ```
@@ -97,7 +96,7 @@ const client = createClient(options);
 | name      | description                | param | response
 | ------------------------- | --------------------------------- | ------------- |------------- |
 | query         | function which dispatch request to API | [`Action`][], skipCache flag  | Promise which resolves to [`QueryResponse`][]
-| cache         | cacheProvider object when provided in client options | 
+| cache         |
 
 ```js
 import { Action } from 'react-fetching-library';
@@ -121,7 +120,6 @@ client.cache.get(action);
 | --------------------- | ----------------------------------------- | -------- | ------------- |
 | requestInterceptors   | array of requestInterceptors              | no       | []            |
 | responseInterceptors  | array of responseInterceptors             | no       | []            |
-| cacheProvider         | cache provider                            | no       | undefined     |
 | fetch                 | custom  fetch implementation              | no       | undefined     |
 
 ## Request interceptors
@@ -187,59 +185,6 @@ export const client = createClient({
   responseInterceptors: [responseInterceptor]
 });
 ```
-
-## Cache provider
-
-__react-fetching-library__  provides simple cache which you can customize:
-
-```js
-  import { createCache } from 'react-fetching-library';
-
-  const cache = createCache(isCacheable, isValid);
-```
-
-Parameters:
-
-| option      | description                                                            | required |
-| ------------------------- | ---------------------------------------------------------------------- | ------------- |
-| isCacheable         | function which checks if provided [`Action`][] is cacheable, returns bool                               | yes               |
-| isValid | function which checks if value stored in cache ([`QueryResponse`][] extended with timestamp property)  is valid, returns bool | yes         |
-
-Example of __Cache__ which caching all __GET__ requests for __10__ seconds:
-
-```js
-import { createCache } from 'react-fetching-library';
-
-const cache = createCache(
-  (action) => {
-    return action.method === 'GET';
-  },
-  (response) => {
-    return new Date().getTime() - response.timestamp < 10000;
-  },
-);
-```
-
-Example of use:
-
-[![Edit Basic Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marcin-piela/react-fetching-library/tree/master/examples/cache-provider?module=/src/api/Client.ts)
-
-## Own CacheProvider
-
-You can create your own cache provider. It should implement this type:
-
-```js
-type Cache<T> = {
-  add: (action: Action, value: T) => void;
-  remove: (action: Action) => void;
-  get: (action: Action) => QueryResponse & { timestamp: number } | undefined;
-  getItems: () => { [key: string]: QueryResponse };
-  setItems: (items:{ [key: string]: QueryResponse }) => void;
-};
-
-```
-
-where `T` is [`QueryResponse`][] 
 
 ## Context
 
@@ -820,22 +765,11 @@ To use react-fetching-library on server side you have to use isomporphic-fetch p
 
 **Example app for next.js framework (responses are cached for 100s on server side):**
 
-`client.js` - client and cache configuration
+`client.js` - client configuration
 ```js
-import { createClient, createCache } from "react-fetching-library";
+import { createClient } from "react-fetching-library";
 
-const cache = createCache(
-  (action) => {
-    return action.method === 'GET';
-  },
-  (response) => {
-    return new Date().getTime() - response.timestamp < 100000;
-  },
-);
-
-const client = createClient({
-  cacheProvider: cache,
-});
+const client = createClient();
 
 export default client;
 
@@ -860,13 +794,13 @@ class MyApp extends App {
 
     return {
         ...appProps,
-        cacheItems: client.cache.getItems(),
+        cacheItems: client.cache.getValue(),
     }
   }
 
   render () {
     const { Component, pageProps, cacheItems } = this.props
-    client.cache.setItems(cacheItems);
+    client.cache.setValue(cacheItems);
 
     return (
       <Container>

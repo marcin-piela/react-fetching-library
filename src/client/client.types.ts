@@ -1,4 +1,5 @@
-import { Cache } from '../cache/cache.types';
+import { Cache } from '../store/CacheStore.types';
+import { SuspenseCache } from '../store/SuspenseCacheStore.types';
 
 export type Method = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS';
 export type ResponseType = 'arrayBuffer' | 'blob' | 'json' | 'text' | 'formData';
@@ -51,9 +52,9 @@ export type UseMutationResponse<S, T> = {
 export type UseBulkMutationResponse<S, T> = {
   abort: () => void;
   loading: boolean;
-  mutate: (actions: S[]) => Promise<Array<QueryResponse<T> | undefined>>;
+  mutate: (actions: S[]) => Promise<(QueryResponse<T> | undefined)[]>;
   reset: () => void;
-  responses: Array<QueryResponse<T> | undefined>;
+  responses: (QueryResponse<T> | undefined)[];
 };
 
 export type UseParameterizedQuery<S, T> = {
@@ -63,21 +64,15 @@ export type UseParameterizedQuery<S, T> = {
   reset: () => void;
 } & QueryResponse<T>;
 
-export type SuspenseCacheItem = {
-  fetch: any;
-  response?: QueryResponse;
-};
-
 export type Client<R = any> = {
   query: <T>(action: Action<T, R>, skipCache?: boolean) => Promise<QueryResponse<T>>;
-  cache?: Cache<QueryResponse>;
-  suspenseCache: Cache<SuspenseCacheItem>;
+  cache: Cache;
+  suspenseCache: SuspenseCache;
 };
 
 export type ClientOptions<T> = {
-  requestInterceptors?: Array<RequestInterceptor<T>>;
-  responseInterceptors?: Array<ResponseInterceptor<T, any>>;
-  cacheProvider?: Cache<QueryResponse>;
+  requestInterceptors?: RequestInterceptor<T>[];
+  responseInterceptors?: ResponseInterceptor<T, any>[];
   fetch?: (input: RequestInfo, init?: Partial<Action> & RequestInit) => Promise<Response>;
   dedupingInterval?: number;
 };

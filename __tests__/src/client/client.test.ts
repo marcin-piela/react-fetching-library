@@ -1,6 +1,5 @@
 import fetchMock from 'fetch-mock';
 
-import { createCache } from '../../../src/cache/cache';
 import { createClient } from '../../../src/client/client';
 import { Action, QueryResponse } from '../../../src/client/client.types';
 
@@ -134,18 +133,7 @@ describe('Client test', () => {
       { overwriteRoutes: true },
     );
 
-    const cache = createCache<any>(
-      action => {
-        return true;
-      },
-      response => {
-        return true;
-      },
-    );
-
-    const client = createClient({
-      cacheProvider: cache,
-    });
+    const client = createClient();
 
     const queryResponse = await client.query(action);
     expect(queryResponse.payload).toEqual({ users: [] });
@@ -166,7 +154,7 @@ describe('Client test', () => {
     expect(cachedQueryResponse.payload).toEqual({ users: [] });
   });
 
-  it('responses with corect payload for default content type', async () => {
+  it('responses with correct payload for default content type', async () => {
     const action: Action = {
       method: 'POST',
       endpoint: 'http://example.com/user/json',
@@ -175,7 +163,7 @@ describe('Client test', () => {
 
     fetchMock.post(action.endpoint, action.body);
 
-    const client = createClient({});
+    const client = createClient();
 
     const queryResponse = await client.query(action);
 

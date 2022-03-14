@@ -8,7 +8,7 @@ import { ClientContextType } from '../../context/clientContext/clientContext.typ
 type ActionCreator<S, R, T> = (action: S) => Action<T, R>;
 
 type UseBulkMutationState<T> = {
-  responses: Array<QueryResponse<T> | undefined>;
+  responses: (QueryResponse<T> | undefined)[];
   loading: boolean;
 };
 
@@ -48,9 +48,9 @@ export const useBulkMutation = <T = any, R = {}, S = any>(
       }
 
       const abortController = 'AbortController' in window ? new AbortController() : undefined;
-      const actions = actionParams.map(param => actionCreator(param));
+      const actions = actionParams.map((param) => actionCreator(param));
       const signal = abortController ? abortController.signal : undefined;
-      actions.forEach(action => (action.signal = action.signal || signal));
+      actions.forEach((action) => (action.signal = action.signal || signal));
 
       if (controller.current) {
         controller.current.abort();
@@ -58,12 +58,12 @@ export const useBulkMutation = <T = any, R = {}, S = any>(
 
       controller.current = abortController;
 
-      setState(prevState => ({
+      setState((prevState) => ({
         ...prevState,
         loading: true,
       }));
 
-      const queryResponses: Array<QueryResponse<T>> = await Promise.all(actions.map(action => query<T>(action)));
+      const queryResponses: QueryResponse<T>[] = await Promise.all(actions.map((action) => query<T>(action)));
 
       if (isMounted.current) {
         setState({
@@ -75,7 +75,7 @@ export const useBulkMutation = <T = any, R = {}, S = any>(
 
             if (actions[index].signal === signal && controller.current === abortController) {
               controller.current = undefined;
-              setState(prevState => ({
+              setState((prevState) => ({
                 ...prevState,
                 loading: false,
               }));

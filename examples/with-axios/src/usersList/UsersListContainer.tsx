@@ -8,7 +8,7 @@ import { UsersList } from './UsersList';
 export const UsersListContainer = () => {
   const { loading, payload, error, query, abort } = useQuery({
     ...fetchUsersList,
-    onDownloadProgress: progressEvent => {
+    onDownloadProgress: (progressEvent) => {
       console.log('download', progressEvent);
     },
   });

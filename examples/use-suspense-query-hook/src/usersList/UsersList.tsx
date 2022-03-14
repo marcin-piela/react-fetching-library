@@ -9,7 +9,7 @@ export const UsersList = ({ error, users }: UsersListProps) => {
     <List style={{ padding: '24px', display: 'flex', flexFlow: 'column' }}>
       {!error &&
         users &&
-        users.map(user => (
+        users.map((user) => (
           <Fragment key={user.uuid}>
             <Divider variant="inset" />
             <ListItem>

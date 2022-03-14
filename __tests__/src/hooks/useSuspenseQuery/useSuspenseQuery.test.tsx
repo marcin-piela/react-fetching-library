@@ -2,8 +2,8 @@ import { fireEvent, getByTestId, render, waitForDomChange, waitForElement } from
 import React, { Suspense, useState } from 'react';
 import { act, renderHook } from 'react-hooks-testing-library';
 
-import { createCache } from '../../../../src/cache/cache';
-import { Action, QueryResponse, SuspenseCacheItem } from '../../../../src/client/client.types';
+import { CacheStore, SuspenseCacheStore } from '../../../../src/store';
+import { Action, QueryResponse } from '../../../../src/client/client.types';
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
 import { useSuspenseQuery } from '../../../../src/hooks/useSuspenseQuery/useSuspenseQuery';
 
@@ -27,7 +27,8 @@ describe('useSuspenseQuery test', () => {
 
   const client = {
     query: fetchFunction,
-    suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
+    cache: new CacheStore(),
+    suspenseCache: new SuspenseCacheStore(),
   };
 
   const wrapper = ({ children }: any) => (
@@ -76,7 +77,7 @@ describe('useSuspenseQuery test', () => {
   });
 
   it('clear updated action from cache', async () => {
-    const cache = createCache<SuspenseCacheItem>(() => true, () => true);
+    const cache = new SuspenseCacheStore();
     const remove = jest.fn();
 
     const secondAction: Action = {
@@ -93,6 +94,7 @@ describe('useSuspenseQuery test', () => {
 
     const client = {
       query: fetchFunction,
+      cache: new CacheStore(),
       suspenseCache: {
         ...cache,
         remove,

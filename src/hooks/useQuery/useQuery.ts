@@ -5,49 +5,51 @@ import { QueryError } from '../../client/errors/QueryError';
 import { ClientContext } from '../../context/clientContext/clientContext';
 import { RESET, RESET_LOADING, responseReducer, SET_LOADING, SET_RESPONSE } from '../../reducers/responseReducer';
 import { ResponseReducer } from '../../reducers/responseReducer.types';
-import { convertActionToBase64 } from '../../utils';
-import { useCachedResponse } from '../useCachedResponse/useCachedResponse';
+import { convertActionKey } from '../../utils';
 
 type UseQueryOptionsType = Partial<{
   initFetch: boolean;
+  skipCache: boolean;
   pollInterval: number;
 }>;
 
 export const useQuery = <T = any, R = any>(
   action: Action<T, R>,
-  { initFetch = true, pollInterval }: UseQueryOptionsType = {},
+  { initFetch = true, skipCache = false, pollInterval }: UseQueryOptionsType = {},
 ) => {
   const clientContext = useContext(ClientContext);
-  const cachedResponse = useCachedResponse<T>(action);
   const isMounted = useRef(true);
   const controller = useRef<AbortController | null>();
+
+  const cachedResponse = skipCache ? null : clientContext.cache.getResponse(action);
 
   const [state, dispatch] = useReducer(responseReducer as ResponseReducer<T>, {
     loading: cachedResponse ? false : initFetch,
     response: cachedResponse ? cachedResponse : { error: false },
   });
 
-  const cacheKey = convertActionToBase64(action);
-  const prevCacheKey = useRef<string>(cacheKey);
-  if (cacheKey !== prevCacheKey.current) {
-    prevCacheKey.current = cacheKey;
-    if (cachedResponse) {
-      dispatch({ type: SET_RESPONSE, response: cachedResponse });
+  const actionKey = convertActionKey(action);
+
+  const updateResponseByCache = () => {
+    const responseFromCache = clientContext.cache.getResponse(action);
+
+    if (responseFromCache && state.response !== responseFromCache) {
+      dispatch({ type: SET_RESPONSE, response: responseFromCache });
     }
-  }
+  };
 
   useEffect(() => {
     isMounted.current = true;
 
     if (initFetch && !cachedResponse) {
-      handleQuery();
+      handleQuery(skipCache);
     }
 
     return () => {
       isMounted.current = false;
       handleAbort();
     };
-  }, [cacheKey]);
+  }, [actionKey]);
 
   useEffect(() => {
     let intervalId: number | null = null;
@@ -64,7 +66,17 @@ export const useQuery = <T = any, R = any>(
         intervalId = null;
       }
     };
-  }, [pollInterval]);
+  }, [actionKey, pollInterval]);
+
+  useEffect(updateResponseByCache, [actionKey]);
+
+  useEffect(() => {
+    clientContext.cache.on('updated', updateResponseByCache);
+
+    return () => {
+      clientContext.cache.off('updated', updateResponseByCache);
+    };
+  }, [actionKey, state.response]);
 
   const handleQuery = useCallback(
     async (skipCache = false) => {
@@ -85,23 +97,21 @@ export const useQuery = <T = any, R = any>(
 
       const queryResponse = await clientContext.query<T>({ ...action, signal: action.signal || signal }, skipCache);
 
-      if (isMounted.current && !(queryResponse.errorObject && queryResponse.errorObject.name === 'AbortError')) {
+      const requestInterrupted = queryResponse.errorObject?.name === 'AbortError';
+      const responseEqualsCache = clientContext.cache.getResponse(action) === queryResponse;
+
+      if (isMounted.current && !requestInterrupted && !responseEqualsCache) {
         dispatch({ type: SET_RESPONSE, response: queryResponse });
       }
 
-      if (
-        isMounted.current &&
-        (queryResponse.errorObject && queryResponse.errorObject.name === 'AbortError') &&
-        controller.current &&
-        controller.current === abortController
-      ) {
+      if (isMounted.current && requestInterrupted && controller.current && controller.current === abortController) {
         controller.current = undefined;
         dispatch({ type: RESET_LOADING });
       }
 
       return queryResponse;
     },
-    [cacheKey, clientContext.query],
+    [actionKey, clientContext.query],
   );
 
   const handleReload = useCallback(() => {

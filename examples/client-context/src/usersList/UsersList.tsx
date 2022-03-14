@@ -36,7 +36,7 @@ export const UsersList = ({ loading, error, users, onLoad }: UsersListProps) => 
       {!loading &&
         !error &&
         users &&
-        users.map(user => (
+        users.map((user) => (
           <Fragment key={user.uuid}>
             <Divider variant="inset" />
             <ListItem>

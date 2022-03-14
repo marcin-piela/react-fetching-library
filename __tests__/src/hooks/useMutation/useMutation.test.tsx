@@ -1,10 +1,10 @@
 import React from 'react';
 import { act, renderHook } from 'react-hooks-testing-library';
 
-import { createCache } from '../../../../src/cache/cache';
-import { Action, QueryResponse, SuspenseCacheItem } from '../../../../src/client/client.types';
+import { Action, QueryResponse } from '../../../../src/client/client.types';
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
 import { useMutation } from '../../../../src/hooks/useMutation/useMutation';
+import { CacheStore, SuspenseCacheStore } from '../../../../src/store';
 
 describe('useMutation test', () => {
   const actionCreator: any = jest.fn((endpoint: string) => ({
@@ -22,7 +22,8 @@ describe('useMutation test', () => {
 
   const client = {
     query: fetchFunction,
-    suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
+    cache: new CacheStore(),
+    suspenseCache: new SuspenseCacheStore(),
   };
 
   const wrapper = ({ children }: any) => <ClientContextProvider client={client}>{children}</ClientContextProvider>;
@@ -175,7 +176,8 @@ describe('useMutation test', () => {
 
     const client = {
       query: fetchFunction,
-      suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
+      cache: new CacheStore(),
+      suspenseCache: new SuspenseCacheStore(),
     };
 
     const wrapper = ({ children }: any) => <ClientContextProvider client={client}>{children}</ClientContextProvider>;
@@ -227,12 +229,14 @@ describe('useMutation test', () => {
 
     const localClient1 = {
       query: localFetchFunction1,
-      suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
+      cache: new CacheStore(),
+      suspenseCache: new SuspenseCacheStore(),
     };
 
     const localClient2 = {
       query: localFetchFunction2,
-      suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
+      cache: new CacheStore(),
+      suspenseCache: new SuspenseCacheStore(),
     };
 
     let localClientUsed = localClient1;

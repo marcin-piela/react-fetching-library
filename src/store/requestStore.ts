@@ -1,38 +1,34 @@
-import { Action } from '../client/client.types'
-import { convertActionToBase64 } from '../utils';
+import { Action } from '../client/client.types';
+import { convertActionKey } from '../utils';
 
-class RequestStore {
-    value: Record<string, Promise<any> | undefined> = {};
+export class RequestStore {
+  value: Record<string, Promise<any> | undefined> = {};
 
-    add = (action: Action, request: Promise<any>, options?: { removeTimeout: number, removeOnError: boolean }) => {
-        this.value[convertActionToBase64(action)] = request;
+  add = (action: Action, request: Promise<any>, options?: { removeTimeout: number; removeOnError: boolean }) => {
+    this.value[convertActionKey(action)] = request;
 
-        if (options?.removeTimeout) {
-            request.then(() => {
-                setTimeout(() => this.remove(action), options.removeTimeout);
-            })
-        }
-
-        if (options?.removeOnError) {
-            request.catch(() => this.remove(action));
-        }
+    if (options?.removeTimeout) {
+      request.then(() => {
+        setTimeout(() => this.remove(action), options.removeTimeout);
+      });
     }
 
-    remove = (action: Action) => {
-        const key = convertActionToBase64(action);
-
-        if (this.value[key]) {
-            delete this.value[key];
-        }
+    if (options?.removeOnError) {
+      request.catch(() => this.remove(action));
     }
+  };
 
-    get = (action: Action) => {
-        return this.value[convertActionToBase64(action)]
-    }
+  remove = (action: Action) => {
+    const key = convertActionKey(action);
 
-    has = (action: Action) => {
-        return Boolean(this.value[convertActionToBase64(action)]);
-    }
-};
+    delete this.value[key];
+  };
 
-export default new RequestStore();
+  get = (action: Action) => {
+    return this.value[convertActionKey(action)];
+  };
+
+  has = (action: Action) => {
+    return Boolean(this.value[convertActionKey(action)]);
+  };
+}

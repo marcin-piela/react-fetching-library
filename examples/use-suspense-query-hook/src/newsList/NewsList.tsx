@@ -10,7 +10,7 @@ export const NewsList = ({ news, error }: NewsListProps) => {
       {error && <span>Error during fetching news list</span>}
 
       {news &&
-        news.map(newsItem => (
+        news.map((newsItem) => (
           <Card key={newsItem.uuid}>
             <CardHeader
               avatar={<Avatar aria-label="Recipe">R</Avatar>}

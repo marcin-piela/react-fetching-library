@@ -14,13 +14,13 @@ class MyApp extends App {
 
     return {
       ...appProps,
-      cacheItems: client.cache.getItems(),
+      cacheItems: client.cache.getValue(),
     };
   }
 
   render() {
     const { Component, pageProps, cacheItems } = this.props;
-    client.cache.setItems(cacheItems);
+    client.cache.setValue(cacheItems);
 
     return (
       <Container>

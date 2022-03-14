@@ -2,11 +2,11 @@ import fetchMock from 'fetch-mock';
 import React from 'react';
 import { act, renderHook } from 'react-hooks-testing-library';
 
-import { createCache } from '../../../../src/cache/cache';
 import { createClient } from '../../../../src/client/client';
-import { Action, QueryResponse, SuspenseCacheItem } from '../../../../src/client/client.types';
+import { Action, QueryResponse } from '../../../../src/client/client.types';
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
 import { useQuery } from '../../../../src/hooks/useQuery/useQuery';
+import { CacheStore, SuspenseCacheStore } from '../../../../src/store';
 
 describe('useQuery test', () => {
   const action: Action = {
@@ -24,7 +24,8 @@ describe('useQuery test', () => {
 
   const client = {
     query: fetchFunction,
-    suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
+    cache: new CacheStore(),
+    suspenseCache: new SuspenseCacheStore(),
   };
 
   const wrapper = ({ children }: any) => <ClientContextProvider client={client}>{children}</ClientContextProvider>;
@@ -200,7 +201,8 @@ describe('useQuery test', () => {
 
     const client = {
       query: fetchFunction,
-      suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
+      cache: new CacheStore(),
+      suspenseCache: new SuspenseCacheStore(),
     };
 
     const wrapper = ({ children }: any) => <ClientContextProvider client={client}>{children}</ClientContextProvider>;
@@ -239,7 +241,7 @@ describe('useQuery test', () => {
     fetchMock.get(action.endpoint, { foo: 'bar' });
     fetchMock.get(anotherAction.endpoint, { bar: 'baz' });
 
-    const localClient = createClient({ cacheProvider: createCache(() => true, () => true) });
+    const localClient = createClient();
 
     const localWrapper = ({ children }: any) => (
       <ClientContextProvider client={localClient}>{children}</ClientContextProvider>
@@ -288,12 +290,14 @@ describe('useQuery test', () => {
 
     const localClient1 = {
       query: localFetchFunction1,
-      suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
+      cache: new CacheStore(),
+      suspenseCache: new SuspenseCacheStore(),
     };
 
     const localClient2 = {
       query: localFetchFunction2,
-      suspenseCache: createCache<SuspenseCacheItem>(() => true, () => true),
+      cache: new CacheStore(),
+      suspenseCache: new SuspenseCacheStore(),
     };
 
     let localClientUsed = localClient1;

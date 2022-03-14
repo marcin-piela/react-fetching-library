@@ -4,6 +4,7 @@ import { renderHook } from 'react-hooks-testing-library';
 import { Action } from '../../../../src/client/client.types';
 import { ClientContextProvider } from '../../../../src/context/clientContext/clientContextProvider';
 import { useCachedResponse } from '../../../../src/hooks/useCachedResponse/useCachedResponse';
+import { CacheStore } from '../../../../src/store';
 
 describe('useQuery test', () => {
   const action: Action = {
@@ -11,15 +12,11 @@ describe('useQuery test', () => {
     endpoint: 'foo',
   };
 
-  const client: any = {
-    cache: {
-      get: () => ({
-        payload: {
-          foo: 'bar',
-        },
-      }),
-    },
-  };
+  const cache = new CacheStore();
+
+  cache.setResponse(action, { error: false, payload: { foo: 'bar' } })
+
+  const client: any = { cache };
 
   const wrapper = ({ children }: any) => <ClientContextProvider client={client}>{children}</ClientContextProvider>;
 

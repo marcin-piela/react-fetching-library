@@ -1,6 +1,5 @@
 export * from './client/client';
 export * from './client/errors/QueryError';
-export * from './cache/cache';
 export * from './hooks';
 export * from './components';
 export * from './context/clientContext/clientContext';

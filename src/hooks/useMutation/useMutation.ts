@@ -55,7 +55,7 @@ export const useMutation = <T = any, R = {}, S = any>(
 
       if (
         isMounted.current &&
-        (queryResponse.errorObject && queryResponse.errorObject.name === 'AbortError') &&
+        queryResponse.errorObject?.name === 'AbortError' &&
         controller.current &&
         controller.current === abortController
       ) {

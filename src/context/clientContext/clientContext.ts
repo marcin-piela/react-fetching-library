@@ -1,6 +1,5 @@
 import { createContext } from 'react';
-
-import { createCache } from '../../cache/cache';
+import { CacheStore, SuspenseCacheStore } from '../../store';
 import { ClientContextType } from './clientContext.types';
 
 const initialContext: ClientContextType = {
@@ -9,7 +8,8 @@ const initialContext: ClientContextType = {
 
     return Promise.resolve({ error: true, status: 0 });
   },
-  suspenseCache: createCache(() => true, () => true),
+  cache: new CacheStore(),
+  suspenseCache: new SuspenseCacheStore(),
 };
 
 export const ClientContext = createContext(initialContext);

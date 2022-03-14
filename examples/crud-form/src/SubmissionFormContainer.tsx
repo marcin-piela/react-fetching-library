@@ -25,10 +25,7 @@ const submitFormAction: Action = (formValues: SubmissionValues) => {
 
 const validationSchema = yup.object().shape({
   name: yup.string().required('Hmm, what is your name?'),
-  email: yup
-    .string()
-    .email()
-    .required('Hmm, what is your email?'),
+  email: yup.string().email().required('Hmm, what is your email?'),
   message: yup.string().required('Hmm, what did you want to discuss?'),
 });
 
@@ -65,7 +62,7 @@ const SubmissionFormContainer: React.FC = () => {
         validateOnBlur={false}
         validateOnChange={false}
         onSubmit={handleSubmit}
-        render={formikProps => <SubmissionForm {...formikProps} />}
+        render={(formikProps) => <SubmissionForm {...formikProps} />}
       />
     </React.Fragment>
   );
